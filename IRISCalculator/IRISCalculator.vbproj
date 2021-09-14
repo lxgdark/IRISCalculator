@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pict\Global\Avatar.png" />
+    <None Remove="Pict\Global\Close.png" />
+    <None Remove="Pict\Global\Maximaze.png" />
+    <None Remove="Pict\Global\Minimaze.png" />
     <None Remove="SplashScreen.png" />
   </ItemGroup>
 
@@ -30,7 +34,6 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Pict\Buttons\" />
-    <Folder Include="Pict\Global\" />
     <Folder Include="Pict\MessageBox\" />
     <Folder Include="Pages\" />
   </ItemGroup>
@@ -42,6 +45,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\WPFProjectCore\WPFProjectCore\WPFProjectCore.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Pict\Global\Avatar.png" />
+    <Resource Include="Pict\Global\Close.png" />
+    <Resource Include="Pict\Global\Maximaze.png" />
+    <Resource Include="Pict\Global\Minimaze.png" />
   </ItemGroup>
 
 </Project>

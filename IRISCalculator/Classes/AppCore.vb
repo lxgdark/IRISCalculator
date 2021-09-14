@@ -8,7 +8,7 @@ Public Class AppCore
     ''' Определяет им папки локальных настроек приложения
     ''' </summary>
     ''' <returns></returns>
-    Protected Overrides Property AppSettingPath As String = "CopycenterManager"
+    Protected Overrides Property AppSettingPath As String = "IRISCalculator"
     ''' <summary>
     ''' Содержит настройки приложения
     ''' </summary>

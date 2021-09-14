@@ -10,7 +10,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Border x:Name="CaptionBar" Grid.Column="1" CornerRadius="4" Background="{StaticResource BackgroundStandartColor}" PreviewMouseDown="CaptionBar_PreviewMouseDown">
-                <TextBlock Style="{StaticResource DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="Менеджер копицентра"/>
+                <TextBlock Style="{StaticResource DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="{Binding RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}, Path=Title}"/>
             </Border>
             <Border Grid.Column="2" CornerRadius="4" Margin="5,0,0,0" Background="{StaticResource BackgroundDarkColor}">
                 <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Top">
