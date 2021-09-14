@@ -34,5 +34,10 @@ Public Class AppCore
     ''' </summary>
     ''' <returns></returns>
     Public Property MessageWorker As New MessageWorker
+    ''' <summary>
+    ''' Тема приложения
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property ThemeWorker As New ThemeWorker
 #End Region
 End Class

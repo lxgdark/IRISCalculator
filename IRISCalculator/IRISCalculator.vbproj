@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Classes\Converters\" />
     <Folder Include="Controls\" />
     <Folder Include="Pict\Buttons\" />
     <Folder Include="Pict\Global\" />

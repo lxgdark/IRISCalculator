@@ -1,4 +1,87 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:IRISCalculator">
     <local:AppCore x:Key="AppCore"/>
+    <!--#region Тема приложения-->
+    <SolidColorBrush x:Key="WindowBackgroundColor" Color="{Binding ThemeWorker.CurrentTheme.WindowBackgroundColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="BorderLightColor" Color="{Binding ThemeWorker.CurrentTheme.BorderLightColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="BorderStandartColor" Color="{Binding ThemeWorker.CurrentTheme.BorderStandartColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="BorderDarkColor" Color="{Binding ThemeWorker.CurrentTheme.BorderDarkColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="BackgroundLightColor" Color="{Binding ThemeWorker.CurrentTheme.BackgroundLightColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="BackgroundStandartColor" Color="{Binding ThemeWorker.CurrentTheme.BackgroundStandartColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="BackgroundDarkColor" Color="{Binding ThemeWorker.CurrentTheme.BackgroundDarkColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="InputElementLightColor" Color="{Binding ThemeWorker.CurrentTheme.InputElementLightColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="InputElementStandartColor" Color="{Binding ThemeWorker.CurrentTheme.InputElementStandartColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="InputElementDarkColor" Color="{Binding ThemeWorker.CurrentTheme.InputElementDarkColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="ButtonLightColor" Color="{Binding ThemeWorker.CurrentTheme.ButtonLightColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="ButtonStandartColor" Color="{Binding ThemeWorker.CurrentTheme.ButtonStandartColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="ButtonDarkColor" Color="{Binding ThemeWorker.CurrentTheme.ButtonDarkColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="TextLightColor" Color="{Binding ThemeWorker.CurrentTheme.TextLightColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="TextStandartColor" Color="{Binding ThemeWorker.CurrentTheme.TextStandartColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="TextDarkColor" Color="{Binding ThemeWorker.CurrentTheme.TextDarkColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="ImportantColor" Color="{Binding ThemeWorker.CurrentTheme.ImportantColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="FavoriteColor" Color="{Binding ThemeWorker.CurrentTheme.FavoriteColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="InformationColor" Color="{Binding ThemeWorker.CurrentTheme.InformationColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="MessageBoxInfoColor" Color="{Binding ThemeWorker.CurrentTheme.MessageBoxInfoColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="MessageBoxQuestionColor" Color="{Binding ThemeWorker.CurrentTheme.MessageBoxQuestionColor, Source={StaticResource AppCore}}"/>
+    <SolidColorBrush x:Key="MessageBoxErrorColor" Color="{Binding ThemeWorker.CurrentTheme.MessageBoxErrorColor, Source={StaticResource AppCore}}"/>
 
+    <SolidColorBrush x:Key="CloseButtonBrush" Color="Red"/>
+    <!--#endregion-->
+    <!--#region Базовые изображения и фигуры-->
+    <!--Стрелочки для кнопок-->
+    <PathGeometry x:Key="RightArrovGeomertry">M 1,8.5 L 5,5 L 1,1.5</PathGeometry>
+    <PathGeometry x:Key="LeftArrovGeomertry">M 5,1.5 L 1,5 L 5,8.5</PathGeometry>
+    <PathGeometry x:Key="UpArrovGeomertry">M 1.5,7 L 5,3 L 8.5,7</PathGeometry>
+    <PathGeometry x:Key="DownArrovGeomertry">M 1.5,3 L 5,7 L 8.5,3</PathGeometry>
+    <!--#endregion-->
+    <!--#region Рамки-->
+    <CornerRadius x:Key="BorderCornerRadiusMax">6</CornerRadius>
+    <CornerRadius x:Key="BorderCornerRadiusMini">4</CornerRadius>
+    <Thickness x:Key="BorderThickness">2</Thickness>
+    <!--#endregion-->
+    <!--#region Текстовые ресурсы-->
+    <FontWeight x:Key="BoldFontWeight">Bold</FontWeight>
+    <Style x:Key="DarkTextStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{StaticResource TextDarkColor}"/>
+    </Style>
+    <Style x:Key="LightTextStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="TextWrapping"  Value="Wrap"/>
+        <Setter Property="Foreground" Value="{StaticResource TextLightColor}"/>
+    </Style>
+    <Style x:Key="StandartTextStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{StaticResource TextStandartColor}"/>
+    </Style>
+    <!--#endregion-->
+    <!--Стиль всплывающих подсказок-->
+    <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="HasDropShadow" Value="True" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="{StaticResource TextLightColor}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToolTip}">
+                    <Border Background="{StaticResource BackgroundDarkColor}" x:Name="Border" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <ContentPresenter Margin="6" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasDropShadow" Value="True">
+                            <Setter TargetName="Border" Property="CornerRadius" Value="4" />
+                            <Setter TargetName="Border" Property="SnapsToDevicePixels" Value="True"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
