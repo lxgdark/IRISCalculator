@@ -1,5 +1,4 @@
-﻿Imports System.Threading.Tasks
-Imports WPFProjectCore
+﻿Imports WPFProjectCore
 
 Namespace Workers
     Public Class MessageWorker

@@ -1,27 +1,76 @@
 ﻿<Window x:Class="MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:IRISCalculator"
         DataContext="{StaticResource AppCore}" Style="{StaticResource GlobalWindow}" Title="Калькулятор типографии IRIS" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded">
-    <Grid x:Name="GlobalGrid" IsEnabled="{Binding MessageWorker.IsTopMost, Converter={local:BooleanNotConverter}}">
-        <!--#region Заголовок-->
-        <Grid Margin="100,5,5,0" Panel.ZIndex="2" VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Border x:Name="CaptionBar" Grid.Column="1" CornerRadius="4" Background="{StaticResource BackgroundStandartColor}" PreviewMouseDown="CaptionBar_PreviewMouseDown">
-                <TextBlock Style="{StaticResource DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="{Binding RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}, Path=Title}"/>
-            </Border>
-            <Border Grid.Column="2" CornerRadius="4" Margin="5,0,0,0" Background="{StaticResource BackgroundDarkColor}">
-                <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Top">
-                    <Button Name="MinimazeWindow" Content="/Pict/Global/Minimaze.png" Style="{StaticResource MaxMiniButtonStyle}" Click="MinimazeWindow_Click"/>
-                    <Button Name="MaximumWindow" Content="/Pict/Global/Maximaze.png" Style="{StaticResource MaxMiniButtonStyle}" Click="MaximumWindow_Click"/>
-                    <Button Name="CloseWindow" Content="/Pict/Global/Close.png" Style="{StaticResource CloseButtonStyle}" Click="CloseWindow_Click"/>
-                </StackPanel>
+    <Grid>
+        <!--#region МесседжБокс-->
+        <Border Style="{StaticResource MessagePanel}" VerticalAlignment="{Binding MessageWorker.IsTopMost, Converter={local:MessageBoxTopMostToVerticalPositionConverter}}">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="7" Color="{Binding ThemeWorker.CurrentTheme.BackgroundDarkColor}"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Border Grid.ColumnSpan="2" Margin="0,0,0,10" Background="{StaticResource BackgroundLightColor}" CornerRadius="{StaticResource BorderCornerRadiusMini}">
+                    <TextBlock Style="{StaticResource DarkTextStyle}" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Margin="5" Text="{Binding MessageWorker.TitleText}"/>
+                </Border>
+                <Border Grid.Row="1" Background="{Binding MessageWorker.MessageStyle,Converter={local:MessageBoxStyleToImageColorConverter}}" Height="50" Width="50">
+                    <Border.OpacityMask>
+                        <ImageBrush ImageSource="{Binding MessageWorker.MessageStyle, Converter={local:MessageBoxStyleToImageConverter}}" Stretch="Uniform"/>
+                    </Border.OpacityMask>
+                </Border>
+                <TextBlock Style="{StaticResource DarkTextStyle}" Grid.Row="1" Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Top" FontSize="16" Text="{Binding MessageWorker.MessageText}" />
+                <Grid DockPanel.Dock="Bottom" Margin="0,10,0,0" Grid.ColumnSpan="2" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="NoMessageButton" Click="NoMessageButton_Click" Content="Нет" Margin="0,0,5,0" Visibility="{Binding MessageWorker.MessageStyle,Converter={local:MessageBoxYesNoToVisibleConverter}}"/>
+                    <Button x:Name="YesMessageButton" Click="YesMessageButton_Click" Grid.Column="1" Content="{Binding MessageWorker.MessageStyle, Converter={local:MessageBoxYesNoToButtonTextConverter}}" Margin="5,0,0,0"/>
+                </Grid>
+            </Grid>
+        </Border>
+        <!--#region Заливка окна, когда требуется реакция пользователя-->
+        <Grid Background="{StaticResource BackgroundLightColor}" Panel.ZIndex="5" Visibility="{Binding MessageWorker.IsTopMost, Converter={local:BooleanToVisibleConverter}}">
+            <Border>
+                <Border.Background>
+                    <VisualBrush Visual="{Binding ElementName=GlobalGrid}" Stretch="Fill"  Opacity="0.5"/>
+                </Border.Background>
+                <Border.Effect>
+                    <BlurEffect Radius="10"/>
+                </Border.Effect>
             </Border>
         </Grid>
         <!--#endregion-->
-        <!--Основной фрейм-->
-        <!--<Frame  Source="MainPage.xaml"/>-->
+        <!--#endregion-->
+        <Grid x:Name="GlobalGrid" IsEnabled="{Binding MessageWorker.IsTopMost, Converter={local:BooleanNotConverter}}">
+            <!--#region Заголовок-->
+            <Grid Margin="60,5,5,0" Panel.ZIndex="2" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border x:Name="CaptionBar" Grid.Column="1" CornerRadius="4" Background="{StaticResource BackgroundStandartColor}" PreviewMouseDown="CaptionBar_PreviewMouseDown">
+                    <TextBlock Style="{StaticResource DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="{Binding RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}, Path=Title}"/>
+                </Border>
+                <Border Grid.Column="2" CornerRadius="4" Margin="5,0,0,0" Background="{StaticResource BackgroundDarkColor}">
+                    <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Top">
+                        <Button Name="MinimazeWindow" Content="/Pict/Global/Minimaze.png" Style="{StaticResource MaxMiniButtonStyle}" Click="MinimazeWindow_Click"/>
+                        <Button Name="MaximumWindow" Content="/Pict/Global/Maximaze.png" Style="{StaticResource MaxMiniButtonStyle}" Click="MaximumWindow_Click"/>
+                        <Button Name="CloseWindow" Content="/Pict/Global/Close.png" Style="{StaticResource CloseButtonStyle}" Click="CloseWindow_Click"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <!--#endregion-->
+            <!--Основной фрейм-->
+            <Frame  Source="MainPage.xaml"/>
+        </Grid>
     </Grid>
 </Window>

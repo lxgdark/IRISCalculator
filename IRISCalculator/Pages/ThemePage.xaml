@@ -1,0 +1,195 @@
+﻿<Page x:Class="ThemePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  xmlns:local="clr-namespace:IRISCalculator" xmlns:dclass="clr-namespace:IRISCalculator.DataClasses" xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit" DataContext="{StaticResource AppCore}">
+    <Page.Resources>
+        <Style TargetType="Border" x:Key="ThemeBorder">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="{StaticResource BorderThickness}"/>
+        </Style>
+        <DataTemplate x:Key="UserThemeListTemplate" DataType="{x:Type dclass:ThemeClass}">
+            <Border Background="{Binding WindowBackgroundColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{StaticResource BorderCornerRadiusMax}">
+                <Border Height="170" HorizontalAlignment="Stretch" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMax}" BorderBrush="{StaticResource BorderDarkColor}">
+                    <Border.Background>
+                        <ImageBrush Opacity="{Binding WindowBackgroundImageOpacity}" Viewport="{Binding BackgroundImageVisualMode, Converter={local:BackgroundImageVisualModeToMiniViewportConverter}}" TileMode="{Binding BackgroundImageVisualMode, Converter={local:BackgroundImageVisualModeToTileConverter}}" Stretch="{Binding BackgroundImageVisualMode, Converter={local:BackgroundImageVisualModeToStretchConverter}}" ImageSource="{Binding BackgroundImage, Converter={local:StringToImageConverter}}"/>
+                    </Border.Background>
+                    <Grid Margin="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border CornerRadius="{StaticResource BorderCornerRadiusMax}" Background="{Binding BackgroundDarkColor, Converter={local:ColorToBrushConverter}}" Grid.ColumnSpan="2" Padding="2">
+                            <TextBlock Foreground="{Binding TextLightColor, Converter={local:ColorToBrushConverter}}" Text="Светлый текст на темном фоне" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"/>
+                        </Border>
+                        <Border Background="{Binding BackgroundStandartColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMax}" Grid.Row="2" Margin="0,0,5,0">
+                            <Border BorderThickness="{DynamicResource BorderThickness}" CornerRadius="{DynamicResource BorderCornerRadiusMax}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" Height="38" Width="38" Margin="5" Background="{Binding ButtonDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Образец кнопки">
+                                <Border Background="{Binding ButtonLightColor, Converter={local:ColorToBrushConverter}}" Margin="5">
+                                    <Border.OpacityMask>
+                                        <ImageBrush ImageSource="/Pict/Buttons/Theme.png" Stretch="Uniform"/>
+                                    </Border.OpacityMask>
+                                </Border>
+                            </Border>
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="2" Background="{Binding BackgroundLightColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMax}">
+                            <StackPanel Margin="5" VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Center" FontSize="14" Foreground="{Binding TextDarkColor,Converter={local:ColorToBrushConverter}}" Text="Все цвета темы"/>
+                                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Border Background="{Binding BackgroundDarkColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Темный цвет фона"/>
+                                    <Border Background="{Binding BackgroundStandartColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Средний цвет фона"/>
+                                    <Border Background="{Binding BackgroundLightColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Светлый цвет фона"/>
+                                    <Border BorderBrush="{Binding BorderStandartColor,Converter={local:ColorToBrushConverter}}" BorderThickness="{StaticResource BorderThickness}" Height="25" Margin="2,0,2,0"/>
+                                    <Border Background="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Темный цвет рамок"/>
+                                    <Border Background="{Binding BorderStandartColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Средний цвет рамок"/>
+                                    <Border Background="{Binding BorderLightColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Светлый цвет рамок"/>
+                                    <Border BorderBrush="{Binding BorderStandartColor,Converter={local:ColorToBrushConverter}}" BorderThickness="{StaticResource BorderThickness}" Height="25" Margin="2,0,2,0"/>
+                                    <Border Background="{Binding ButtonDarkColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Темный цвет кнопки"/>
+                                    <Border Background="{Binding ButtonStandartColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Средний цвет кнопки"/>
+                                    <Border Background="{Binding ButtonLightColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Светлый цвет кнопки"/>
+                                    <Border BorderBrush="{Binding BorderStandartColor,Converter={local:ColorToBrushConverter}}" BorderThickness="{StaticResource BorderThickness}" Height="25" Margin="2,0,2,0"/>
+                                    <Border Background="{Binding InputElementDarkColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Темный цвет элеметов ввода и списков"/>
+                                    <Border Background="{Binding InputElementStandartColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Средний цвет элеметов ввода и списков"/>
+                                    <Border Background="{Binding InputElementLightColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Светлый цвет элеметов ввода и списков"/>
+                                    <Border BorderBrush="{Binding BorderStandartColor,Converter={local:ColorToBrushConverter}}" BorderThickness="{StaticResource BorderThickness}" Height="25" Margin="2,0,2,0"/>
+                                    <Border Background="{Binding ImportantColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Цвет важных элементов"/>
+                                    <Border Background="{Binding FavoriteColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Цвет избранных и личных элементов"/>
+                                    <Border Background="{Binding InformationColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Цвет элементов требующих внимания"/>
+                                    <Border BorderBrush="{Binding BorderStandartColor,Converter={local:ColorToBrushConverter}}" BorderThickness="{StaticResource BorderThickness}" Height="25" Margin="2,0,2,0"/>
+                                    <Border Background="{Binding MessageBoxInfoColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Цвет информационных сообщений системы"/>
+                                    <Border Background="{Binding MessageBoxQuestionColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Цвет вопросительных сообщений системы"/>
+                                    <Border Background="{Binding MessageBoxErrorColor, Converter={local:ColorToBrushConverter}}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Style="{DynamicResource ThemeBorder}" BorderBrush="{Binding BorderDarkColor, Converter={local:ColorToBrushConverter}}" ToolTip="Цвет сообщений системы об ошибке"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Настройка фона" Grid.ColumnSpan="2">
+            <StackPanel>
+                <TextBlock Style="{DynamicResource DarkTextStyle}" Text="Путь к фоновой картинке" Margin="0,0,0,5"/>
+                <DockPanel LastChildFill="True">
+                    <Button x:Name="OpenBackgroundImageButton" DockPanel.Dock="Right" Height="38" Width="38" Style="{DynamicResource IconButtonStyle}" Click="OpenBackgroundImageButton_Click" ToolTip="Выбрать фоновое изображение" Content="/Pict/Buttons/Open.png"/>
+                    <Button x:Name="ClearBackgroundImageButton" DockPanel.Dock="Right" Height="38" Width="38" Style="{DynamicResource IconButtonStyle}" Click="ClearBackgroundImageButton_Click" ToolTip="Удалить фоновое изображение" Content="/Pict/Buttons/Close.png"/>
+                    <TextBox IsReadOnly="True" Margin="0,0,10,0" Text="{Binding ThemeWorker.CurrentTheme.BackgroundImage}"/>
+                </DockPanel>
+                <Grid Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource DarkTextStyle}" HorizontalAlignment="Center" Margin="0,0,0,5">Видимость фоновой картинки - <Bold><Run Text="{Binding ThemeWorker.CurrentTheme.WindowBackgroundImageOpacity, StringFormat=p}"/></Bold></TextBlock>
+                        <Slider Maximum="1" Minimum="0" LargeChange="0.1" Value="{Binding ThemeWorker.CurrentTheme.WindowBackgroundImageOpacity, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="15,0,15,0">
+                        <TextBlock Style="{StaticResource DarkTextStyle}" HorizontalAlignment="Center" Text="Цвет фона" Margin="0,0,0,5"/>
+                        <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.WindowBackgroundColor}" UsingAlphaChannel="False"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Style="{StaticResource DarkTextStyle}" HorizontalAlignment="Center" Text="Режим отображения фона" Margin="0,0,0,5"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <RadioButton GroupName="Растянуть" Content="Растянуть" Margin="0,0,15,0" IsChecked="{Binding ThemeWorker.CurrentTheme.BackgroundImageVisualMode, Mode=TwoWay, Converter={local:EnumToBooleanConverter}, ConverterParameter=0}"/>
+                            <RadioButton GroupName="Замостить" Content="Замостить" IsChecked="{Binding ThemeWorker.CurrentTheme.BackgroundImageVisualMode, Mode=TwoWay, Converter={local:EnumToBooleanConverter}, ConverterParameter=1}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.RowSpan="2" Header="Цвета приложения" Margin="0,10,5,0">
+            <ScrollViewer>
+                <StackPanel Margin="0,0,5,0">
+                    <TextBlock Style="{StaticResource  DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="Цвета фона"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Темный цвет фона" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.BackgroundDarkColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Средний цвет фона" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.BackgroundStandartColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Светлый цвет фона" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.BackgroundLightColor}"/>
+                    <TextBlock Style="{StaticResource  DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="Цвета текста" Margin="0,10,0,0"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Темный цвет текста" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.TextDarkColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Средний цвет текста" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.TextStandartColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Светлый цвет текста" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.TextLightColor}"/>
+                    <TextBlock Style="{StaticResource  DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="Цвета рамок" Margin="0,10,0,0"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Темный цвет рамок" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.BorderDarkColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Средний цвет рамок" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.BorderStandartColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Светлый цвет рамок" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.BorderLightColor}"/>
+                    <TextBlock Style="{StaticResource  DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="Цвета кнопок" Margin="0,10,0,0"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Темный цвет кнопки" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.ButtonDarkColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Средний цвет кнопки" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.ButtonStandartColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Светлый цвет кнопки" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.ButtonLightColor}"/>
+                    <TextBlock Style="{StaticResource  DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="Цвета элеметов ввода и списков" Margin="0,10,0,0"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Темный цвет элеметов ввода и списков" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.InputElementDarkColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Средний цвет элеметов ввода и списков" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.InputElementStandartColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Светлый цвет элеметов ввода и списков" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.InputElementLightColor}"/>
+                    <TextBlock Style="{StaticResource  DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="Цвета обозначний" Margin="0,10,0,0"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Цвет важных элементов" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.ImportantColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Цвет избранных и личных элементов" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.FavoriteColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Цвет элементов требующих внимания" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.InformationColor}"/>
+                    <TextBlock Style="{StaticResource  DarkTextStyle}" HorizontalAlignment="Center" FontWeight="Bold" Text="Цвета сообщений системы" Margin="0,10,0,0"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Цвет информационных сообщений системы" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.MessageBoxInfoColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Цвет вопросительных сообщений системы" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.MessageBoxQuestionColor}"/>
+                    <TextBlock Style="{StaticResource DarkTextStyle}" Text="Цвет сообщений системы об ошибке" Margin="0,0,0,5"/>
+                    <xceed:ColorPicker SelectedColor="{Binding ThemeWorker.CurrentTheme.MessageBoxErrorColor}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Сохраненные темы" Margin="5,10,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button x:Name="AddThemeInListButton" Style="{StaticResource IconButtonStyle}" Click="AddThemeInListButton_Click" ToolTip="Добавить текущие настройки в список сохраненных тем" Content="/Pict/Buttons/Plus.png"/>
+                    <Button x:Name="SaveThemeInListButton" Style="{StaticResource IconButtonStyle}" Click="SaveThemeInListButton_Click" ToolTip="Сохранить текущие настройки в выбранную ячейку списка сохраненных тем" Content="/Pict/Buttons/Save.png"/>
+                    <Button x:Name="KillThemeInListButton" Style="{StaticResource IconButtonStyle}" Click="KillThemeInListButton_Click" ToolTip="Удалить выбранную ячейку из списка сохраненных тем" Content="/Pict/Buttons/Remove.png"/>
+                    <Border BorderThickness="{DynamicResource BorderThickness}" VerticalAlignment="Stretch" BorderBrush="{StaticResource BorderDarkColor}" CornerRadius="2" Margin="5,0,5,0"/>
+                    <Button x:Name="SetThemeInListButton" Style="{DynamicResource IconButtonStyle}" Click="SetThemeInListButton_Click" ToolTip="Установить настройки из выбранной ячейки как основные" Content="/Pict/Buttons/Upload.png"/>
+                </StackPanel>
+                <ListBox x:Name="ThemeList" Style="{DynamicResource StandartListBox}" Grid.Row="1" ItemContainerStyle="{DynamicResource SelectableListBoxItem}" ItemsSource="{Binding ThemeWorker.CustomThemeList}" ItemTemplate="{DynamicResource UserThemeListTemplate}"/>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Column="1" Grid.Row="2" Margin="5,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="UpgrateTheme" Click="UpgrateTheme_Click" Margin="0,0,5,0" Content="Принудительно обновить цвета"/>
+            <Button x:Name="SetBaseTheme" Grid.Column="1" Click="SetBaseTheme_Click" Margin="5,0,0,0" Content="Сбросить до настроек по умолчанию"/>
+        </Grid>
+    </Grid>
+</Page>

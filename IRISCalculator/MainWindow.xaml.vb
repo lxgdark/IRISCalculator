@@ -1,6 +1,4 @@
-﻿Imports System
-
-Class MainWindow
+﻿Class MainWindow
 #Region "Загрузка, закрытие, сворачивание и перемещение окна"
     ''' <summary>
     ''' Загрузка окна
@@ -36,11 +34,25 @@ Class MainWindow
         Catch ex As Exception
         End Try
     End Sub
-    Private Async Sub CloseWindow_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub CloseWindow_Click(sender As Object, e As RoutedEventArgs)
         'Сохраняем настройки в локальный файл
         My.AppCore.SaveSettings(My.AppCore.LocalSettings)
         'Закрываем приложение
         Close()
+    End Sub
+#End Region
+#Region "МесседжБокс"
+    ''' <summary>
+    ''' Нажатие на кнопку Нет
+    ''' </summary>
+    Private Sub NoMessageButton_Click(sender As Object, e As RoutedEventArgs)
+        My.MessageWorker.CloseMessage(False)
+    End Sub
+    ''' <summary>
+    ''' Нажатие на кнопку Да/ОК
+    ''' </summary>
+    Private Sub YesMessageButton_Click(sender As Object, e As RoutedEventArgs)
+        My.MessageWorker.CloseMessage(True)
     End Sub
 #End Region
 End Class
