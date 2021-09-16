@@ -25,7 +25,7 @@
                                     <VisualState x:Name="Disabled"/>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Border x:Name="Border" Margin="0,0,5,0" Tag="{TemplateBinding Tag}" Background="{StaticResource BackgroundStandartColor}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMax}" Padding="10" MouseRightButtonUp="GlobalTabItem_MouseRightButtonUp">
+                            <Border x:Name="Border" Margin="0,0,5,0" Tag="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content}" Background="{StaticResource BackgroundStandartColor}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMax}" Padding="10" MouseRightButtonUp="GlobalTabItem_MouseRightButtonUp">
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
@@ -82,15 +82,15 @@
         <Border Background="Transparent" Padding="0" Style="{StaticResource AnimatedPanel}" Visibility="{Binding CurentSelectedPage, Converter={local:EnumToVisibleConverter}, ConverterParameter=0}">
             <TabControl x:Name="OrderTabControl" ItemsSource="{Binding GlobalPagesList}" SelectedIndex="0">
                 <TabControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Style="{StaticResource DarkTextStyle}" Text="{Binding}"/>
+                    <DataTemplate DataType="{x:Type dclass:GlobalPage}">
+                        <TextBlock Style="{StaticResource DarkTextStyle}" Text="{Binding Header}"/>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
                 <TabControl.ContentTemplate>
                     <DataTemplate>
                         <Grid>
                             <Frame Source="/Pages/TabPages/StartPage.xaml" Visibility="{Binding IsStartPage, Converter={local:BooleanToVisibleConverter}}"/>
-                            <Frame Content="{Binding}" Visibility="{Binding IsStartPage, Converter={local:BooleanToVisibleConverter}, ConverterParameter=Not}" Tag="{Binding}"/>
+                            <Frame Content="{Binding OrderObject}" Visibility="{Binding IsStartPage, Converter={local:BooleanToVisibleConverter}, ConverterParameter=Not}" Tag="{Binding}"/>
                         </Grid>
                     </DataTemplate>
                 </TabControl.ContentTemplate>
@@ -102,7 +102,7 @@
         </Border>
         <!--Настройки приложения-->
         <Border Style="{StaticResource AnimatedPanel}" Visibility="{Binding CurentSelectedPage, Converter={local:EnumToVisibleConverter}, ConverterParameter=5}">
-            <!--<Frame Source="/Pages/SettingPage.xaml"/>-->
+            <Frame Source="/Pages/SettingPage.xaml"/>
         </Border>
         <!--#endregion-->
     </Grid>

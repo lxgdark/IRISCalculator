@@ -6,7 +6,7 @@ Namespace DataClasses
 #Region "Свойства"
 #Region "Приватные"
         Private WindowBackgroundColorValue As Color = Colors.LightGray
-        Private WindowBackgroundImageOpacityValue As Double = 1
+        Private WindowBackgroundImageOpacityValue As Double = 0.5
         Private BackgroundImageValue As String = Workers.ThemeWorker.BaseImageRelativeString
         Private BackgroundImageVisualModeValue As Workers.ThemeWorker.BackgroundImageVisualModeEnum = Workers.ThemeWorker.BackgroundImageVisualModeEnum.Tile
 

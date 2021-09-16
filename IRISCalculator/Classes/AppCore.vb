@@ -41,6 +41,11 @@ Public Class AppCore
     ''' </summary>
     ''' <returns></returns>
     Public Property ThemeWorker As New ThemeWorker
+    ''' <summary>
+    ''' Работа с каталогом типографии
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property CatalogWorker As New CatalogWorker
 #End Region
 #Region "Главне свойства"
 #Region "Приватные"
@@ -69,6 +74,28 @@ Public Class AppCore
     Public Sub OnInterfaceUpdate()
         RaiseEvent UpdateInterface()
     End Sub
+#End Region
+#Region "Синхронизация"
+    ''' <summary>
+    ''' Синхронизация данных
+    ''' </summary>
+    Public Async Function Synchronization() As Task(Of Boolean)
+        'Определяем тип текущего класса
+        Dim meType As Type = [GetType]()
+        'Проходим циклом по свойствам текущего класса
+        For Each meProperty In meType.GetProperties
+            'Если касс унаследован от Базового воркера
+            If meProperty.PropertyType.BaseType.ToString.IndexOf("BaseWorker") > -1 Then
+                'Если запуск стартовых задач воркера вернул False
+                If Not Await meProperty.PropertyType.GetMethod("StartActions").Invoke(meProperty.GetValue(Me), {Me}) Then
+                    'То возвращаем False
+                    Return False
+                End If
+            End If
+        Next
+        'Если ранее все прошло хорошо, возвращаем True
+        Return True
+    End Function
 #End Region
 #End Region
 #Region "Перечеслители и типы"

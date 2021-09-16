@@ -80,6 +80,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <!--#region Настройка фона-->
         <GroupBox Header="Настройка фона" Grid.ColumnSpan="2">
             <StackPanel>
                 <TextBlock Style="{DynamicResource DarkTextStyle}" Text="Путь к фоновой картинке" Margin="0,0,0,5"/>
@@ -112,6 +113,8 @@
                 </Grid>
             </StackPanel>
         </GroupBox>
+        <!--#endregion-->
+        <!--#region Установка базовых цветов-->
         <GroupBox Grid.Row="1" Grid.RowSpan="2" Header="Цвета приложения" Margin="0,10,5,0">
             <ScrollViewer>
                 <StackPanel Margin="0,0,5,0">
@@ -167,6 +170,8 @@
                 </StackPanel>
             </ScrollViewer>
         </GroupBox>
+        <!--#endregion-->
+        <!--#region Сохранение и открытие тем-->
         <GroupBox Grid.Row="1" Grid.Column="1" Header="Сохраненные темы" Margin="5,10,0,0">
             <Grid>
                 <Grid.RowDefinitions>
@@ -191,5 +196,6 @@
             <Button x:Name="UpgrateTheme" Click="UpgrateTheme_Click" Margin="0,0,5,0" Content="Принудительно обновить цвета"/>
             <Button x:Name="SetBaseTheme" Grid.Column="1" Click="SetBaseTheme_Click" Margin="5,0,0,0" Content="Сбросить до настроек по умолчанию"/>
         </Grid>
+        <!--#endregion-->
     </Grid>
 </Page>

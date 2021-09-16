@@ -69,3 +69,16 @@ Public Class MessageBoxYesNoToButtonTextConverter
         End If
     End Function
 End Class
+''' <summary>
+''' Выравнивает главную кнопку сообщения слева или по центру в зависимости от типа сообщения
+''' </summary>
+Public Class MessageBoxYesNoToButtonAlignmentConverter
+    Inherits ConvertorBase(Of MessageBoxYesNoToButtonAlignmentConverter)
+    Public Overrides Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object
+        If CType(value, WPFProjectCore.MessageStyle) = WPFProjectCore.MessageStyle.YesNo Then
+            Return 1
+        Else
+            Return 2
+        End If
+    End Function
+End Class

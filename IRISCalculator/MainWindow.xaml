@@ -31,8 +31,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="NoMessageButton" Click="NoMessageButton_Click" Content="Нет" Margin="0,0,5,0" Visibility="{Binding MessageWorker.MessageStyle,Converter={local:MessageBoxYesNoToVisibleConverter}}"/>
-                    <Button x:Name="YesMessageButton" Click="YesMessageButton_Click" Grid.Column="1" Content="{Binding MessageWorker.MessageStyle, Converter={local:MessageBoxYesNoToButtonTextConverter}}" Margin="5,0,0,0"/>
+                    <Button x:Name="NoMessageButton" Click="NoMessageButton_Click" Content="Нет" Grid.Column="1" Visibility="{Binding MessageWorker.MessageStyle,Converter={local:MessageBoxYesNoToVisibleConverter}}" Margin="5,0,0,0"/>
+                    <Button x:Name="YesMessageButton" Click="YesMessageButton_Click" Margin="0,0,5,0" Grid.ColumnSpan="{Binding MessageWorker.MessageStyle, Converter={local:MessageBoxYesNoToButtonAlignmentConverter}}" Content="{Binding MessageWorker.MessageStyle, Converter={local:MessageBoxYesNoToButtonTextConverter}}"/>
                 </Grid>
             </Grid>
         </Border>

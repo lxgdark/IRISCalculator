@@ -6,14 +6,7 @@ Namespace DataClasses
     ''' Класс описывающий страницы главного TabControl
     ''' </summary>
     Public Class GlobalPage
-        Inherits OrderPage
-        Implements INotifyPropertyChanged
-#Region "Реализация интерфейса INotifyPropertyChanged"
-        Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-        Public Shadows Sub OnPropertyChanged(PropertyName As String)
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(PropertyName))
-        End Sub
-#End Region
+        Inherits NotifyProperty_Base(Of Order)
 #Region "Свойства"
 #Region "Внутренние"
         Private HeaderValue As String = ""
@@ -42,7 +35,7 @@ Namespace DataClasses
                 Return OrderObjectValue
             End Get
             Set(value As Order)
-                OrderObjectValue.SetPropertys(value)
+                OrderObjectValue = value
                 OnPropertyChanged(NameOf(OrderObject))
             End Set
         End Property
@@ -65,7 +58,14 @@ Namespace DataClasses
     ''' Класс описывающий заказ
     ''' </summary>
     Public Class Order
-        Inherits NotifyProperty_Base(Of Order)
+        Inherits OrderPage
+        Implements INotifyPropertyChanged
+#Region "Реализация интерфейса INotifyPropertyChanged"
+        Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+        Public Shadows Sub OnPropertyChanged(PropertyName As String)
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(PropertyName))
+        End Sub
+#End Region
 #Region "Свойства"
 #Region "Внутренние"
 
