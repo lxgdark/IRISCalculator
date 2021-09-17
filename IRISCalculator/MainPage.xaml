@@ -67,7 +67,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <RadioButton Style="{StaticResource IconRadioButtonStyle}" IsChecked="{Binding CurentSelectedPage, Mode=TwoWay, Converter={local:EnumToBooleanConverter}, ConverterParameter=0}" Content="/Pict/Buttons/Home.png"/>
-                <StackPanel Grid.Row="1" Margin="0,15,0,0">
+                <StackPanel Grid.Row="1" Margin="0,15,0,0" IsEnabled="{Binding SynchronizationStatus, Converter={local:EnumToBooleanConverter}, ConverterParameter=1}">
                     <Button x:Name="AddOrder" Style="{StaticResource IconButtonStyle}" Click="AddOrder_Click" Content="/Pict/Buttons/Plus.png"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2">

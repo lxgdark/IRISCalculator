@@ -50,6 +50,7 @@ Public Class AppCore
 #Region "Главне свойства"
 #Region "Приватные"
     Private CurentSelectedPageValue As CurentSelectedPageEnum = CurentSelectedPageEnum.Home
+    Private SynchronizationStatusValue As SynchronizationStatusEnum = SynchronizationStatusEnum.Synchronization
 #End Region
     Public Property GlobalPagesList As New ObservableCollection(Of GlobalPage) From {New GlobalPage With {.Header = "Главная"}}
     ''' <summary>
@@ -63,6 +64,19 @@ Public Class AppCore
         Set(value As CurentSelectedPageEnum)
             CurentSelectedPageValue = value
             OnPropertyChanged("CurentSelectedPage")
+        End Set
+    End Property
+    ''' <summary>
+    ''' Статус синхронизации с каталогом
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property SynchronizationStatus As SynchronizationStatusEnum
+        Get
+            Return SynchronizationStatusValue
+        End Get
+        Set(value As SynchronizationStatusEnum)
+            SynchronizationStatusValue = value
+            OnPropertyChanged(NameOf(SynchronizationStatus))
         End Set
     End Property
 #End Region
@@ -80,6 +94,7 @@ Public Class AppCore
     ''' Синхронизация данных
     ''' </summary>
     Public Async Function Synchronization() As Task(Of Boolean)
+        SynchronizationStatus = SynchronizationStatusEnum.Synchronization
         'Определяем тип текущего класса
         Dim meType As Type = [GetType]()
         'Проходим циклом по свойствам текущего класса
@@ -88,11 +103,15 @@ Public Class AppCore
             If meProperty.PropertyType.BaseType.ToString.IndexOf("BaseWorker") > -1 Then
                 'Если запуск стартовых задач воркера вернул False
                 If Not Await meProperty.PropertyType.GetMethod("StartActions").Invoke(meProperty.GetValue(Me), {Me}) Then
+                    'Статус синхронизации выставлям в ошибку
+                    SynchronizationStatus = SynchronizationStatusEnum.SynchronizationError
                     'То возвращаем False
                     Return False
                 End If
             End If
         Next
+        'Статус синхронизации выставлям в синхронизировано!
+        SynchronizationStatus = SynchronizationStatusEnum.Synchronized
         'Если ранее все прошло хорошо, возвращаем True
         Return True
     End Function
@@ -125,6 +144,23 @@ Public Class AppCore
         ''' Страница настроек
         ''' </summary>
         Settings = 5
+    End Enum
+    ''' <summary>
+    ''' Перечеслитель статусов синхронизации
+    ''' </summary>
+    Public Enum SynchronizationStatusEnum
+        ''' <summary>
+        ''' Идет синхронизация
+        ''' </summary>
+        Synchronization = 0
+        ''' <summary>
+        ''' Синхронизирован
+        ''' </summary>
+        Synchronized = 1
+        ''' <summary>
+        ''' Ошибка синхронизации
+        ''' </summary>
+        SynchronizationError = 2
     End Enum
 #End Region
 End Class
