@@ -5,15 +5,15 @@ Class SettingPage
         'Создаем диалог открытия файла
         Dim ofd As New OpenFileDialog
         'Устанваливаем расширения допустимых файлов
-        ofd.Filter = "Файлы изображений (*.XLSX)|*.XLSX"
+        ofd.Filter = "Файл эксель (*.XLSX)|*.XLSX"
         'Заголовок диалога открытия картинки
-        ofd.Title = "Выбор фона"
+        ofd.Title = "Выбор файла каталога"
         'Открывать ли предыдущую папку при повторном выборе фона
         ofd.RestoreDirectory = True
         'Если реузльтат выбора файла был положительным...
         If ofd.ShowDialog Then
             '...устанавливаем его в настройки приложения
-            My.AppCore.ThemeWorker.CurrentTheme.BackgroundImage = ofd.FileName
+            My.AppCore.LocalSettings.CatalogPath = ofd.FileName
         End If
     End Sub
 End Class
