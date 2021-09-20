@@ -181,7 +181,7 @@
                 <DataTrigger.ExitActions>
                     <BeginStoryboard>
                         <Storyboard Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
-                            <DoubleAnimation To="1500" Duration="0:0:0.4">
+                            <DoubleAnimation To="2500" Duration="0:0:0.4">
                                 <DoubleAnimation.EasingFunction>
                                     <SineEase/>
                                 </DoubleAnimation.EasingFunction>
