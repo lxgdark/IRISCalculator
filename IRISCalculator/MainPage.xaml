@@ -25,7 +25,7 @@
                                     <VisualState x:Name="Disabled"/>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Border x:Name="Border" Margin="0,0,5,0" Tag="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content}" Background="{StaticResource BackgroundStandartColor}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMax}" Padding="10" MouseRightButtonUp="GlobalTabItem_MouseRightButtonUp">
+                            <Border x:Name="Border" Margin="0,0,5,0" Tag="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content}" Background="{StaticResource BackgroundStandartColor}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMax}" Padding="10" MouseRightButtonUp="GlobalTabItem_MouseRightButtonUp" MouseLeftButtonDown="GlobalTabItem_MouseLeftButtonDown">
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
@@ -68,7 +68,8 @@
                 </Grid.RowDefinitions>
                 <RadioButton Style="{StaticResource IconRadioButtonStyle}" IsChecked="{Binding CurentSelectedPage, Mode=TwoWay, Converter={local:EnumToBooleanConverter}, ConverterParameter=0}" Content="/Pict/Buttons/Home.png"/>
                 <StackPanel Grid.Row="1" Margin="0,15,0,0" IsEnabled="{Binding SynchronizationStatus, Converter={local:EnumToBooleanConverter}, ConverterParameter=1}">
-                    <Button x:Name="AddOrder" Style="{StaticResource IconButtonStyle}" Click="AddOrder_Click" Content="/Pict/Buttons/Plus.png"/>
+                    <Button x:Name="AddOrder" Style="{StaticResource IconButtonStyle}" Click="AddOrder_Click" Content="/Pict/Buttons/Plus.png" ToolTip="Добавить новый расчет"/>
+                    <Button x:Name="AddPresetOrder" Style="{StaticResource IconButtonStyle}" Click="AddPresetOrder_Click" Content="/Pict/Buttons/PlusPreset.png" ToolTip="Добавить новый расчет на основе шаблона"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2">
                     <RadioButton GroupName="Theme" Style="{StaticResource IconRadioButtonStyle}" IsChecked="{Binding CurentSelectedPage, Mode=TwoWay, Converter={local:EnumToBooleanConverter}, ConverterParameter=4}" Content="/Pict/Buttons/Theme.png" ToolTip="Визуальный стиль приложения"/>
@@ -83,7 +84,10 @@
             <TabControl x:Name="OrderTabControl" ItemsSource="{Binding GlobalPagesList}" SelectedIndex="0">
                 <TabControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type dclass:GlobalPage}">
-                        <TextBlock Style="{StaticResource DarkTextStyle}" Text="{Binding Header}"/>
+                        <Grid>
+                            <TextBlock Style="{StaticResource DarkTextStyle}" Text="{Binding Header}" Visibility="{Binding IsHeaderEditState,Converter={local:BooleanToVisibleConverter}, ConverterParameter=Not}"/>
+                            <TextBox Style="{DynamicResource HeaderTextBox}" Text="{Binding Header}" Visibility="{Binding IsHeaderEditState,Converter={local:BooleanToVisibleConverter}}" LostFocus="HeaderTextBox_LostFocus" KeyUp="HeaderTextBox_KeyUp"/>
+                        </Grid>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
                 <TabControl.ContentTemplate>

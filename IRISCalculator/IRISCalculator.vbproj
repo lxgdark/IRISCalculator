@@ -23,6 +23,8 @@
     <None Remove="Pict\Buttons\Order.png" />
     <None Remove="Pict\Buttons\Photo.png" />
     <None Remove="Pict\Buttons\Plus.png" />
+    <None Remove="Pict\Buttons\PlusPerezakaz.png" />
+    <None Remove="Pict\Buttons\PlusPreset.png" />
     <None Remove="Pict\Buttons\Quote.png" />
     <None Remove="Pict\Buttons\Remove.png" />
     <None Remove="Pict\Buttons\Reply.png" />
@@ -64,6 +66,8 @@
     <Resource Include="Pict\Buttons\Order.png" />
     <Resource Include="Pict\Buttons\Photo.png" />
     <Resource Include="Pict\Buttons\Plus.png" />
+    <Resource Include="Pict\Buttons\PlusPerezakaz.png" />
+    <Resource Include="Pict\Buttons\PlusPreset.png" />
     <Resource Include="Pict\Buttons\Quote.png" />
     <Resource Include="Pict\Buttons\Remove.png" />
     <Resource Include="Pict\Buttons\Reply.png" />

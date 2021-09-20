@@ -6,12 +6,13 @@ Namespace DataClasses
     ''' Класс описывающий страницы главного TabControl
     ''' </summary>
     Public Class GlobalPage
-        Inherits NotifyProperty_Base(Of Order)
+        Inherits NotifyProperty_Base(Of GlobalPage)
 #Region "Свойства"
 #Region "Внутренние"
         Private HeaderValue As String = ""
         Private IsStartPageValue As Boolean = True
-        Private OrderObjectValue As New Order
+        Private isHeaderEditStateValue As Boolean = False
+        Private OrderObjectValue As Page = New Order
 #End Region
         ''' <summary>
         ''' Заголовок вкладки
@@ -30,11 +31,11 @@ Namespace DataClasses
         ''' Объект заказа
         ''' </summary>
         ''' <returns></returns>
-        Public Property OrderObject As Order
+        Public Property OrderObject As Page
             Get
                 Return OrderObjectValue
             End Get
-            Set(value As Order)
+            Set(value As Page)
                 OrderObjectValue = value
                 OnPropertyChanged(NameOf(OrderObject))
             End Set
@@ -50,6 +51,19 @@ Namespace DataClasses
             Set(value As Boolean)
                 IsStartPageValue = value
                 OnPropertyChanged(NameOf(IsStartPage))
+            End Set
+        End Property
+        ''' <summary>
+        ''' Указывает на то редактируется ли сейчас заголовок вкладки
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property IsHeaderEditState As Boolean
+            Get
+                Return isHeaderEditStateValue
+            End Get
+            Set(value As Boolean)
+                isHeaderEditStateValue = value
+                OnPropertyChanged(NameOf(IsHeaderEditState))
             End Set
         End Property
 #End Region

@@ -52,7 +52,16 @@ Public Class AppCore
     Private CurentSelectedPageValue As CurentSelectedPageEnum = CurentSelectedPageEnum.Home
     Private SynchronizationStatusValue As SynchronizationStatusEnum = SynchronizationStatusEnum.Synchronization
 #End Region
+    ''' <summary>
+    ''' Список страниц с расчетами
+    ''' </summary>
+    ''' <returns></returns>
     Public Property GlobalPagesList As New ObservableCollection(Of GlobalPage) From {New GlobalPage With {.Header = "Главная"}}
+    ''' <summary>
+    ''' Список позиций каталога
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property CatalogList As New ObservableCollection(Of CatalogItem)
     ''' <summary>
     ''' Текущая страница в главном окне
     ''' </summary>

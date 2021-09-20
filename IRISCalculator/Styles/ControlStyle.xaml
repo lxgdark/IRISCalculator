@@ -10,7 +10,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ResizeGrip}">
-                    <Polygon Fill="{StaticResource BorderDarkColor}" Stroke="{StaticResource BorderDarkColor}" StrokeThickness="1" Stretch="Fill" Points="0,4 4,0 4,4">
+                    <Polygon Fill="{DynamicResource BorderDarkColor}" Stroke="{DynamicResource BorderDarkColor}" StrokeThickness="1" Stretch="Fill" Points="0,4 4,0 4,4">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
@@ -29,11 +29,11 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
-        <Setter Property="Background" Value="{StaticResource WindowBackgroundColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
         <Setter Property="MinHeight" Value="650"/>
         <Setter Property="MinWidth" Value="650"/>
-        <Setter Property="MaxHeight" Value="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}"/>
+        <Setter Property="MaxHeight" Value="{StaticResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
@@ -67,7 +67,7 @@
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{StaticResource BackgroundLightColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource BackgroundLightColor}"/>
         <Setter Property="Width" Value="20"/>
         <Setter Property="Height" Value="20"/>
         <Setter Property="Margin" Value="3"/>
@@ -82,10 +82,10 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackgroundLightColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource BackgroundLightColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentBorder" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackgroundDarkColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource BackgroundDarkColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -108,7 +108,7 @@
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{StaticResource BackgroundLightColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource BackgroundLightColor}"/>
         <Setter Property="Width" Value="20"/>
         <Setter Property="Height" Value="20"/>
         <Setter Property="Margin" Value="3"/>
@@ -123,7 +123,7 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CloseButtonBrush}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CloseButtonBrush}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -154,10 +154,10 @@
         <Setter Property="Width" Value="500"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Padding" Value="10"/>
-        <Setter Property="CornerRadius" Value="{StaticResource BorderCornerRadiusMax}"/>
-        <Setter Property="BorderThickness" Value="{StaticResource BorderThickness}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
-        <Setter Property="Background" Value="{StaticResource BackgroundStandartColor}"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource BorderCornerRadiusMax}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource BorderThickness}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
+        <Setter Property="Background" Value="{DynamicResource BackgroundStandartColor}"/>
         <Setter Property="Panel.ZIndex" Value="100"/>
         <Setter Property="RenderTransformOrigin" Value="0.5 0.5"/>
         <Setter Property="RenderTransform">
@@ -199,8 +199,8 @@
         <Setter Property="Grid.Row" Value="1"/>
         <Setter Property="Grid.Column" Value="1"/>
         <Setter Property="Padding" Value="10"/>
-        <Setter Property="CornerRadius" Value="{StaticResource BorderCornerRadiusMax}"/>
-        <Setter Property="Background" Value="{StaticResource BackgroundLightColor}"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource BorderCornerRadiusMax}"/>
+        <Setter Property="Background" Value="{DynamicResource BackgroundLightColor}"/>
         <Setter Property="Panel.ZIndex" Value="-5"/>
         <Setter Property="RenderTransformOrigin" Value="0.5 0.5"/>
         <Setter Property="RenderTransform">
@@ -246,8 +246,8 @@
     <Style TargetType="{x:Type Border}" x:Key="UserPanel">
         <Setter Property="Margin" Value="0,5,5,5"/>
         <Setter Property="Padding" Value="10"/>
-        <Setter Property="CornerRadius" Value="{StaticResource BorderCornerRadiusMax}"/>
-        <Setter Property="Background" Value="{StaticResource BackgroundLightColor}"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource BorderCornerRadiusMax}"/>
+        <Setter Property="Background" Value="{DynamicResource BackgroundLightColor}"/>
         <Setter Property="RenderTransformOrigin" Value="0.5 0.5"/>
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -273,11 +273,11 @@
     <!--Стиль GroupBox-->
     <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
     <Style TargetType="{x:Type GroupBox}">
-        <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="10"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="Foreground" Value="{StaticResource TextDarkColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDarkColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GroupBox}">
@@ -294,7 +294,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="6"/>
                         </Grid.RowDefinitions>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{StaticResource BorderThickness}" Grid.ColumnSpan="4" CornerRadius="{StaticResource BorderCornerRadiusMax}" Grid.Row="1" Grid.RowSpan="3">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{DynamicResource BorderThickness}" Grid.ColumnSpan="4" CornerRadius="{DynamicResource BorderCornerRadiusMax}" Grid.Row="1" Grid.RowSpan="3">
                             <Border.OpacityMask>
                                 <MultiBinding ConverterParameter="7" Converter="{StaticResource BorderGapMaskConverter}">
                                     <Binding ElementName="Header" Path="ActualWidth"/>
@@ -319,8 +319,8 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Background" Value="{StaticResource ButtonDarkColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource TextLightColor}"/>
+        <Setter Property="Background" Value="{DynamicResource ButtonDarkColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextLightColor}"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -328,14 +328,14 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="{StaticResource BorderCornerRadiusMax}">
+                    <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="{DynamicResource BorderCornerRadiusMax}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonStandartColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ButtonStandartColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -362,20 +362,20 @@
         <Setter Property="Padding" Value="4"/>
         <Setter Property="Height" Value="38"/>
         <Setter Property="Width" Value="38"/>
-        <Setter Property="Foreground" Value="{StaticResource ButtonDarkColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ButtonDarkColor}"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMax}" BorderBrush="{TemplateBinding BorderBrush}">
+                    <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="{DynamicResource BorderThickness}" CornerRadius="{DynamicResource BorderCornerRadiusMax}" BorderBrush="{TemplateBinding BorderBrush}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BorderDarkColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource BorderDarkColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -415,8 +415,8 @@
         <Setter Property="Height" Value="26"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="{StaticResource BackgroundDarkColor}"/>
-        <Setter Property="Background" Value="{StaticResource BackgroundStandartColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource BackgroundDarkColor}"/>
+        <Setter Property="Background" Value="{DynamicResource BackgroundStandartColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
@@ -450,10 +450,10 @@
                                 <VisualState x:Name="Checked">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackgroundDarkColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource BackgroundDarkColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentBorder" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackgroundStandartColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource BackgroundStandartColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -477,8 +477,8 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Background" Value="{StaticResource ButtonDarkColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource TextLightColor}"/>
+        <Setter Property="Background" Value="{DynamicResource ButtonDarkColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextLightColor}"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -490,7 +490,7 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonStandartColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ButtonStandartColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -513,8 +513,8 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Background" Value="{StaticResource ButtonDarkColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource TextLightColor}"/>
+        <Setter Property="Background" Value="{DynamicResource ButtonDarkColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextLightColor}"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -526,7 +526,7 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonLightColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ButtonLightColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -550,16 +550,16 @@
     <Style x:Key="{x:Type RadioButton}" TargetType="{x:Type RadioButton}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="Background" Value="{StaticResource InputElementLightColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource InputElementDarkColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
+        <Setter Property="Background" Value="{DynamicResource InputElementLightColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource InputElementDarkColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
                     <BulletDecorator Background="Transparent">
                         <BulletDecorator.Bullet>
-                            <Border x:Name="Border" Width="20" Height="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="40" Background="{TemplateBinding Background}" Padding="2">
+                            <Border x:Name="Border" Width="20" Height="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{DynamicResource BorderThickness}" CornerRadius="40" Background="{TemplateBinding Background}" Padding="2">
                                 <Border CornerRadius="40" x:Name="CheckMark" Background="{TemplateBinding Foreground}" Visibility="Collapsed"/>
                             </Border>
                         </BulletDecorator.Bullet>
@@ -569,7 +569,7 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background)">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource InputElementStandartColor}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource InputElementStandartColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -608,20 +608,20 @@
         <Setter Property="Margin" Value="0,0,0,0"/>
         <Setter Property="Width" Value="38"/>
         <Setter Property="Height" Value="38"/>
-        <Setter Property="Foreground" Value="{StaticResource ButtonDarkColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ButtonDarkColor}"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
-                    <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMax}" BorderBrush="{TemplateBinding BorderBrush}">
+                    <Border x:Name="Border" Background="{TemplateBinding Background}" BorderThickness="{DynamicResource BorderThickness}" CornerRadius="{DynamicResource BorderCornerRadiusMax}" BorderBrush="{TemplateBinding BorderBrush}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal"/>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BorderDarkColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource BorderDarkColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -642,10 +642,10 @@
                                 <VisualState x:Name="Checked">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDarkColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ButtonDarkColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentBorder" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonLightColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ButtonLightColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -668,15 +668,15 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Margin" Value="0,5,0,5"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource BorderDarkColor}"/>
-        <Setter Property="Background" Value="{StaticResource InputElementLightColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource BorderDarkColor}"/>
+        <Setter Property="Background" Value="{DynamicResource InputElementLightColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
                     <BulletDecorator Background="Transparent">
                         <BulletDecorator.Bullet>
-                            <Border x:Name="Border" Width="20" Height="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMini}" Background="{TemplateBinding Background}" Padding="2">
+                            <Border x:Name="Border" Width="20" Height="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{DynamicResource BorderThickness}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Background="{TemplateBinding Background}" Padding="2">
                                 <Border CornerRadius="2" x:Name="CheckMark" Background="{TemplateBinding Foreground}" Visibility="Collapsed"/>
                             </Border>
                         </BulletDecorator.Bullet>
@@ -686,7 +686,7 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background)">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource InputElementStandartColor}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource InputElementStandartColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -720,40 +720,40 @@
     <!--Slider-->
     <ControlTemplate x:Key="SliderThumbVerticalDefault" TargetType="{x:Type Thumb}">
         <Grid>
-            <Border x:Name="Grip" Background="{StaticResource ButtonDarkColor}" CornerRadius="3"/>
+            <Border x:Name="Grip" Background="{DynamicResource ButtonDarkColor}" CornerRadius="3"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" TargetName="Grip" Value="{StaticResource ButtonStandartColor}"/>
+                <Setter Property="Background" TargetName="Grip" Value="{DynamicResource ButtonStandartColor}"/>
             </Trigger>
             <Trigger Property="IsDragging" Value="True">
-                <Setter Property="Background" TargetName="Grip" Value="{StaticResource ButtonDarkColor}"/>
+                <Setter Property="Background" TargetName="Grip" Value="{DynamicResource ButtonDarkColor}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" TargetName="Grip" Value="{StaticResource ButtonLightColor}"/>
+                <Setter Property="Background" TargetName="Grip" Value="{DynamicResource ButtonLightColor}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <ControlTemplate x:Key="SliderThumbHorizontalDefault" TargetType="{x:Type Thumb}">
         <Grid>
-            <Border x:Name="Grip" Background="{StaticResource ButtonDarkColor}" CornerRadius="3"/>
+            <Border x:Name="Grip" Background="{DynamicResource ButtonDarkColor}" CornerRadius="3"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" TargetName="Grip" Value="{StaticResource ButtonStandartColor}"/>
+                <Setter Property="Background" TargetName="Grip" Value="{DynamicResource ButtonStandartColor}"/>
             </Trigger>
             <Trigger Property="IsDragging" Value="True">
-                <Setter Property="Background" TargetName="Grip" Value="{StaticResource ButtonDarkColor}"/>
+                <Setter Property="Background" TargetName="Grip" Value="{DynamicResource ButtonDarkColor}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" TargetName="Grip" Value="{StaticResource ButtonLightColor}"/>
+                <Setter Property="Background" TargetName="Grip" Value="{DynamicResource ButtonLightColor}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <ControlTemplate x:Key="SliderHorizontal" TargetType="{x:Type Slider}">
         <Border x:Name="Border" SnapsToDevicePixels="True">
             <Grid>
-                <Border x:Name="TrackBackground" Background="{StaticResource BorderStandartColor}" Height="4" VerticalAlignment="Center" CornerRadius="4"/>
+                <Border x:Name="TrackBackground" Background="{DynamicResource BorderStandartColor}" Height="4" VerticalAlignment="Center" CornerRadius="4"/>
                 <Track x:Name="PART_Track">
                     <Track.Thumb>
                         <Thumb x:Name="Thumb" Focusable="False" Height="23" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbHorizontalDefault}" VerticalAlignment="Center" Width="10"/>
@@ -765,7 +765,7 @@
     <ControlTemplate x:Key="SliderVertical" TargetType="{x:Type Slider}">
         <Border x:Name="Border" SnapsToDevicePixels="True">
             <Grid>
-                <Border x:Name="TrackBackground" Background="{StaticResource BorderStandartColor}" HorizontalAlignment="Center" Width="4"/>
+                <Border x:Name="TrackBackground" Background="{DynamicResource BorderStandartColor}" HorizontalAlignment="Center" Width="4"/>
                 <Track x:Name="PART_Track">
                     <Track.Thumb>
                         <Thumb x:Name="Thumb" Focusable="False" Height="10" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbVerticalDefault}" VerticalAlignment="Top" Width="23"/>
@@ -796,14 +796,14 @@
         <Setter Property="MinWidth" Value="120"/>
         <Setter Property="MinHeight" Value="40"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Foreground" Value="{StaticResource TextDarkColor}"/>
-        <Setter Property="Background" Value="{StaticResource InputElementLightColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDarkColor}"/>
+        <Setter Property="Background" Value="{DynamicResource InputElementLightColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
-                    <Border x:Name="Border" CornerRadius="{StaticResource BorderCornerRadiusMax}" Padding="2" BorderThickness="{StaticResource BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                    <Border x:Name="Border" CornerRadius="{DynamicResource BorderCornerRadiusMax}" Padding="2" BorderThickness="{DynamicResource BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
@@ -822,7 +822,7 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background)">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource InputElementStandartColor}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource InputElementStandartColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -843,14 +843,14 @@
         <Setter Property="MinWidth" Value="120"/>
         <Setter Property="MinHeight" Value="40"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Foreground" Value="{StaticResource TextDarkColor}"/>
-        <Setter Property="Background" Value="{StaticResource InputElementLightColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDarkColor}"/>
+        <Setter Property="Background" Value="{DynamicResource InputElementLightColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type PasswordBox}">
-                    <Border x:Name="Border" CornerRadius="{StaticResource BorderCornerRadiusMax}" Padding="2" BorderThickness="{StaticResource BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                    <Border x:Name="Border" CornerRadius="{DynamicResource BorderCornerRadiusMax}" Padding="2" BorderThickness="{DynamicResource BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
@@ -869,7 +869,7 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background)">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource InputElementStandartColor}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource InputElementStandartColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -877,6 +877,28 @@
                         </VisualStateManager.VisualStateGroups>
                         <ScrollViewer Margin="0" x:Name="PART_ContentHost" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--Элемент ввода для загаловка вкладок-->
+    <Style x:Key="HeaderTextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="AllowDrop" Value="True"/>
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="MinHeight" Value="20"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDarkColor}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Grid>
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -894,7 +916,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Border Background="{StaticResource BackgroundLightColor}" Padding="5" CornerRadius="{StaticResource BorderCornerRadiusMax}">
+                        <Border Background="{DynamicResource BackgroundLightColor}" Padding="5" CornerRadius="{DynamicResource BorderCornerRadiusMax}">
                             <WrapPanel x:Name="HeaderPanel" IsItemsHost="True" KeyboardNavigation.TabIndex="1"/>
                         </Border>
                         <Border x:Name="Border" Grid.Row="1" KeyboardNavigation.TabNavigation="Local" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabIndex="2"  Margin="0,5,0,0">
@@ -914,14 +936,36 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
-        <Setter Property="Background" Value="{StaticResource InputElementLightColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
+        <Setter Property="Background" Value="{DynamicResource InputElementLightColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBox}">
-                    <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMini}">
+                    <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{DynamicResource BorderThickness}" CornerRadius="{DynamicResource BorderCornerRadiusMini}">
                         <ScrollViewer x:Name="ListBoxScrollViewer" Margin="0" Focusable="false">
                             <VirtualizingStackPanel Margin="2" IsItemsHost="True" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--ЛистБокс с группировкой-->
+    <Style x:Key="GroupedListBox" TargetType="{x:Type ListBox}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        <Setter Property="Background" Value="{DynamicResource InputElementLightColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{DynamicResource BorderThickness}" CornerRadius="{DynamicResource BorderCornerRadiusMini}">
+                        <ScrollViewer x:Name="ListBoxScrollViewer" Margin="0" Focusable="false">
+                            <ItemsPresenter Margin="2"/>
                         </ScrollViewer>
                     </Border>
                 </ControlTemplate>
@@ -936,7 +980,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Border x:Name="Border" SnapsToDevicePixels="True" Background="{TemplateBinding Background}" CornerRadius="{StaticResource BorderCornerRadiusMax}">
+                    <Border x:Name="Border" SnapsToDevicePixels="True" Background="{TemplateBinding Background}" CornerRadius="{DynamicResource BorderCornerRadiusMax}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="MouseOver">
@@ -954,13 +998,13 @@
                                     <Storyboard>
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectedBorder" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource InputElementDarkColor}"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{DynamicResource InputElementDarkColor}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(TextBlock.Foreground)">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource TextLightColor}"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{DynamicResource TextLightColor}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(TextBlock.FontWeight)">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource BoldFontWeight}"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{DynamicResource BoldFontWeight}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </Storyboard>
@@ -969,20 +1013,20 @@
                                     <Storyboard>
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectedBorder" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource InputElementStandartColor}"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{DynamicResource InputElementStandartColor}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(TextBlock.Foreground)">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource TextDarkColor}"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{DynamicResource TextDarkColor}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(TextBlock.FontWeight)">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource BoldFontWeight}"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{DynamicResource BoldFontWeight}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="SelectedBorder" Background="{TemplateBinding Background}" CornerRadius="{StaticResource BorderCornerRadiusMax}" Padding="4">
+                        <Border x:Name="SelectedBorder" Background="{TemplateBinding Background}" CornerRadius="{DynamicResource BorderCornerRadiusMax}" Padding="4">
                             <ContentPresenter x:Name="ContentPresenter" TextBlock.FontSize="16"/>
                         </Border>
                     </Border>
@@ -999,21 +1043,21 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
         <Setter Property="SelectionMode" Value="Extended"/>
-        <Setter Property="Background" Value="{StaticResource InputElementLightColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
+        <Setter Property="Background" Value="{DynamicResource InputElementLightColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBox}">
-                    <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMini}" Padding="4">
+                    <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{DynamicResource BorderThickness}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Padding="4">
                         <StackPanel>
                             <UniformGrid Columns="7">
-                                <TextBlock Style="{StaticResource DarkTextStyle}" Text="ПН" HorizontalAlignment="Center" TextWrapping="NoWrap"/>
-                                <TextBlock Style="{StaticResource DarkTextStyle}" Text="ВТ" HorizontalAlignment="Center" TextWrapping="NoWrap"/>
-                                <TextBlock Style="{StaticResource DarkTextStyle}" Text="СР" HorizontalAlignment="Center" TextWrapping="NoWrap"/>
-                                <TextBlock Style="{StaticResource DarkTextStyle}" Text="ЧТ" HorizontalAlignment="Center" TextWrapping="NoWrap"/>
-                                <TextBlock Style="{StaticResource DarkTextStyle}" Text="ПТ" HorizontalAlignment="Center" TextWrapping="NoWrap"/>
-                                <TextBlock Style="{StaticResource DarkTextStyle}" Text="СБ" HorizontalAlignment="Center" TextWrapping="NoWrap" Foreground="{StaticResource ImportantColor}"/>
-                                <TextBlock Style="{StaticResource DarkTextStyle}" Text="ВС" HorizontalAlignment="Center" TextWrapping="NoWrap" Foreground="{StaticResource ImportantColor}"/>
+                                <TextBlock Style="{DynamicResource DarkTextStyle}" Text="ПН" HorizontalAlignment="Center" TextWrapping="NoWrap"/>
+                                <TextBlock Style="{DynamicResource DarkTextStyle}" Text="ВТ" HorizontalAlignment="Center" TextWrapping="NoWrap"/>
+                                <TextBlock Style="{DynamicResource DarkTextStyle}" Text="СР" HorizontalAlignment="Center" TextWrapping="NoWrap"/>
+                                <TextBlock Style="{DynamicResource DarkTextStyle}" Text="ЧТ" HorizontalAlignment="Center" TextWrapping="NoWrap"/>
+                                <TextBlock Style="{DynamicResource DarkTextStyle}" Text="ПТ" HorizontalAlignment="Center" TextWrapping="NoWrap"/>
+                                <TextBlock Style="{DynamicResource DarkTextStyle}" Text="СБ" HorizontalAlignment="Center" TextWrapping="NoWrap" Foreground="{DynamicResource ImportantColor}"/>
+                                <TextBlock Style="{DynamicResource DarkTextStyle}" Text="ВС" HorizontalAlignment="Center" TextWrapping="NoWrap" Foreground="{DynamicResource ImportantColor}"/>
                             </UniformGrid>
                             <UniformGrid Rows="6" Columns="7" IsItemsHost="True"/>
                         </StackPanel>
@@ -1031,7 +1075,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{StaticResource BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="{StaticResource BorderCornerRadiusMini}" Margin="2">
+                    <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{DynamicResource BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Margin="2">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="MouseOver">
@@ -1049,14 +1093,14 @@
                                     <Storyboard>
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectedBorder" Storyboard.TargetProperty="BorderBrush">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource BorderDarkColor}"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{DynamicResource BorderDarkColor}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="SelectedBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{StaticResource BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="{StaticResource BorderCornerRadiusMini}" Margin="-2">
+                        <Border x:Name="SelectedBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{DynamicResource BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="{DynamicResource BorderCornerRadiusMini}" Margin="-2">
                             <ContentPresenter/>
                         </Border>
                     </Border>
@@ -1073,12 +1117,12 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
-        <Setter Property="Background" Value="{StaticResource InputElementLightColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderDarkColor}"/>
+        <Setter Property="Background" Value="{DynamicResource InputElementLightColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderDarkColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ItemsControl}">
-                    <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMini}">
+                    <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{DynamicResource BorderThickness}" CornerRadius="{DynamicResource BorderCornerRadiusMini}">
                         <ScrollViewer x:Name="ScrollViewer" Margin="0" Focusable="False">
                             <VirtualizingStackPanel Margin="2" IsItemsHost="True" />
                         </ScrollViewer>
@@ -1283,7 +1327,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type xctk:ButtonSpinner}">
-                    <Border x:Name="Border" SnapsToDevicePixels="True" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{StaticResource BorderCornerRadiusMax}">
+                    <Border x:Name="Border" SnapsToDevicePixels="True" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{DynamicResource BorderCornerRadiusMax}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition x:Name="firstContentColumn" Width="*" />
@@ -1306,7 +1350,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" Value="{StaticResource LightBorderBrush}" />
+                            <Setter Property="Background" Value="{DynamicResource LightBorderBrush}" />
                         </Trigger>
                         <Trigger Property="ButtonSpinnerLocation" Value="Left">
                             <Setter TargetName="firstContentColumn" Property="Width" Value="Auto" />
@@ -1339,14 +1383,14 @@
                                             <VisualState x:Name="Pressed">
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ColorBorder" Storyboard.TargetProperty="BorderBrush">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BorderLightColor}"/>
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource BorderLightColor}"/>
                                                     </ObjectAnimationUsingKeyFrames>
                                                 </Storyboard>
                                             </VisualState>
                                             <VisualState x:Name="Disabled">
                                                 <Storyboard>
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ColorBorder" Storyboard.TargetProperty="BorderBrush">
-                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BorderLightColor}"/>
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource BorderLightColor}"/>
                                                     </ObjectAnimationUsingKeyFrames>
                                                 </Storyboard>
                                             </VisualState>
@@ -1357,7 +1401,7 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <Border x:Name="ColorBorder" BorderBrush="{StaticResource BorderDarkColor}" BorderThickness="{StaticResource BorderThickness}" CornerRadius="2" Background="Transparent" Padding="1" SnapsToDevicePixels="True">
+                                        <Border x:Name="ColorBorder" BorderBrush="{DynamicResource BorderDarkColor}" BorderThickness="{DynamicResource BorderThickness}" CornerRadius="2" Background="Transparent" Padding="1" SnapsToDevicePixels="True">
                                             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                         </Border>
                                         <ToggleButton Margin="5,0,0,0" Width="25" Grid.Column="1" Style="{StaticResource UpDownToggleButton}" IsTabStop="{TemplateBinding IsTabStop}" IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:ColorPicker}}}">
@@ -1368,7 +1412,7 @@
                                                     </Binding.Converter>
                                                 </Binding>
                                             </ToggleButton.Visibility>
-                                            <Path x:Name="Arrow" Data="{StaticResource DownArrovGeomertry}" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{StaticResource BorderLightColor}" StrokeThickness="2" VerticalAlignment="Center"/>
+                                            <Path x:Name="Arrow" Data="{StaticResource DownArrovGeomertry}" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{DynamicResource BorderLightColor}" StrokeThickness="2" VerticalAlignment="Center"/>
                                         </ToggleButton>
                                     </Grid>
                                 </Grid>
@@ -1406,7 +1450,7 @@
                             </Grid>
                         </ToggleButton>
                         <Popup x:Name="PART_ColorPickerPalettePopup" AllowsTransparency="True" Focusable="False" IsOpen="{Binding IsChecked, ElementName=PART_ColorPickerToggleButton}" PopupAnimation="Fade" StaysOpen="False" Placement="Mouse" Width="{TemplateBinding MaxDropDownWidth}">
-                            <Border BorderBrush="{StaticResource BorderDarkColor}" BorderThickness="{StaticResource BorderThickness}" Background="{StaticResource BackgroundStandartColor}" CornerRadius="{StaticResource BorderCornerRadiusMax}" Padding="4">
+                            <Border BorderBrush="{DynamicResource BorderDarkColor}" BorderThickness="{DynamicResource BorderThickness}" Background="{DynamicResource BackgroundStandartColor}" CornerRadius="{DynamicResource BorderCornerRadiusMax}" Padding="4">
                                 <Grid x:Name="_colorCanvasHost">
                                     <Grid.Width>
                                         <Binding ConverterParameter="-18" Path="MaxDropDownWidth" RelativeSource="{RelativeSource TemplatedParent}">
@@ -1449,9 +1493,9 @@
     </Style>
     <!--#region UpDown-->
     <Style TargetType="{x:Type xctk:ByteUpDown}">
-        <Setter Property="Background" Value="{StaticResource LightBorderBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource DarkBorderBrush}" />
-        <Setter Property="BorderThickness" Value="{StaticResource BorderThickness}" />
+        <Setter Property="Background" Value="{DynamicResource LightBorderBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource DarkBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource BorderThickness}" />
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
