@@ -2,6 +2,7 @@
 Imports IRISCalculator.Workers
 
 Class MainPage
+#Region "Работа с окном"
     ''' <summary>
     ''' Загрузка окна
     ''' </summary>
@@ -17,18 +18,8 @@ Class MainPage
         RemoveHandler My.AppCore.UpdateInterface, AddressOf App_UpdateInterface
         NavigationService.Refresh()
     End Sub
-    ''' <summary>
-    ''' Происходит при нажатии правой кнопки мыши по заголовку вкладки
-    ''' </summary>
-    Private Async Sub GlobalTabItem_MouseRightButtonUp(sender As Border, e As MouseButtonEventArgs)
-        'Если это стартовая страница, то выходим из процедуры
-        If CType(sender.Tag, GlobalPage).IsStartPage Then Exit Sub
-        'Справшиваем уверен ли пользователь, что хочет закрыть вкладку и закрываем, если да
-        If Await My.MessageWorker.ShowMessage("Вы уверены. что хотите закрыть расчет?",, MessageWorker.GetStandartYesNoOptions) Then
-            My.AppCore.GlobalPagesList.Remove(sender.Tag)
-            OrderTabControl.SelectedIndex = 0
-        End If
-    End Sub
+#End Region
+#Region "Добавление новых вкладок"
     ''' <summary>
     ''' Происходит при нажатии кнопки добавления нового расчета
     ''' </summary>
@@ -53,6 +44,21 @@ Class MainPage
         'Переходим к последней добавленной странице
         OrderTabControl.SelectedIndex = My.AppCore.GlobalPagesList.Count - 1
     End Sub
+#End Region
+#Region "Работа с вкладками (закрытие, смена заголовка)"
+    ''' <summary>
+    ''' Происходит при нажатии правой кнопки мыши по заголовку вкладки
+    ''' </summary>
+    Private Async Sub GlobalTabItem_MouseRightButtonUp(sender As Border, e As MouseButtonEventArgs)
+        'Если это стартовая страница, то выходим из процедуры
+        If CType(sender.Tag, GlobalPage).IsStartPage Then Exit Sub
+        'Справшиваем уверен ли пользователь, что хочет закрыть вкладку и закрываем, если да
+        If Await My.MessageWorker.ShowMessage("Вы уверены. что хотите закрыть расчет?",, MessageWorker.GetStandartYesNoOptions) Then
+            My.AppCore.GlobalPagesList.Remove(sender.Tag)
+            OrderTabControl.SelectedIndex = 0
+        End If
+    End Sub
+
     ''' <summary>
     ''' Переход в режим редактирования заголовка
     ''' </summary>
@@ -87,4 +93,5 @@ Class MainPage
             HeaderTextBox_LostFocus()
         End If
     End Sub
+#End Region
 End Class

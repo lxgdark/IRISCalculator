@@ -69,7 +69,7 @@
                 <RadioButton Style="{StaticResource IconRadioButtonStyle}" IsChecked="{Binding CurentSelectedPage, Mode=TwoWay, Converter={local:EnumToBooleanConverter}, ConverterParameter=0}" Content="/Pict/Buttons/Home.png"/>
                 <StackPanel Grid.Row="1" Margin="0,15,0,0" IsEnabled="{Binding SynchronizationStatus, Converter={local:EnumToBooleanConverter}, ConverterParameter=1}">
                     <Button x:Name="AddOrder" Style="{StaticResource IconButtonStyle}" Click="AddOrder_Click" Content="/Pict/Buttons/Plus.png" ToolTip="Добавить новый расчет"/>
-                    <Button x:Name="AddPresetOrder" Style="{StaticResource IconButtonStyle}" Click="AddPresetOrder_Click" Content="/Pict/Buttons/PlusPreset.png" ToolTip="Добавить новый расчет на основе шаблона"/>
+                    <!--<Button x:Name="AddPresetOrder" Style="{StaticResource IconButtonStyle}" Click="AddPresetOrder_Click" Content="/Pict/Buttons/PlusPreset.png" ToolTip="Добавить новый расчет на основе шаблона"/>-->
                 </StackPanel>
                 <StackPanel Grid.Row="2">
                     <RadioButton GroupName="Theme" Style="{StaticResource IconRadioButtonStyle}" IsChecked="{Binding CurentSelectedPage, Mode=TwoWay, Converter={local:EnumToBooleanConverter}, ConverterParameter=4}" Content="/Pict/Buttons/Theme.png" ToolTip="Визуальный стиль приложения"/>

@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <!--Левая часть окна расчетов-->
-            <Grid>
+            <Grid Margin="0,0,5,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
@@ -28,36 +28,37 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                <ListBox Style="{StaticResource GroupedListBox}" VirtualizingPanel.IsVirtualizingWhenGrouping="True" ItemContainerStyle="{DynamicResource SelectableListBoxItem}" Grid.Row="1" ItemsSource="{Binding Source={StaticResource CatalogSource}}">
+                    <ListBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                <StackPanel>
+                                                    <Border Margin="0,8,0,8" Background="{DynamicResource BackgroundStandartColor}" Tag="{Binding}" Padding="5" CornerRadius="{DynamicResource BorderCornerRadiusMax}">
+                                                        <TextBlock HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Text="{Binding Name}"/>
+                                                    </Border>
+                                                    <Border CornerRadius="{DynamicResource BorderCornerRadiusMini}">
+                                                        <ItemsPresenter HorizontalAlignment="Stretch"/>
+                                                    </Border>
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </ListBox.GroupStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type dclass:CatalogItem}">
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
             </Grid>
-            <ListBox Style="{StaticResource GroupedListBox}" VirtualizingPanel.IsVirtualizingWhenGrouping="True" ItemContainerStyle="{DynamicResource SelectableListBoxItem}" Grid.Row="1" ItemsSource="{Binding Source={StaticResource CatalogSource}}">
-                <ListBox.GroupStyle>
-                    <GroupStyle>
-                        <GroupStyle.ContainerStyle>
-                            <Style TargetType="{x:Type GroupItem}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type GroupItem}">
-                                            <StackPanel>
-                                                <Border Margin="0,8,0,8" Background="{DynamicResource BackgroundStandartColor}" Tag="{Binding}" Padding="5" CornerRadius="{DynamicResource BorderCornerRadiusMax}">
-                                                    <TextBlock HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Text="{Binding Name}"/>
-                                                </Border>
-                                                <Border CornerRadius="{DynamicResource BorderCornerRadiusMini}">
-                                                    <ItemsPresenter HorizontalAlignment="Stretch"/>
-                                                </Border>
-                                            </StackPanel>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GroupStyle.ContainerStyle>
-                    </GroupStyle>
-                </ListBox.GroupStyle>
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="{x:Type dclass:CatalogItem}">
-                        <TextBlock Text="{Binding Name}"></TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
         </Grid>
     </Border>
 </Page>

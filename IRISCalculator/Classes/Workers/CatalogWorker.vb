@@ -12,12 +12,21 @@ Namespace Workers
 
 #End Region
 #Region "Процедуры и функции"
+        ''' <summary>
+        ''' Вызывается на старте. Обычно здесь происходят процедуры инициализации и синхронизации.
+        ''' Может вызывать во время работы для повторной синхронизации
+        ''' </summary>
         Public Overrides Async Function StartActions(app As AppCore) As Task(Of Boolean)
+            'Если файл каталога найден...
             If IO.File.Exists(app.LocalSettings.CatalogPath) Then
+                'Очищаем каталог типографии
                 app.CatalogList.Clear()
+                'Запрашиваем данные каталога из файла с помощью асинхронной функции
+                'И проходим по полученному списку
                 For Each l In Await Task.Run(Function()
                                                  Return ExelParser(app)
                                              End Function)
+                    'Добавляем позиции в глобальный каталог в памяти
                     app.CatalogList.Add(l)
                 Next
                 Return True
@@ -26,6 +35,11 @@ Namespace Workers
             End If
         End Function
 #Region "Внутренние"
+        ''' <summary>
+        ''' Парсит Exel файл и извлекает из него позиции каталога
+        ''' </summary>
+        ''' <param name="app"></param>
+        ''' <returns></returns>
         Private Function ExelParser(app As AppCore) As List(Of CatalogItem)
             Dim result As New List(Of CatalogItem)
             Try
