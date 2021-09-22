@@ -28,7 +28,13 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ListBox Style="{StaticResource GroupedListBox}" VirtualizingPanel.IsVirtualizingWhenGrouping="True" ItemContainerStyle="{DynamicResource SelectableListBoxItem}" Grid.Row="1" ItemsSource="{Binding Source={StaticResource CatalogSource}}">
+                <!--#region Поиск по каталогу-->
+                <TextBox Name="FindTextBox" TextChanged="FindTextBox_TextChanged" InputLanguageManager.InputLanguage="ru-RU" Margin="0,0,5,0" ToolTip="Введите текст для поиска оп каталогу"/>
+                <Button x:Name="ClearFindTextButton" Style="{StaticResource IconButtonStyle}" Grid.Column="1" Click="ClearFindTextButton_Click" Content="/Pict/Buttons/Close.png" ToolTip="Очистить поле поиска"/>
+                <!--#endregion-->
+                <!--#region Каталог-->
+                <ToggleButton Style="{DynamicResource AvatarToggleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Margin="5,17,0,0" Panel.ZIndex="1" Content="/Pict/Buttons/Information.png" IsChecked="{Binding IsShowCatakogDopInfo}"/>
+                <ListBox Style="{StaticResource GroupedListBox}" VirtualizingPanel.IsVirtualizingWhenGrouping="True" ItemContainerStyle="{DynamicResource SelectableListBoxItem}" Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource CatalogSource}}" MouseDoubleClick="CatalogListBox_MouseDoubleClick">
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.ContainerStyle>
@@ -38,7 +44,7 @@
                                             <ControlTemplate TargetType="{x:Type GroupItem}">
                                                 <StackPanel>
                                                     <Border Margin="0,8,0,8" Background="{DynamicResource BackgroundStandartColor}" Tag="{Binding}" Padding="5" CornerRadius="{DynamicResource BorderCornerRadiusMax}">
-                                                        <TextBlock HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Text="{Binding Name}"/>
+                                                        <TextBlock HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Text="{Binding Name, Converter={local:CataloGrouCodeToNameConverter}}"/>
                                                     </Border>
                                                     <Border CornerRadius="{DynamicResource BorderCornerRadiusMini}">
                                                         <ItemsPresenter HorizontalAlignment="Stretch"/>
@@ -53,12 +59,37 @@
                     </ListBox.GroupStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type dclass:CatalogItem}">
-                            <TextBlock Text="{Binding Name}"></TextBlock>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Page}, Path=DataContext.IsShowCatakogDopInfo, Converter={local:BooleanToVisibleConverter}}">
+                                    <TextBlock FontSize="11">Код: <Run Text="{Binding Code}"/></TextBlock>
+                                    <TextBlock FontSize="12" Margin="15,0,0,0">Себес: <Run Text="{Binding CostPrice, StringFormat=C, ConverterCulture=RU-ru}"/></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
+                <!--#endregion--> 
             </Grid>
+            <!--Правая часть расчетов-->
+            <Grid x:Name="CalculatePanel" Margin="5,0,0,0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Состав изделия">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl>
+                            
+                        </ItemsControl>
+                    </ScrollViewer>
+                </GroupBox>
+            </Grid>
+            <!--#region Всплывающие окна-->
+            <Popup Name="PaperParametrPopup" StaysOpen="False" AllowsTransparency="True" PlacementTarget="{Binding ElementName=CalculatePanel}" Placement="Center" Height="{Binding ElementName=CalculatePanel, Path=ActualHeight}" Width="{Binding ElementName=CalculatePanel, Path=ActualWidth}" PopupAnimation="Slide">
+                <Frame Name="PaperParametrFrame" NavigationUIVisibility="Hidden" Source="/IRISCalculator;component/Pages/PopupPages/PaperParametrPopupPage.xaml"/>
+            </Popup>
+            <!--#endregion--> 
         </Grid>
     </Border>
 </Page>

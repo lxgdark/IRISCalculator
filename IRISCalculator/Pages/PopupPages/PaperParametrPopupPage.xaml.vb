@@ -1,0 +1,3 @@
+﻿Class PaperParametrPopupPage
+
+End Class

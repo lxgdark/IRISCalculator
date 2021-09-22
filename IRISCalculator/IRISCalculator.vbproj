@@ -16,6 +16,7 @@
     <None Remove="Pict\Buttons\Download.png" />
     <None Remove="Pict\Buttons\Edit.png" />
     <None Remove="Pict\Buttons\Home.png" />
+    <None Remove="Pict\Buttons\Information.png" />
     <None Remove="Pict\Buttons\Links.png" />
     <None Remove="Pict\Buttons\Magnet.png" />
     <None Remove="Pict\Buttons\MessageLinks.png" />
@@ -37,6 +38,7 @@
     <None Remove="Pict\Buttons\Upload.png" />
     <None Remove="Pict\Buttons\UserFile.png" />
     <None Remove="Pict\Buttons\WorkCalendar.png" />
+    <None Remove="Pict\Buttons\Сalculator.png" />
     <None Remove="Pict\Global\Avatar.png" />
     <None Remove="Pict\Global\Close.png" />
     <None Remove="Pict\Global\Maximaze.png" />
@@ -59,6 +61,7 @@
     <Resource Include="Pict\Buttons\Download.png" />
     <Resource Include="Pict\Buttons\Edit.png" />
     <Resource Include="Pict\Buttons\Home.png" />
+    <Resource Include="Pict\Buttons\Information.png" />
     <Resource Include="Pict\Buttons\Links.png" />
     <Resource Include="Pict\Buttons\Magnet.png" />
     <Resource Include="Pict\Buttons\MessageLinks.png" />
@@ -80,6 +83,7 @@
     <Resource Include="Pict\Buttons\Upload.png" />
     <Resource Include="Pict\Buttons\UserFile.png" />
     <Resource Include="Pict\Buttons\WorkCalendar.png" />
+    <Resource Include="Pict\Buttons\Сalculator.png" />
     <Resource Include="Pict\Logo\ConnectLogo1.png" />
     <Resource Include="Pict\Logo\ConnectLogo2.png" />
     <Resource Include="Pict\Logo\Logo.png" />

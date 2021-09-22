@@ -10,6 +10,7 @@ Namespace DataClasses
         Private costPriceValue As Double = 0
         Private unitValue As String = ""
         Private groupCodeValue As String = ""
+        Private itemCategoryValue As ItemCategoryEnum = ItemCategoryEnum.Paper
 #End Region
         ''' <summary>
         ''' Наименование наменклатуры
@@ -89,6 +90,31 @@ Namespace DataClasses
                 OnPropertyChanged(NameOf(GroupCode))
             End Set
         End Property
+        ''' <summary>
+        ''' Категория текущей позиции (бумага, услуга, позиция постпечатки...)
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property ItemCategory As ItemCategoryEnum
+            Get
+                Return itemCategoryValue
+            End Get
+            Set(value As ItemCategoryEnum)
+                itemCategoryValue = value
+                OnPropertyChanged(NameOf(ItemCategory))
+            End Set
+        End Property
+#End Region
+#Region "Перечеслители и типы"
+        Public Enum ItemCategoryEnum
+            ''' <summary>
+            ''' Бумага (дизайнерская, синтетика, самоклейка -  то есть все на чем можно печатать)
+            ''' </summary>
+            Paper = 0
+            ''' <summary>
+            ''' Услуга
+            ''' </summary>
+            Service = 1
+        End Enum
 #End Region
     End Class
 End Namespace
