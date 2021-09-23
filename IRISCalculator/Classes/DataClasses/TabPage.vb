@@ -82,22 +82,9 @@ Namespace DataClasses
 #End Region
 #Region "Свойства"
 #Region "Внутренние"
-        Private isShowCatakogDopInfoValue As Boolean = False
 
 #End Region
-        ''' <summary>
-        ''' Определяет показывать ли дополнительные данные в списке каталога
-        ''' </summary>
-        ''' <returns></returns>
-        Public Property IsShowCatakogDopInfo As Boolean
-            Get
-                Return isShowCatakogDopInfoValue
-            End Get
-            Set(value As Boolean)
-                isShowCatakogDopInfoValue = value
-                OnPropertyChanged(NameOf(IsShowCatakogDopInfo))
-            End Set
-        End Property
+
 #End Region
     End Class
 End Namespace

@@ -107,13 +107,17 @@ Namespace DataClasses
 #Region "Перечеслители и типы"
         Public Enum ItemCategoryEnum
             ''' <summary>
+            ''' Категория неопеределена или не задана
+            ''' </summary>
+            None = 0
+            ''' <summary>
             ''' Бумага (дизайнерская, синтетика, самоклейка -  то есть все на чем можно печатать)
             ''' </summary>
-            Paper = 0
+            Paper = 1
             ''' <summary>
             ''' Услуга
             ''' </summary>
-            Service = 1
+            Service = 2
         End Enum
 #End Region
     End Class

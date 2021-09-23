@@ -61,7 +61,7 @@ Namespace Workers
                             catalogItem.CostPrice = IIf(TypeOf catalogSheet.Cell(cell.WorksheetRow.RowNumber, 4).Value Is Double, catalogSheet.Cell(cell.WorksheetRow.RowNumber, 4).Value, 0)
                             catalogItem.Unit = catalogSheet.Cell(cell.WorksheetRow.RowNumber, 5).Value
                             catalogItem.GroupCode = catalogSheet.Cell(cell.WorksheetRow.RowNumber, 6).Value
-                            catalogItem.ItemCategory = GetItemCategory(catalogItem.GroupCode)
+                            catalogItem.ItemCategory = CatalogGroupNameWorker.GetItemCategory(catalogItem.GroupCode)
                             If catalogItem.CostPrice = 0 Then catalogItem.CostPrice = catalogItem.Price
                             result.Add(catalogItem)
                         End If
@@ -71,22 +71,6 @@ Namespace Workers
                 Return New List(Of CatalogItem)
             End Try
             Return result
-        End Function
-
-        Private Function GetItemCategory(groupCode As String) As CatalogItem.ItemCategoryEnum
-            Dim str As String() = groupCode.ToString.Split("$", StringSplitOptions.RemoveEmptyEntries)
-            If str.Length = 3 Then
-                Dim result As CatalogItem.ItemCategoryEnum = CatalogItem.ItemCategoryEnum.Paper
-                Select Case str(1)
-                    Case "PAPER"
-                        result = CatalogItem.ItemCategoryEnum.Paper
-                    Case "SERVICE"
-                        result = CatalogItem.ItemCategoryEnum.Service
-                End Select
-                Return result
-            Else
-                Return CatalogItem.ItemCategoryEnum.Service
-            End If
         End Function
 #End Region
 #End Region

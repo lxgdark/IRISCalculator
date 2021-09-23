@@ -1,17 +1,7 @@
 ﻿<Page x:Class="OrderPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:IRISCalculator" xmlns:dclass="clr-namespace:IRISCalculator.DataClasses" 
       DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="Page_Loaded">
-    <Page.Resources>
-        <CollectionViewSource x:Key="CatalogSource" Source="{Binding Source={StaticResource AppCore}, Path=CatalogList}">
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="GroupCode"/>
-            </CollectionViewSource.GroupDescriptions>
-            <CollectionViewSource.SortDescriptions>
-                <cm:SortDescription PropertyName="GroupCode" Direction="Ascending"/>
-                <cm:SortDescription PropertyName="Name" Direction="Ascending"/>
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
-    </Page.Resources>
+
     <Border CornerRadius="4" Background="{DynamicResource BackgroundLightColor}" Padding="6">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -19,77 +9,28 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <!--Левая часть окна расчетов-->
-            <Grid Margin="0,0,5,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <!--#region Поиск по каталогу-->
-                <TextBox Name="FindTextBox" TextChanged="FindTextBox_TextChanged" InputLanguageManager.InputLanguage="ru-RU" Margin="0,0,5,0" ToolTip="Введите текст для поиска оп каталогу"/>
-                <Button x:Name="ClearFindTextButton" Style="{StaticResource IconButtonStyle}" Grid.Column="1" Click="ClearFindTextButton_Click" Content="/Pict/Buttons/Close.png" ToolTip="Очистить поле поиска"/>
-                <!--#endregion-->
-                <!--#region Каталог-->
-                <ToggleButton Style="{DynamicResource AvatarToggleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Margin="5,17,0,0" Panel.ZIndex="1" Content="/Pict/Buttons/Information.png" IsChecked="{Binding IsShowCatakogDopInfo}"/>
-                <ListBox Style="{StaticResource GroupedListBox}" VirtualizingPanel.IsVirtualizingWhenGrouping="True" ItemContainerStyle="{DynamicResource SelectableListBoxItem}" Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource CatalogSource}}" MouseDoubleClick="CatalogListBox_MouseDoubleClick">
-                    <ListBox.GroupStyle>
-                        <GroupStyle>
-                            <GroupStyle.ContainerStyle>
-                                <Style TargetType="{x:Type GroupItem}">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                <StackPanel>
-                                                    <Border Margin="0,8,0,8" Background="{DynamicResource BackgroundStandartColor}" Tag="{Binding}" Padding="5" CornerRadius="{DynamicResource BorderCornerRadiusMax}">
-                                                        <TextBlock HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Text="{Binding Name, Converter={local:CataloGrouCodeToNameConverter}}"/>
-                                                    </Border>
-                                                    <Border CornerRadius="{DynamicResource BorderCornerRadiusMini}">
-                                                        <ItemsPresenter HorizontalAlignment="Stretch"/>
-                                                    </Border>
-                                                </StackPanel>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </GroupStyle.ContainerStyle>
-                        </GroupStyle>
-                    </ListBox.GroupStyle>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type dclass:CatalogItem}">
-                            <StackPanel>
-                                <TextBlock Text="{Binding Name}"/>
-                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Page}, Path=DataContext.IsShowCatakogDopInfo, Converter={local:BooleanToVisibleConverter}}">
-                                    <TextBlock FontSize="11">Код: <Run Text="{Binding Code}"/></TextBlock>
-                                    <TextBlock FontSize="12" Margin="15,0,0,0">Себес: <Run Text="{Binding CostPrice, StringFormat=C, ConverterCulture=RU-ru}"/></TextBlock>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <!--#endregion--> 
-            </Grid>
+            <GroupBox Margin="0,0,5,0" Header="Состав заказа">
+                <Grid >
+                    <StackPanel>
+                        <Button Click="Button_Click" Content="Бумага"/>
+                        <Button Click="Button_Click_1" Content="Услуги"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
             <!--Правая часть расчетов-->
-            <Grid x:Name="CalculatePanel" Margin="5,0,0,0" Grid.Column="1">
+            <GroupBox x:Name="CalculatePanel" Margin="5,0,0,0" Grid.Column="1" Header="Расчет тиража">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <GroupBox Header="Состав изделия">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <ItemsControl>
-                            
-                        </ItemsControl>
-                    </ScrollViewer>
-                </GroupBox>
             </Grid>
+            </GroupBox>
             <!--#region Всплывающие окна-->
-            <Popup Name="PaperParametrPopup" StaysOpen="False" AllowsTransparency="True" PlacementTarget="{Binding ElementName=CalculatePanel}" Placement="Center" Height="{Binding ElementName=CalculatePanel, Path=ActualHeight}" Width="{Binding ElementName=CalculatePanel, Path=ActualWidth}" PopupAnimation="Slide">
-                <Frame Name="PaperParametrFrame" NavigationUIVisibility="Hidden" Source="/IRISCalculator;component/Pages/PopupPages/PaperParametrPopupPage.xaml"/>
+            <Popup Name="CatalogItemSelectionPopup" StaysOpen="False" AllowsTransparency="True" PlacementTarget="{Binding ElementName=CalculatePanel}" Placement="Center" Height="{Binding ElementName=CalculatePanel, Path=ActualHeight}" Width="{Binding ElementName=CalculatePanel, Path=ActualWidth}" PopupAnimation="Slide">
+                <Frame Name="CatalogItemSelectionFrame" NavigationUIVisibility="Hidden" Source="/IRISCalculator;component/Pages/PopupPages/CatalogItemSelectionPopupPage.xaml"/>
             </Popup>
-            <!--#endregion--> 
+            <!--#endregion-->
         </Grid>
     </Border>
 </Page>
