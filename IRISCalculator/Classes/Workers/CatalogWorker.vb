@@ -29,7 +29,13 @@ Namespace Workers
                     'Добавляем позиции в глобальный каталог в памяти
                     app.CatalogList.Add(l)
                 Next
-                Return True
+                'Если каталог не пустой собщаем, что все прошло гладко
+                If app.CatalogList.Count > 0 Then
+                    Return True
+                Else
+                    'В противном случае возвращаем ошибку
+                    Return False
+                End If
             Else
                 Return False
             End If
@@ -54,20 +60,31 @@ Namespace Workers
                     If cell.WorksheetColumn.ColumnNumber = 1 Then
                         'Если третья колонка в данном ряду не пустая, а так же не имеет значение "Код", значит этот ряд описывает позицию каталога
                         If catalogSheet.Cell(cell.WorksheetRow.RowNumber, 3).Value <> "" And catalogSheet.Cell(cell.WorksheetRow.RowNumber, 3).Value <> "Код" Then
+                            'Определяем переменную позиции каталога
                             Dim catalogItem As New CatalogItem
+                            'Имя позиции
                             catalogItem.Name = cell.Value
+                            'Цена позиции (задается если она не пустая и имеет значение типа Double)
                             catalogItem.Price = IIf(TypeOf catalogSheet.Cell(cell.WorksheetRow.RowNumber, 2).Value Is Double, catalogSheet.Cell(cell.WorksheetRow.RowNumber, 2).Value, 0)
+                            'Код позиции
                             catalogItem.Code = catalogSheet.Cell(cell.WorksheetRow.RowNumber, 3).Value
+                            'Себестоимость позиции (задается если она не пустая и имеет значение типа Double)
                             catalogItem.CostPrice = IIf(TypeOf catalogSheet.Cell(cell.WorksheetRow.RowNumber, 4).Value Is Double, catalogSheet.Cell(cell.WorksheetRow.RowNumber, 4).Value, 0)
+                            'Единица измерения
                             catalogItem.Unit = catalogSheet.Cell(cell.WorksheetRow.RowNumber, 5).Value
+                            'Код раздела
                             catalogItem.GroupCode = catalogSheet.Cell(cell.WorksheetRow.RowNumber, 6).Value
+                            'Категория позиции (вычесленная на основе кода группы)
                             catalogItem.ItemCategory = CatalogGroupNameWorker.GetItemCategory(catalogItem.GroupCode)
+                            'Если себестоимость ровна нулю (так бывает у услуг), то задаем в качестве себестоимость цену продажи (такой лайфхак для установки себестоимости услуг)
                             If catalogItem.CostPrice = 0 Then catalogItem.CostPrice = catalogItem.Price
+                            'Добавляем позицию в общий список
                             result.Add(catalogItem)
                         End If
                     End If
                 Next
             Catch ex As Exception
+                'Если была ошибка, возвращаем пустой каталог
                 Return New List(Of CatalogItem)
             End Try
             Return result

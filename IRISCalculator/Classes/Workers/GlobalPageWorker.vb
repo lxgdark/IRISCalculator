@@ -1,18 +1,17 @@
-﻿Imports System.ComponentModel
+﻿Imports IRISCalculator.DataClasses
 Imports WPFProjectCore
-
-Namespace DataClasses
+Namespace Workers
     ''' <summary>
-    ''' Класс описывающий страницы главного TabControl
+    ''' Класс для работы со страницами главного TabControl
     ''' </summary>
-    Public Class GlobalPage
-        Inherits NotifyProperty_Base(Of GlobalPage)
+    Public Class GlobalPageWorker
+        Inherits NotifyProperty_Base(Of GlobalPageWorker)
 #Region "Свойства"
 #Region "Внутренние"
         Private HeaderValue As String = ""
         Private IsStartPageValue As Boolean = True
         Private isHeaderEditStateValue As Boolean = False
-        Private OrderObjectValue As Page = New Order
+        Private OrderObjectValue As Page = New StandartOrder
 #End Region
         ''' <summary>
         ''' Заголовок вкладки
@@ -23,7 +22,11 @@ Namespace DataClasses
                 Return HeaderValue
             End Get
             Set(value As String)
-                HeaderValue = value
+                If value = "" Then
+                    HeaderValue = OrderObject.Title
+                Else
+                    HeaderValue = value
+                End If
                 OnPropertyChanged(NameOf(Header))
             End Set
         End Property
@@ -66,25 +69,6 @@ Namespace DataClasses
                 OnPropertyChanged(NameOf(IsHeaderEditState))
             End Set
         End Property
-#End Region
-    End Class
-    ''' <summary>
-    ''' Класс описывающий заказ
-    ''' </summary>
-    Public Class Order
-        Inherits OrderPage
-        Implements INotifyPropertyChanged
-#Region "Реализация интерфейса INotifyPropertyChanged"
-        Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-        Public Shadows Sub OnPropertyChanged(PropertyName As String)
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(PropertyName))
-        End Sub
-#End Region
-#Region "Свойства"
-#Region "Внутренние"
-
-#End Region
-
 #End Region
     End Class
 End Namespace

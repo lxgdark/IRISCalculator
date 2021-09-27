@@ -109,15 +109,15 @@ Namespace DataClasses
             ''' <summary>
             ''' Категория неопеределена или не задана
             ''' </summary>
-            None = 0
+            NONE = 0
             ''' <summary>
             ''' Бумага (дизайнерская, синтетика, самоклейка -  то есть все на чем можно печатать)
             ''' </summary>
-            Paper = 1
+            PAPER = 1
             ''' <summary>
-            ''' Услуга
+            ''' Услуга печати
             ''' </summary>
-            Service = 2
+            SERVICEPRINT = 2
         End Enum
 #End Region
     End Class

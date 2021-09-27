@@ -1,7 +1,6 @@
 ﻿Imports IRISCalculator.DataClasses
 Class CatalogItemSelectionPopupPage
     Dim CatalogListSource As CollectionViewSource
-    Public Event CatalogItemSelect(citem As CatalogItem)
 #Region "Загрузка окна"
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
         'Определяем ссылку на список каталога, для фильтрации
@@ -96,8 +95,7 @@ Class CatalogItemSelectionPopupPage
         If CatalogListBox.SelectedIndex > -1 Then
             'Удаляем ссылку на фильтрацию (для будущих открытий окна)
             RemoveHandler CatalogListSource.Filter, AddressOf FilterCatalog
-            'Вызываем событие оповещающее родительское окно, сто элемент выбран
-            RaiseEvent CatalogItemSelect(CatalogListBox.SelectedItem)
+
             'Очищаем поле поиска
             ClearFindTextButton_Click()
         End If

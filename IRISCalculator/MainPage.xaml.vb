@@ -27,7 +27,7 @@ Class MainPage
         'Переходим на главную страницу
         My.AppCore.CurentSelectedPage = AppCore.CurentSelectedPageEnum.Home
         'Добавляем в глобальный список страниц новую
-        My.AppCore.GlobalPagesList.Add(New DataClasses.GlobalPage With {.Header = "Новый расчет", .IsStartPage = False})
+        My.AppCore.GlobalPagesList.Add(New GlobalPageWorker With {.Header = "Новый расчет", .IsStartPage = False})
         'Переходим к последней добавленной странице
         OrderTabControl.SelectedIndex = My.AppCore.GlobalPagesList.Count - 1
     End Sub
@@ -40,7 +40,7 @@ Class MainPage
         'Переходим на главную страницу
         My.AppCore.CurentSelectedPage = AppCore.CurentSelectedPageEnum.Home
         'Добавляем в глобальный список страниц новую страницу работы с шаблонами расчетов
-        My.AppCore.GlobalPagesList.Add(New DataClasses.GlobalPage With {.Header = "Новый расчет по шаблону", .IsStartPage = False, .OrderObject = New OrderPresetPage})
+        My.AppCore.GlobalPagesList.Add(New GlobalPageWorker With {.Header = "Новый расчет по шаблону", .IsStartPage = False, .OrderObject = New OrderPresetPage})
         'Переходим к последней добавленной странице
         OrderTabControl.SelectedIndex = My.AppCore.GlobalPagesList.Count - 1
     End Sub
@@ -51,7 +51,7 @@ Class MainPage
     ''' </summary>
     Private Async Sub GlobalTabItem_MouseRightButtonUp(sender As Border, e As MouseButtonEventArgs)
         'Если это стартовая страница, то выходим из процедуры
-        If CType(sender.Tag, GlobalPage).IsStartPage Then Exit Sub
+        If CType(sender.Tag, GlobalPageWorker).IsStartPage Then Exit Sub
         'Справшиваем уверен ли пользователь, что хочет закрыть вкладку и закрываем, если да
         If Await My.MessageWorker.ShowMessage("Вы уверены. что хотите закрыть расчет?",, MessageWorker.GetStandartYesNoOptions) Then
             My.AppCore.GlobalPagesList.Remove(sender.Tag)
@@ -66,11 +66,11 @@ Class MainPage
     ''' <param name="e"></param>
     Private Sub GlobalTabItem_MouseLeftButtonDown(sender As Border, e As MouseButtonEventArgs)
         'Если это стартовая страница, то выходим из процедуры
-        If CType(sender.Tag, GlobalPage).IsStartPage Then Exit Sub
+        If CType(sender.Tag, GlobalPageWorker).IsStartPage Then Exit Sub
         'Если было два нажатия левой кнопки мыши
         If e.ClickCount = 2 Then
             'Переводим переменную режима редактирования заголовка в True
-            CType(sender.Tag, GlobalPage).IsHeaderEditState = True
+            CType(sender.Tag, GlobalPageWorker).IsHeaderEditState = True
         End If
     End Sub
     ''' <summary>

@@ -1,5 +1,5 @@
 ﻿<Page x:Class="MainPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:IRISCalculator" xmlns:dclass="clr-namespace:IRISCalculator.DataClasses" 
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:IRISCalculator" xmlns:workers="clr-namespace:IRISCalculator.Workers" 
       DataContext="{StaticResource AppCore}" Loaded="Page_Loaded">
     <Page.Resources>
         <!--Стиль TabItem-->
@@ -83,7 +83,7 @@
         <Border Background="Transparent" Padding="0" Style="{StaticResource AnimatedPanel}" Visibility="{Binding CurentSelectedPage, Converter={local:EnumToVisibleConverter}, ConverterParameter=0}">
             <TabControl x:Name="OrderTabControl" ItemsSource="{Binding GlobalPagesList}" SelectedIndex="0">
                 <TabControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type dclass:GlobalPage}">
+                    <DataTemplate DataType="{x:Type workers:GlobalPageWorker}">
                         <Grid>
                             <TextBlock Style="{StaticResource DarkTextStyle}" Text="{Binding Header}" Visibility="{Binding IsHeaderEditState,Converter={local:BooleanToVisibleConverter}, ConverterParameter=Not}"/>
                             <TextBox Style="{DynamicResource HeaderTextBox}" Text="{Binding Header}" Visibility="{Binding IsHeaderEditState,Converter={local:BooleanToVisibleConverter}}" LostFocus="HeaderTextBox_LostFocus" KeyUp="HeaderTextBox_KeyUp"/>

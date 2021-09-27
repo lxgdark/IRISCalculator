@@ -56,7 +56,7 @@ Public Class AppCore
     ''' Список страниц с расчетами
     ''' </summary>
     ''' <returns></returns>
-    Public Property GlobalPagesList As New ObservableCollection(Of GlobalPage) From {New GlobalPage With {.Header = "Главная"}}
+    Public Property GlobalPagesList As New ObservableCollection(Of GlobalPageWorker) From {New GlobalPageWorker With {.Header = "Главная"}}
     ''' <summary>
     ''' Список позиций каталога
     ''' </summary>
