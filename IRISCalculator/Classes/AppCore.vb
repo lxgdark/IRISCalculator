@@ -2,7 +2,6 @@
 Imports IRISCalculator.DataClasses
 Imports IRISCalculator.Workers
 Imports System.Collections.ObjectModel
-
 Public Class AppCore
     Inherits ApplicationData_Base
 #Region "Реализация интерфейса"

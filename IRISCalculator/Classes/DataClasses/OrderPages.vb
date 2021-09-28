@@ -1,4 +1,5 @@
-﻿Imports System.ComponentModel
+﻿Imports System.Collections.ObjectModel
+Imports System.ComponentModel
 Imports WPFProjectCore
 
 Namespace DataClasses
@@ -18,7 +19,7 @@ Namespace DataClasses
 #Region "Внутренние"
 
 #End Region
-
+        Public Property OrderItemList As New ObservableCollection(Of StandartOrderItem)
 #End Region
     End Class
 End Namespace

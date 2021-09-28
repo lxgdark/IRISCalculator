@@ -1,4 +1,5 @@
-﻿Imports IRISCalculator.DataClasses
+﻿Imports System.Windows.Controls.Primitives
+Imports IRISCalculator.DataClasses
 Class CatalogItemSelectionPopupPage
     Dim CatalogListSource As CollectionViewSource
 #Region "Загрузка окна"
@@ -11,7 +12,7 @@ Class CatalogItemSelectionPopupPage
 #End Region
 #Region "Свойства"
 #Region "Внутренние"
-    Private ItemCategoryValue As CatalogItem.ItemCategoryEnum = CatalogItem.ItemCategoryEnum.None
+    Private ItemCategoryValue As CatalogItem.ItemCategoryEnum = CatalogItem.ItemCategoryEnum.NONE
 #End Region
     ''' <summary>
     ''' Категория выбираемой позиции каталога
@@ -57,7 +58,7 @@ Class CatalogItemSelectionPopupPage
             'Определяем переменную результата фильтрации (да/нет)
             Dim result As Boolean = True
             'Проверяем соответсвуют ли текущая позиция каталога фильтрации по категории
-            result = result AndAlso citem.ItemCategory = ItemCategory Or (ItemCategory = CatalogItem.ItemCategoryEnum.None)
+            result = result AndAlso citem.ItemCategory = ItemCategory Or (ItemCategory = CatalogItem.ItemCategoryEnum.NONE)
             'Разбиваем строку поиска на слова
             Dim strmass() As String = FindTextBox.Text.ToLower.Split(" ".ToCharArray, StringSplitOptions.RemoveEmptyEntries)
             'Проходим по массиву слов и проверяем удовлетворяет ли поиск данным словам
@@ -95,6 +96,13 @@ Class CatalogItemSelectionPopupPage
         If CatalogListBox.SelectedIndex > -1 Then
             'Удаляем ссылку на фильтрацию (для будущих открытий окна)
             RemoveHandler CatalogListSource.Filter, AddressOf FilterCatalog
+
+
+
+            CType(Me.Tag, Popup).IsOpen = False
+
+
+
 
             'Очищаем поле поиска
             ClearFindTextButton_Click()

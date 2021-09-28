@@ -6,7 +6,7 @@ Namespace DataClasses
         Inherits NotifyProperty_Base(Of StandartOrderItem)
 #Region "Свойства"
 #Region "Внутренние"
-        Private PrintPaperSizeValue As New Size
+        Private PrintPaperSizeValue As New Size(320, 450)
         Private PrintedFieldValue As New Thickness(5)
 
 #End Region

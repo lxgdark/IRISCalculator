@@ -1530,6 +1530,44 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="{x:Type xctk:IntegerUpDown}">
+        <Setter Property="Background" Value="{DynamicResource LightBorderBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource DarkBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource BorderThickness}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Minimum" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type xctk:IntegerUpDown}">
+                    <xctk:ButtonSpinner x:Name="PART_Spinner" MinWidth="80" AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="Transparent" ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}" Background="Transparent" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}" VerticalContentAlignment="Stretch">
+                        <TextBox x:Name="PART_TextBox" MinHeight="20" AcceptsReturn="False" ContextMenu="{TemplateBinding ContextMenu}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="60" MaxLength="{Binding MaxLength, RelativeSource={RelativeSource TemplatedParent}}" Padding="{TemplateBinding Padding}" TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}" TextWrapping="NoWrap" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </xctk:ButtonSpinner>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
+                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+                        </DataTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!--#endregion-->
     <!--#endregion-->
 </ResourceDictionary>

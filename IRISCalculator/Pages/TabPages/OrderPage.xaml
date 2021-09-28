@@ -1,7 +1,6 @@
 ﻿<Page x:Class="OrderPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:IRISCalculator" xmlns:dclass="clr-namespace:IRISCalculator.DataClasses" 
-      DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="Page_Loaded" Title="Новый расчет">
-
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase" xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"  xmlns:local="clr-namespace:IRISCalculator" xmlns:dclass="clr-namespace:IRISCalculator.DataClasses" 
+      Loaded="Page_Loaded" Title="Новый расчет">
     <Border CornerRadius="4" Background="{DynamicResource BackgroundLightColor}" Padding="6">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -9,23 +8,45 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <!--Левая часть окна расчетов-->
-            <GroupBox Margin="0,0,5,0" Header="Состав заказа">
-                <Grid >
+            <GroupBox Margin="0,0,5,0" Header="Состав заказа" Padding="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer>
+                        <ItemsControl ItemsSource="{Binding OrderItemList}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type dclass:StandartOrderItem}">
+                                    <StackPanel Margin="0,0,5,25" Background="Transparent" PreviewMouseRightButtonDown="OrderItem_PreviewMouseRightButtonDown" Tag="{Binding}">
+                                        <Border BorderBrush="{DynamicResource BorderDarkColor}" BorderThickness="{DynamicResource BorderThickness}" CornerRadius="1" Margin="0,0,0,5"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Размер печатного листа (ШхВ):" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <local:PaperSizeControl Margin="0,0,5,0" PaperSize="{Binding PrintPaperSize}"/>
+                                            <Button x:Name="PrintPaperSizeParametrButton" Style="{DynamicResource IconButtonStyle}" Content="/Pict/Buttons/Order.png" ToolTip="Задать параметры размера" Click="PrintPaperSizeParametrButton_Click"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding PrintPaperSize.Width}"/>
 
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    <Button x:Name="AddStructureButton" Grid.Row="1" Content="Добавить составную часть" Margin="0,5,0,0" Click="AddStructureButton_Click"/>
                 </Grid>
             </GroupBox>
             <!--Правая часть расчетов-->
             <GroupBox x:Name="CalculatePanel" Margin="5,0,0,0" Grid.Column="1" Header="Расчет тиража">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-            </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                </Grid>
             </GroupBox>
             <!--#region Всплывающие окна-->
-            <Popup Name="CatalogItemSelectionPopup" StaysOpen="False" AllowsTransparency="True" PlacementTarget="{Binding ElementName=CalculatePanel}" Placement="Center" Height="{Binding ElementName=CalculatePanel, Path=ActualHeight}" Width="{Binding ElementName=CalculatePanel, Path=ActualWidth}" PopupAnimation="Slide">
-                <Frame Name="CatalogItemSelectionFrame" NavigationUIVisibility="Hidden" Source="/IRISCalculator;component/Pages/PopupPages/CatalogItemSelectionPopupPage.xaml"/>
+            <Popup Name="OrderItemParameterPopup" StaysOpen="False" AllowsTransparency="True" PlacementTarget="{Binding ElementName=CalculatePanel}" Placement="Center" Height="{Binding ElementName=CalculatePanel, Path=ActualHeight}" Width="{Binding ElementName=CalculatePanel, Path=ActualWidth}" PopupAnimation="Slide">
+                <Frame Name="OrderItemParameterFrame" NavigationUIVisibility="Hidden"/>
             </Popup>
             <!--#endregion-->
         </Grid>
