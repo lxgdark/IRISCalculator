@@ -45,6 +45,11 @@ Public Class AppCore
     ''' </summary>
     ''' <returns></returns>
     Public Property CatalogWorker As New CatalogWorker
+    ''' <summary>
+    ''' Работает с размерами бумаги (сохранение, редактирование и пр.)
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property PaperSizeWorker As New PaperSizeWorker
 #End Region
 #Region "Главне свойства"
 #Region "Приватные"

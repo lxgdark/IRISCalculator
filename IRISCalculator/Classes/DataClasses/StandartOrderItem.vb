@@ -6,36 +6,41 @@ Namespace DataClasses
         Inherits NotifyProperty_Base(Of StandartOrderItem)
 #Region "Свойства"
 #Region "Внутренние"
-        Private PrintPaperSizeValue As New Size(320, 450)
-        Private PrintedFieldValue As New Thickness(5)
-
+        Private printPaperSizeValue As New PaperSizeItem
+        Private productSizeValue As New PaperSizeItem With {.Name = "А4", .Height = 210, .Width = 297, .FieldHeight = 3, .FieldWidth = 3}
 #End Region
         ''' <summary>
         ''' Размер печатного листа
         ''' </summary>
         ''' <returns></returns>
-        Public Property PrintPaperSize As Size
+        Public Property PrintPaperSize As PaperSizeItem
             Get
                 Return PrintPaperSizeValue
             End Get
-            Set(value As Size)
+            Set(value As PaperSizeItem)
                 PrintPaperSizeValue = value
                 OnPropertyChanged(NameOf(PrintPaperSize))
             End Set
         End Property
         ''' <summary>
-        ''' Отступы от края листа при печати
+        ''' Размер готовго изделия
         ''' </summary>
         ''' <returns></returns>
-        Public Property PrintedField As Thickness
+        Public Property ProductSize As PaperSizeItem
             Get
-                Return PrintedFieldValue
+                Return productSizeValue
             End Get
-            Set(value As Thickness)
-                PrintedFieldValue = value
-                OnPropertyChanged(NameOf(PrintedField))
+            Set(value As PaperSizeItem)
+                productSizeValue = value
+                OnPropertyChanged(NameOf(ProductSize))
             End Set
         End Property
+#End Region
+#Region "Процедуры и функции"
+#Region "Внутренние"
+
+#End Region
+
 #End Region
     End Class
 End Namespace

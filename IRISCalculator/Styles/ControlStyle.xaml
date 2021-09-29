@@ -405,7 +405,7 @@
     </Style>
 
     <!--Стиль зажимаемой кнопки с аватаром внутри-->
-    <Style x:Key="AvatarToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+    <Style x:Key="IconToggleButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Cursor" Value="Hand"/>

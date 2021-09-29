@@ -21,5 +21,11 @@ Namespace DataClasses
 #End Region
         Public Property OrderItemList As New ObservableCollection(Of StandartOrderItem)
 #End Region
+#Region "Процедуры и функции"
+#Region "Внутренние"
+
+#End Region
+
+#End Region
     End Class
 End Namespace

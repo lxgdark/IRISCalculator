@@ -4,7 +4,6 @@ Imports ClosedXML.Excel
 Namespace Workers
     Public Class CatalogWorker
         Inherits BaseWorker(Of CatalogWorker)
-
 #Region "Свойства"
 #Region "Внутренние"
 
