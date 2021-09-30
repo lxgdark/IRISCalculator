@@ -21,23 +21,31 @@
                                     <Border Background="{DynamicResource BackgroundStandartColor}" Margin="0,0,0,25" Padding="5" CornerRadius="4" PreviewMouseRightButtonDown="OrderItem_PreviewMouseRightButtonDown" Tag="{Binding}">
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Размер печатного листа (ШхВ):" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                                                <xceed:IntegerUpDown Margin="0,0,5,0" Value="{Binding PrintPaperSize.Width}"/>
+                                                <TextBlock Text="Размер печатной области (листа) (ШхВ):" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <xceed:IntegerUpDown Margin="0,0,5,0" Value="{Binding PrintPaperSize.Width}" ValueChanged="Calculation"/>
                                                 <TextBlock Text="X" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                                                <xceed:IntegerUpDown Value="{Binding PrintPaperSize.Height}"/>
+                                                <xceed:IntegerUpDown Value="{Binding PrintPaperSize.Height}" ValueChanged="Calculation"/>
                                                 <Button x:Name="PrintPaperSizeParametrButton" Style="{DynamicResource IconButtonStyle}" Content="/Pict/Buttons/Settings.png" ToolTip="Дополнительные параметры размера" Click="PrintPaperSizeParametrButton_Click" Tag="{Binding}"/>
+                                                <Border Background="{DynamicResource MessageBoxErrorColor}" Height="25" Width="25" Margin="5,0,0,0" ToolTip="Размер изделия больше размера бумаги" Visibility="{Binding IsProductLargePaper, Converter={local:BooleanToVisibleConverter}}">
+                                                    <Border.OpacityMask>
+                                                        <ImageBrush ImageSource="/Pict/Buttons/Information.png" Stretch="Uniform"/>
+                                                    </Border.OpacityMask>
+                                                </Border>
                                             </StackPanel>
                                             <TextBlock FontSize="11" Margin="0,3,0,0">Отступ от края листа: лево/право - <Run Text="{Binding PrintPaperSize.FieldWidth}"/> мм, верх/низ - <Run Text="{Binding PrintPaperSize.FieldHeight}"/> мм</TextBlock>
                                             <Border BorderBrush="{DynamicResource BorderDarkColor}" BorderThickness="1" CornerRadius="1" Margin="0,15,0,15"/>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Размер изделия (ШхВ):" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                                                <xceed:IntegerUpDown Margin="0,0,5,0" Value="{Binding ProductSize.Width}"/>
+                                                <xceed:IntegerUpDown Margin="0,0,5,0" Value="{Binding ProductSize.Width}" ValueChanged="Calculation"/>
                                                 <TextBlock Text="X" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                                                <xceed:IntegerUpDown Value="{Binding ProductSize.Height}"/>
+                                                <xceed:IntegerUpDown Value="{Binding ProductSize.Height}" ValueChanged="Calculation"/>
                                                 <Button x:Name="ProductSizeParametrButton" Style="{DynamicResource IconButtonStyle}" Content="/Pict/Buttons/Settings.png" ToolTip="Дополнительные параметры размера" Click="ProductSizeParametrButton_Click" Tag="{Binding}"/>
                                                 <Button  Style="{DynamicResource IconButtonStyle}" Content="/Pict/Buttons/Сalculator.png" ToolTip="Вычислить размер для сложного изделия" Tag="{Binding}"/>
                                             </StackPanel>
                                             <TextBlock FontSize="11" Margin="0,3,0,0">Вылеты: лево/право - <Run Text="{Binding ProductSize.FieldWidth}"/> мм, верх/низ - <Run Text="{Binding ProductSize.FieldHeight}"/> мм</TextBlock>
+                                            <Border CornerRadius="1" Background="{DynamicResource BackgroundDarkColor}" Margin="0,15,0,15" Padding="5">
+                                                <TextBlock Text="{Binding ProductCount}" Foreground="{DynamicResource TextLightColor}"/>
+                                            </Border>                                            
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>

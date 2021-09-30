@@ -13,8 +13,8 @@ Class PaperSizeParametrPopupPage
             FieldWidthTextBlock.Text = "Вылеты слева/справа:"
             FieldHeightTextBlock.Text = "Вылеты сверху/снизу:"
         Else
-            FieldWidthTextBlock.Text = "Отступ от каря листа слева/справа:"
-            FieldHeightTextBlock.Text = "Отступ от каря листа сверху/снизу:"
+            FieldWidthTextBlock.Text = "Отступ от каря области (листа) слева/справа:"
+            FieldHeightTextBlock.Text = "Отступ от каря области (листа) сверху/снизу:"
         End If
         'Устанавливаем отступы (вылеты)
         FieldHeightIntegerUpDown.Value = paperOrProductSize.FieldHeight

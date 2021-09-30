@@ -34,9 +34,7 @@ Class OrderPage
         OrderItemParameterPopup.IsOpen = True
     End Sub
 
-    Private Sub Calculation()
-        OrderItemParameterPopup.IsOpen = False
-    End Sub
+
 
     Private Sub ProductSizeParametrButton_Click(sender As Object, e As RoutedEventArgs)
         Dim page As New PaperSizeParametrPopupPage
@@ -44,4 +42,18 @@ Class OrderPage
         OrderItemParameterFrame.Content = page
         OrderItemParameterPopup.IsOpen = True
     End Sub
+#Region "Процедуры и функции"
+    ''' <summary>
+    ''' Основная процидура проводящаая расчет заказа
+    ''' </summary>
+    Private Sub Calculation()
+        'Закрываем всплывающее окно
+        OrderItemParameterPopup.IsOpen = False
+
+        For Each item In MeContext.OrderItemList
+            item.CalculationProductCount()
+        Next
+    End Sub
+
+#End Region
 End Class

@@ -18,49 +18,22 @@ Namespace Workers
             Dim sra3 As New PaperSizeItem
             PaperSizeList.Add(sra3)
 
-            Dim a3 As New PaperSizeItem With {
-            .Name = "А3",
-            .Height = 297,
-            .Width = 420,
-            .FieldHeight = 3,
-            .FieldWidth = 3
-            }
+            Dim plot As New PaperSizeItem With {.Name = "Область плоттерной резки", .Height = 301, .Width = 386, .FieldHeight = 5, .FieldWidth = 5}
+            PaperSizeList.Add(plot)
+
+            Dim a3 As New PaperSizeItem With {.Name = "А3", .Height = 297, .Width = 420, .FieldHeight = 2, .FieldWidth = 2}
             PaperSizeList.Add(a3)
 
-            Dim a4 As New PaperSizeItem With {
-                .Name = "А4",
-                .Height = 210,
-                .Width = 297,
-                .FieldHeight = 3,
-                .FieldWidth = 3
-            }
+            Dim a4 As New PaperSizeItem With {.Name = "А4", .Height = 210, .Width = 297, .FieldHeight = 2, .FieldWidth = 2}
             PaperSizeList.Add(a4)
 
-            Dim a5 As New PaperSizeItem With {
-    .Name = "А5",
-    .Height = 148,
-    .Width = 210,
-    .FieldHeight = 3,
-    .FieldWidth = 3
-}
+            Dim a5 As New PaperSizeItem With {.Name = "А5", .Height = 148, .Width = 210, .FieldHeight = 2, .FieldWidth = 2}
             PaperSizeList.Add(a5)
 
-            Dim a6 As New PaperSizeItem With {
-    .Name = "А6",
-    .Height = 105,
-    .Width = 148,
-    .FieldHeight = 3,
-    .FieldWidth = 3
-}
+            Dim a6 As New PaperSizeItem With {.Name = "А6", .Height = 105, .Width = 148, .FieldHeight = 2, .FieldWidth = 2}
             PaperSizeList.Add(a6)
 
-            Dim personCard As New PaperSizeItem With {
-    .Name = "Визитка 90х50",
-    .Height = 50,
-    .Width = 90,
-    .FieldHeight = 3,
-    .FieldWidth = 3
-}
+            Dim personCard As New PaperSizeItem With {.Name = "Визитка 90х50", .Height = 50, .Width = 90, .FieldHeight = 2, .FieldWidth = 2}
             PaperSizeList.Add(personCard)
 
         End Sub
