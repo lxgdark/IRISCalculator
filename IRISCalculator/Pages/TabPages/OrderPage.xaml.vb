@@ -1,5 +1,6 @@
 ﻿Imports IRISCalculator.DataClasses
 Imports IRISCalculator.Workers
+Imports Xceed.Wpf.Toolkit
 
 Class OrderPage
     Private MeContext As StandartOrder
@@ -18,7 +19,9 @@ Class OrderPage
     End Sub
 
     Private Sub AddStructureButton_Click()
-        MeContext.OrderItemList.Add(New StandartOrderItem)
+        Dim soi As New StandartOrderItem
+        soi.CalculationProductCount()
+        MeContext.OrderItemList.Add(soi)
     End Sub
 
     Private Async Sub OrderItem_PreviewMouseRightButtonDown(sender As Object, e As MouseButtonEventArgs)
@@ -42,6 +45,13 @@ Class OrderPage
         OrderItemParameterFrame.Content = page
         OrderItemParameterPopup.IsOpen = True
     End Sub
+
+    Private Sub ProductLayoutButton_Click(sender As Object, e As RoutedEventArgs)
+        Dim page As New ProductLayoutPopupPage
+        page.SetParametr(sender.Tag)
+        OrderItemParameterFrame.Content = page
+        OrderItemParameterPopup.IsOpen = True
+    End Sub
 #Region "Процедуры и функции"
     ''' <summary>
     ''' Основная процидура проводящаая расчет заказа
@@ -54,6 +64,5 @@ Class OrderPage
             item.CalculationProductCount()
         Next
     End Sub
-
 #End Region
 End Class

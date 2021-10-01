@@ -11,6 +11,7 @@
     <None Remove="Pict\Buttons\Avatar.png" />
     <None Remove="Pict\Buttons\Chat.png" />
     <None Remove="Pict\Buttons\Close.png" />
+    <None Remove="Pict\Buttons\Computer.png" />
     <None Remove="Pict\Buttons\Copy.png" />
     <None Remove="Pict\Buttons\Dialog.png" />
     <None Remove="Pict\Buttons\Download.png" />
@@ -56,6 +57,7 @@
     <Resource Include="Pict\Buttons\Avatar.png" />
     <Resource Include="Pict\Buttons\Chat.png" />
     <Resource Include="Pict\Buttons\Close.png" />
+    <Resource Include="Pict\Buttons\Computer.png" />
     <Resource Include="Pict\Buttons\Copy.png" />
     <Resource Include="Pict\Buttons\Dialog.png" />
     <Resource Include="Pict\Buttons\Download.png" />

@@ -10,6 +10,7 @@ Namespace Workers
 #End Region
 #Region "Процедуры и функции"
         Public Overrides Function StartActions(app As AppCore) As Task(Of Boolean)
+            PaperSizeList.Clear()
             SetStandartSize()
             Return MyBase.StartActions(app)
         End Function

@@ -24,9 +24,9 @@
                                                 <TextBlock Text="Размер печатной области (листа) (ШхВ):" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <xceed:IntegerUpDown Margin="0,0,5,0" Value="{Binding PrintPaperSize.Width}" ValueChanged="Calculation"/>
                                                 <TextBlock Text="X" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                                                <xceed:IntegerUpDown Value="{Binding PrintPaperSize.Height}" ValueChanged="Calculation"/>
+                                                <xceed:IntegerUpDown Value="{Binding PrintPaperSize.Height}" ValueChanged="Calculation" CultureInfo="ru-RU"/>
                                                 <Button x:Name="PrintPaperSizeParametrButton" Style="{DynamicResource IconButtonStyle}" Content="/Pict/Buttons/Settings.png" ToolTip="Дополнительные параметры размера" Click="PrintPaperSizeParametrButton_Click" Tag="{Binding}"/>
-                                                <Border Background="{DynamicResource MessageBoxErrorColor}" Height="25" Width="25" Margin="5,0,0,0" ToolTip="Размер изделия больше размера бумаги" Visibility="{Binding IsProductLargePaper, Converter={local:BooleanToVisibleConverter}}">
+                                                <Border Background="{DynamicResource MessageBoxErrorColor}" Height="25" Width="25" Margin="5,0,0,0" ToolTip="Размер изделия больше размера бумаги" Visibility="{Binding IsProductLargePaper, Converter={local:BooleanToVisibleConverter}, ConverterParameter=Not}">
                                                     <Border.OpacityMask>
                                                         <ImageBrush ImageSource="/Pict/Buttons/Information.png" Stretch="Uniform"/>
                                                     </Border.OpacityMask>
@@ -40,12 +40,17 @@
                                                 <TextBlock Text="X" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <xceed:IntegerUpDown Value="{Binding ProductSize.Height}" ValueChanged="Calculation"/>
                                                 <Button x:Name="ProductSizeParametrButton" Style="{DynamicResource IconButtonStyle}" Content="/Pict/Buttons/Settings.png" ToolTip="Дополнительные параметры размера" Click="ProductSizeParametrButton_Click" Tag="{Binding}"/>
-                                                <Button  Style="{DynamicResource IconButtonStyle}" Content="/Pict/Buttons/Сalculator.png" ToolTip="Вычислить размер для сложного изделия" Tag="{Binding}"/>
+                                                <Button Style="{DynamicResource IconButtonStyle}" Content="/Pict/Buttons/Сalculator.png" ToolTip="Вычислить размер для сложного изделия" Tag="{Binding}"/>
                                             </StackPanel>
                                             <TextBlock FontSize="11" Margin="0,3,0,0">Вылеты: лево/право - <Run Text="{Binding ProductSize.FieldWidth}"/> мм, верх/низ - <Run Text="{Binding ProductSize.FieldHeight}"/> мм</TextBlock>
-                                            <Border CornerRadius="1" Background="{DynamicResource BackgroundDarkColor}" Margin="0,15,0,15" Padding="5">
-                                                <TextBlock Text="{Binding ProductCount}" Foreground="{DynamicResource TextLightColor}"/>
-                                            </Border>                                            
+                                            <Border BorderBrush="{DynamicResource BorderDarkColor}" BorderThickness="1" CornerRadius="1" Margin="0,15,0,15"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock VerticalAlignment="Center" Text="Количество изделий на листе:" Margin="0,0,5,0"/>
+                                                <Border Background="{DynamicResource BackgroundDarkColor}" Padding="10,5,10,5" CornerRadius="{DynamicResource BorderCornerRadiusMini}" VerticalAlignment="Center">
+                                                    <TextBlock Foreground="{DynamicResource TextLightColor}" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding ProductCount}"/>
+                                                </Border>
+                                                <Button Style="{DynamicResource IconButtonStyle}" x:Name="ProductLayoutButton" Click="ProductLayoutButton_Click" Content="/Pict/Buttons/Computer.png" ToolTip="Посмотреть раскладку" Tag="{Binding}" Margin="5,0,0,0"/>
+                                            </StackPanel>
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>

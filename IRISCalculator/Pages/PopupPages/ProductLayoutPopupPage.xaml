@@ -1,0 +1,12 @@
+﻿<Page x:Class="ProductLayoutPopupPage"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase" xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:local="clr-namespace:IRISCalculator" xmlns:dclass="clr-namespace:IRISCalculator.DataClasses">
+    <Grid Background="{DynamicResource BackgroundLightColor}">
+        <Viewbox Margin="10">
+            <Border BorderBrush="Black" BorderThickness="1" Width="{Binding PrintPaperSize.Width}" Height="{Binding PrintPaperSize.Height}">
+                <Border x:Name="PaperWorkSize" BorderBrush="Blue" BorderThickness="0.5">
+                    <WrapPanel x:Name="ProductGrid" HorizontalAlignment="Center" VerticalAlignment="Center"/>                    
+                </Border>
+            </Border>
+        </Viewbox>
+    </Grid>
+</Page>
