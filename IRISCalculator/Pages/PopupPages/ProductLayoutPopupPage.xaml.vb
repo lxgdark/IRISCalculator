@@ -16,7 +16,7 @@ Class ProductLayoutPopupPage
             'Толщена линии
             b.BorderThickness = New Thickness(0.5)
             'Внешний отступ уменьшаем на ширину рамки
-            b.Margin = New Thickness(-0.5)
+            b.Margin = New Thickness(-0.25)
             'В зависимости от того совпадает ли ориентация издели и бумаги задаем ширину и высоту рамки
             If param.IsProductOrientationEqualsPaperOrientation Then
                 b.Height = param.ProductSize.Height + param.ProductSize.FieldHeight * 2
@@ -24,6 +24,12 @@ Class ProductLayoutPopupPage
             Else
                 b.Width = param.ProductSize.Height + param.ProductSize.FieldHeight * 2
                 b.Height = param.ProductSize.Width + param.ProductSize.FieldHeight * 2
+            End If
+            'Устанавливаем ориентацию WrapPanel в зависимости от ориентации листа
+            If param.PrintPaperSize.Width < param.PrintPaperSize.Height Then
+                ProductGrid.Orientation = Orientation.Horizontal
+            Else
+                ProductGrid.Orientation = Orientation.Vertical
             End If
             'Создаем внутреннюю рамку описывающую изделие без вылетов
             Dim prodb As New Border

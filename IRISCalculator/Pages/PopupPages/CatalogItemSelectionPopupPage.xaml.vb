@@ -2,14 +2,31 @@
 Imports IRISCalculator.DataClasses
 Class CatalogItemSelectionPopupPage
     Dim CatalogListSource As CollectionViewSource
+    Private Calculation As [Delegate]
+    Dim catalogItem As CatalogItem
 #Region "Загрузка окна"
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
-        'Определяем ссылку на список каталога, для фильтрации
-        CatalogListSource = TryFindResource("CatalogSource")
         'Устанавливаем фокус в поле посика
         FindTextBox.Focus()
     End Sub
+    ''' <summary>
+    ''' Установка стартовых параметров
+    ''' </summary>
+    ''' <param name="_orderItem"></param>
+    ''' <param name="iCategory"></param>
+    ''' <param name="calculationSub"></param>
+    Public Sub SetParametr(_catalogItem As CatalogItem, iCategory As CatalogItem.ItemCategoryEnum, calculationSub As [Delegate])
+        'Определяем ссылку на список каталога, для фильтрации
+        CatalogListSource = TryFindResource("CatalogSource")
+        'Сохраняем делегат, который нужно вызвать по завершению
+        Calculation = calculationSub
+        'Определяем категорю позиций отображаемых в каталоге
+        ItemCategory = iCategory
+        'Созраняем ссылку на текущю составную часть заказа
+        catalogItem = _catalogItem
+    End Sub
 #End Region
+
 #Region "Свойства"
 #Region "Внутренние"
     Private ItemCategoryValue As CatalogItem.ItemCategoryEnum = CatalogItem.ItemCategoryEnum.NONE
@@ -96,16 +113,12 @@ Class CatalogItemSelectionPopupPage
         If CatalogListBox.SelectedIndex > -1 Then
             'Удаляем ссылку на фильтрацию (для будущих открытий окна)
             RemoveHandler CatalogListSource.Filter, AddressOf FilterCatalog
-
-
-
-            CType(Me.Tag, Popup).IsOpen = False
-
-
-
-
+            'Сохраняем выбранную бумагу
+            catalogItem.SetPropertys(CatalogListBox.SelectedItem)
             'Очищаем поле поиска
             ClearFindTextButton_Click()
+            'Вызываем переданную процедуру завершения
+            Windows.Application.Current.Dispatcher.Invoke(Calculation)
         End If
     End Sub
 #End Region

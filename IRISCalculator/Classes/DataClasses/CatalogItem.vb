@@ -118,6 +118,10 @@ Namespace DataClasses
             ''' Услуга печати
             ''' </summary>
             SERVICEPRINT = 2
+            ''' <summary>
+            ''' Услуга резки
+            ''' </summary>
+            SERVICECUT = 3
         End Enum
 #End Region
     End Class

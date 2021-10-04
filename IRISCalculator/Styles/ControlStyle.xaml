@@ -815,7 +815,7 @@
                                 <VisualState x:Name="ReadOnly">
                                     <Storyboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0"/>
+                                            <DoubleAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Opacity" To="0.7" Duration="0"/>
                                         </Storyboard>
                                     </Storyboard>
                                 </VisualState>

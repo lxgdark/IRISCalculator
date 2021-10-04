@@ -16,11 +16,15 @@ Class OrderPage
         MeContext = Me
         DataContext = MeContext
         AddStructureButton_Click()
+        For Each item In My.AppCore.CatalogList
+            If item.Name = "Печать 4+0" Then MeContext.OrderItemList(0).PrintItem.SetPropertys(item)
+            If item.Name = "Резка в размер" Then MeContext.OrderItemList(0).CutItem.SetPropertys(item)
+        Next
     End Sub
 
     Private Sub AddStructureButton_Click()
         Dim soi As New StandartOrderItem
-        soi.CalculationProductCount()
+        soi.Calculation()
         MeContext.OrderItemList.Add(soi)
     End Sub
 
@@ -37,8 +41,6 @@ Class OrderPage
         OrderItemParameterPopup.IsOpen = True
     End Sub
 
-
-
     Private Sub ProductSizeParametrButton_Click(sender As Object, e As RoutedEventArgs)
         Dim page As New PaperSizeParametrPopupPage
         page.SetParametr(CType(sender.Tag, StandartOrderItem).ProductSize, True, New CalculationDelegate(AddressOf Calculation))
@@ -52,6 +54,29 @@ Class OrderPage
         OrderItemParameterFrame.Content = page
         OrderItemParameterPopup.IsOpen = True
     End Sub
+
+    Private Sub SelectPaperButton_Click(sender As Object, e As RoutedEventArgs)
+        Dim page As New CatalogItemSelectionPopupPage
+        page.SetParametr(CType(sender.Tag, StandartOrderItem).PaperItem, CatalogItem.ItemCategoryEnum.PAPER, New CalculationDelegate(AddressOf Calculation))
+        OrderItemParameterFrame.Content = page
+        OrderItemParameterPopup.IsOpen = True
+    End Sub
+    Private Sub SelectPrintButton_Click(sender As Object, e As RoutedEventArgs)
+        Dim page As New CatalogItemSelectionPopupPage
+        page.SetParametr(CType(sender.Tag, StandartOrderItem).PrintItem, CatalogItem.ItemCategoryEnum.SERVICEPRINT, New CalculationDelegate(AddressOf Calculation))
+        OrderItemParameterFrame.Content = page
+        OrderItemParameterPopup.IsOpen = True
+    End Sub
+    Private Sub SelectCutButton_Click(sender As Object, e As RoutedEventArgs)
+        Dim page As New CatalogItemSelectionPopupPage
+        page.SetParametr(CType(sender.Tag, StandartOrderItem).CutItem, CatalogItem.ItemCategoryEnum.SERVICECUT, New CalculationDelegate(AddressOf Calculation))
+        OrderItemParameterFrame.Content = page
+        OrderItemParameterPopup.IsOpen = True
+    End Sub
+
+    Private Sub AddDopItemButton_Click(sender As Object, e As RoutedEventArgs)
+
+    End Sub
 #Region "Процедуры и функции"
     ''' <summary>
     ''' Основная процидура проводящаая расчет заказа
@@ -61,7 +86,8 @@ Class OrderPage
         OrderItemParameterPopup.IsOpen = False
 
         For Each item In MeContext.OrderItemList
-            item.CalculationProductCount()
+            item.Calculation()
+
         Next
     End Sub
 #End Region
