@@ -48,7 +48,9 @@
                                                 <TextBlock Text="Количество страниц (полос):" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <xceed:IntegerUpDown Value="{Binding PageCount}" ValueChanged="Calculation"/>
                                                 <Button Style="{DynamicResource IconButtonStyle}" Content="/Pict/Buttons/Сalculator.png" ToolTip="Расчитать количество" Tag="{Binding}"/>
-                                                <TextBlock VerticalAlignment="Center" Text="Количество изделий на листе:" Margin="30,0,5,0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                                <TextBlock VerticalAlignment="Center" Text="Количество изделий на листе:" Margin="0,0,5,0"/>
                                                 <Border Background="{DynamicResource BackgroundDarkColor}" Padding="10,5,10,5" CornerRadius="{DynamicResource BorderCornerRadiusMini}" VerticalAlignment="Center">
                                                     <TextBlock Foreground="{DynamicResource TextLightColor}" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding ProductCount}"/>
                                                 </Border>
@@ -72,7 +74,7 @@
                                                 <TextBox IsReadOnly="True" Text="{Binding CutItem.Name }"/>
                                             </DockPanel>
                                             <TextBlock FontSize="10">Себестоимость: <Run Text="{Binding CutItem.CostPrice, ConverterCulture=ru-RU, StringFormat=C}"/></TextBlock>
-                                            <Border BorderBrush="{DynamicResource BorderDarkColor}" BorderThickness="1" CornerRadius="1" Margin="0,15,0,15"/>                                            
+                                            <Border BorderBrush="{DynamicResource BorderDarkColor}" BorderThickness="1" CornerRadius="1" Margin="0,15,0,15"/>
                                             <Button Style="{DynamicResource IconButtonStyle}" x:Name="AddDopItemButton" Click="AddDopItemButton_Click" Content="/Pict/Buttons/Plus.png" ToolTip="Добавить дополнительную обработку составной части" DockPanel.Dock="Right" Tag="{Binding}" Margin="5,0,0,0"/>
                                             <!--#region Себестоимость составной части-->
                                             <TextBlock Foreground="{DynamicResource MessageBoxErrorColor}" Text="Недостаточно параметров для расчета себестоимости!" Visibility="{Binding IsValidCostPrice, Converter={local:BooleanToVisibleConverter}, ConverterParameter=Not}"/>
@@ -82,7 +84,7 @@
                                                     <TextBlock Foreground="{DynamicResource TextLightColor}" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Text="{Binding ProductCostPrice, ConverterCulture=ru-RU, StringFormat=C}"/>
                                                 </Border>
                                             </StackPanel>
-                                            <!--#endregion--> 
+                                            <!--#endregion-->
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>
@@ -100,7 +102,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel>
-                        
+
                     </StackPanel>
                 </Grid>
             </GroupBox>
