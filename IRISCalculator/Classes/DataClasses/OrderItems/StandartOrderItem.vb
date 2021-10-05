@@ -19,7 +19,8 @@ Namespace DataClasses
         Private pageMinimumCountValue As Integer = 1
         Private isProductCatalogValue As Boolean = False
         Private isShortFoldSideValue As Boolean = False
-        Private isValidPageCountInCatalogValue As Boolean = True
+        Private isCatalogPageCountErrorValue As Boolean = False
+        Private isCatalogPrintParametrErrorValue As Boolean = False
 #End Region
         ''' <summary>
         ''' Размер печатного листа
@@ -178,16 +179,29 @@ Namespace DataClasses
             End Set
         End Property
         ''' <summary>
-        ''' Указывает на то правильное ли число полос для печати брашюрой
+        ''' Указывает на то, что число полос не подходит для печати брашюрой
         ''' </summary>
         ''' <returns></returns>
-        Public Property IsValidPageCountInCatalog As Boolean
+        Public Property IsCatalogPageCountError As Boolean
             Get
-                Return isValidPageCountInCatalogValue
+                Return isCatalogPageCountErrorValue
             End Get
             Set(value As Boolean)
-                isValidPageCountInCatalogValue = value
-                OnPropertyChanged(NameOf(IsValidPageCountInCatalog))
+                isCatalogPageCountErrorValue = value
+                OnPropertyChanged(NameOf(IsCatalogPageCountError))
+            End Set
+        End Property
+        ''' <summary>
+        ''' Указывает на то, что тип печати не подходит для печати брашюрой
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property IsCatalogPrintParametrError As Boolean
+            Get
+                Return isCatalogPrintParametrErrorValue
+            End Get
+            Set(value As Boolean)
+                isCatalogPrintParametrErrorValue = value
+                OnPropertyChanged(NameOf(IsCatalogPrintParametrError))
             End Set
         End Property
 #End Region

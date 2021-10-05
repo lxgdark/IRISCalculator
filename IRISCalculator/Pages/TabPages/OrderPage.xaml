@@ -38,7 +38,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Количество страниц (полос):" Margin="0,0,5,0" VerticalAlignment="Center"/>
                         <xceed:IntegerUpDown Value="{Binding PageCount, Mode=TwoWay}" Minimum="{Binding PageMinimumCount}" ValueChanged="Calculation"/>
-                        <Border Background="{DynamicResource MessageBoxErrorColor}" Height="25" Width="25" Margin="5,0,0,0" ToolTip="Количество полос не подходит для печати каталогом/брошюрой" Visibility="{Binding IsValidPageCountInCatalog, Converter={local:BooleanToVisibleConverter}, ConverterParameter=Not}">
+                        <Border Background="{DynamicResource MessageBoxErrorColor}" Height="25" Width="25" Margin="5,0,0,0" ToolTip="Количество полос не подходит для печати каталогом/брошюрой" Visibility="{Binding IsCatalogPageCountError, Converter={local:BooleanToVisibleConverter}}">
                             <Border.OpacityMask>
                                 <ImageBrush ImageSource="/Pict/Buttons/Information.png" Stretch="Uniform"/>
                             </Border.OpacityMask>
@@ -59,7 +59,14 @@
                     <TextBlock FontSize="10">Себестоимость: <Run Text="{Binding PaperItem.CostPrice, ConverterCulture=ru-RU, StringFormat=C}"/></TextBlock>
                     <Border BorderBrush="{DynamicResource BorderDarkColor}" BorderThickness="1" CornerRadius="1" Margin="0,15,0,15"/>
                     <DockPanel LastChildFill="True">
-                        <Button Style="{DynamicResource IconButtonStyle}" x:Name="SelectPrintButton" Click="SelectPrintButton_Click" Content="/Pict/Buttons/Order.png" ToolTip="Выбрать из каталога" DockPanel.Dock="Right" Tag="{Binding}" Margin="5,0,0,0"/>
+                        <StackPanel DockPanel.Dock="Right"  Margin="5,0,0,0" Orientation="Horizontal">
+                        <Button Style="{DynamicResource IconButtonStyle}" x:Name="SelectPrintButton" Click="SelectPrintButton_Click" Content="/Pict/Buttons/Order.png" ToolTip="Выбрать из каталога" Tag="{Binding}"/>
+                            <Border Background="{DynamicResource MessageBoxErrorColor}" Height="25" Width="25" Margin="5,0,0,0" ToolTip="Печать каталога/брошюры должна быть двухсторонней" Visibility="{Binding IsCatalogPrintParametrError, Converter={local:BooleanToVisibleConverter}}">
+                            <Border.OpacityMask>
+                                <ImageBrush ImageSource="/Pict/Buttons/Information.png" Stretch="Uniform"/>
+                            </Border.OpacityMask>
+                        </Border>
+                        </StackPanel>
                         <TextBox IsReadOnly="True" Text="{Binding PrintItem.Name}"/>
                     </DockPanel>
                     <TextBlock FontSize="10">Себестоимость: <Run Text="{Binding PrintItem.CostPrice, ConverterCulture=ru-RU, StringFormat=C}"/></TextBlock>
@@ -97,7 +104,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                    <ScrollViewer>
                         <ItemsControl ItemsSource="{Binding OrderItemList}"/>
                     </ScrollViewer>
                     <Button x:Name="AddStructureButton" Grid.Row="1" Content="Добавить составную часть" Margin="0,5,0,0" Click="AddStructureButton_Click"/>
