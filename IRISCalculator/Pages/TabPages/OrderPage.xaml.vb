@@ -3,7 +3,7 @@ Imports IRISCalculator.Workers
 Imports Xceed.Wpf.Toolkit
 
 Class OrderPage
-    Private MeContext As StandartOrder
+    Private MeContext As StandartOrderPage
     Dim isPageOpen As Boolean = False
     Private Delegate Sub CalculationDelegate()
     Protected Overrides Sub Finalize()
@@ -17,8 +17,8 @@ Class OrderPage
         DataContext = MeContext
         AddStructureButton_Click()
         For Each item In My.AppCore.CatalogList
-            If item.Name = "Печать 4+0" Then MeContext.OrderItemList(0).PrintItem.SetPropertys(item)
-            If item.Name = "Резка в размер" Then MeContext.OrderItemList(0).CutItem.SetPropertys(item)
+            If item.Name = "Печать 4+0" Then CType(MeContext.OrderItemList(0), StandartOrderItem).PrintItem.SetPropertys(item)
+            If item.Name = "Резка в размер" Then CType(MeContext.OrderItemList(0), StandartOrderItem).CutItem.SetPropertys(item)
         Next
     End Sub
 

@@ -11,7 +11,7 @@ Namespace Workers
         Private HeaderValue As String = ""
         Private IsStartPageValue As Boolean = True
         Private isHeaderEditStateValue As Boolean = False
-        Private OrderObjectValue As Page = New StandartOrder
+        Private OrderObjectValue As Page = New StandartOrderPage
 #End Region
         ''' <summary>
         ''' Заголовок вкладки

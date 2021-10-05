@@ -3,12 +3,12 @@ Imports WPFProjectCore
 
 Namespace DataClasses
     Public Class StandartOrderItem
-        Inherits NotifyProperty_Base(Of StandartOrderItem)
+        Inherits BaseOrderItem
+
 #Region "Свойства"
 #Region "Внутренние"
         Private printPaperSizeValue As New PaperSizeItem
         Private productSizeValue As New PaperSizeItem With {.Name = "А4", .Height = 210, .Width = 297, .FieldHeight = 2, .FieldWidth = 2}
-        Private productCountValue As Integer = 0
         Private isProductLargePaperValue As Boolean = True
         Private isValidCostPriceValue As Boolean = False
         Private isProductOrientationEqualsPaperOrientationValue As Boolean = False
@@ -16,7 +16,10 @@ Namespace DataClasses
         Private printItemValue As New CatalogItem
         Private cutItemValue As New CatalogItem
         Private pageCountValue As Integer = 1
-        Private productCostPriceValue As Double = 0
+        Private pageMinimumCountValue As Integer = 1
+        Private isProductCatalogValue As Boolean = False
+        Private isShortFoldSideValue As Boolean = False
+        Private isValidPageCountInCatalogValue As Boolean = True
 #End Region
         ''' <summary>
         ''' Размер печатного листа
@@ -24,10 +27,10 @@ Namespace DataClasses
         ''' <returns></returns>
         Public Property PrintPaperSize As PaperSizeItem
             Get
-                Return PrintPaperSizeValue
+                Return printPaperSizeValue
             End Get
             Set(value As PaperSizeItem)
-                PrintPaperSizeValue = value
+                printPaperSizeValue = value
                 OnPropertyChanged(NameOf(PrintPaperSize))
             End Set
         End Property
@@ -42,19 +45,6 @@ Namespace DataClasses
             Set(value As PaperSizeItem)
                 productSizeValue = value
                 OnPropertyChanged(NameOf(ProductSize))
-            End Set
-        End Property
-        ''' <summary>
-        ''' Количестве изделий на листе
-        ''' </summary>
-        ''' <returns></returns>
-        Public Property ProductCount As Integer
-            Get
-                Return productCountValue
-            End Get
-            Set(value As Integer)
-                productCountValue = value
-                OnPropertyChanged(NameOf(ProductCount))
             End Set
         End Property
         ''' <summary>
@@ -136,19 +126,6 @@ Namespace DataClasses
             End Set
         End Property
         ''' <summary>
-        ''' Себестоимость состаной части
-        ''' </summary>
-        ''' <returns></returns>
-        Public Property ProductCostPrice As Double
-            Get
-                Return productCostPriceValue
-            End Get
-            Set(value As Double)
-                productCostPriceValue = value
-                OnPropertyChanged(NameOf(ProductCostPrice))
-            End Set
-        End Property
-        ''' <summary>
         ''' Количество страниц (полос)
         ''' </summary>
         ''' <returns></returns>
@@ -158,6 +135,59 @@ Namespace DataClasses
             End Get
             Set(value As Integer)
                 pageCountValue = value
+                OnPropertyChanged(NameOf(PageCount))
+            End Set
+        End Property
+        ''' <summary>
+        ''' Минимальное число полос
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property PageMinimumCount As Integer
+            Get
+                Return pageMinimumCountValue
+            End Get
+            Set(value As Integer)
+                pageMinimumCountValue = value
+                OnPropertyChanged(NameOf(PageMinimumCount))
+            End Set
+        End Property
+        ''' <summary>
+        ''' Указывает на то, является ли изделие каталогом/брошюрой
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property IsProductCatalog As Boolean
+            Get
+                Return isProductCatalogValue
+            End Get
+            Set(value As Boolean)
+                isProductCatalogValue = value
+                OnPropertyChanged(NameOf(IsProductCatalog))
+            End Set
+        End Property
+        ''' <summary>
+        ''' Указывает на то сгибается ли каталог по короткой стороне
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property IsShortFoldSide As Boolean
+            Get
+                Return isShortFoldSideValue
+            End Get
+            Set(value As Boolean)
+                isShortFoldSideValue = value
+                OnPropertyChanged(NameOf(IsShortFoldSide))
+            End Set
+        End Property
+        ''' <summary>
+        ''' Указывает на то правильное ли число полос для печати брашюрой
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property IsValidPageCountInCatalog As Boolean
+            Get
+                Return isValidPageCountInCatalogValue
+            End Get
+            Set(value As Boolean)
+                isValidPageCountInCatalogValue = value
+                OnPropertyChanged(NameOf(IsValidPageCountInCatalog))
             End Set
         End Property
 #End Region
@@ -177,23 +207,7 @@ Namespace DataClasses
             IsProductLargePaper = (productHeight <= paperHeight And productWidth <= paperWidth) Or (productHeight <= paperWidth And productWidth <= paperHeight)
             'Если ошибки размера нет, идем дальше
             If IsProductLargePaper Then
-                'Количиство изделий по горизонтали в первой ориентации
-                Dim horizontalCount1 As Integer = Math.Truncate(paperHeight / productHeight)
-                'Количиство изделий по вертикали в первой ориентации
-                Dim verticalCount1 As Integer = Math.Truncate(paperWidth / productWidth)
-                'Количиство изделий по горизонтали во второй ориентации
-                Dim horizontalCount2 As Integer = Math.Truncate(paperWidth / productHeight)
-                'Количиство изделий по вертикали во второй ориентации
-                Dim verticalCount2 As Integer = Math.Truncate(paperHeight / productWidth)
-                'Выбираем ориентацию при котророй изделий на листе будет больше
-                'И задаем значение количиства изделий на листе, а так же устанавливаем флах, сопадает ли ориентация изделия с ориентацией бумаги
-                If horizontalCount1 * verticalCount1 > horizontalCount2 * verticalCount2 Then
-                    ProductCount = horizontalCount1 * verticalCount1
-                    IsProductOrientationEqualsPaperOrientation = True
-                Else
-                    ProductCount = horizontalCount2 * verticalCount2
-                    IsProductOrientationEqualsPaperOrientation = False
-                End If
+                ProductCount = GetProductInPaper(New Size(paperWidth, paperHeight), New Size(productWidth, productHeight), True)
             Else
                 'Если размер задан с ошибкой, ставим число изделий на листе в 0
                 ProductCount = 0
@@ -203,6 +217,7 @@ Namespace DataClasses
         ''' Расчет себестоимости продукта
         ''' </summary>
         Private Sub CalculationCostPrice()
+            SetMinimumPage()
             'Проверяем заданы ли все обязательные параметры для расчета себестоимости
             IsValidCostPrice = PaperItem.Name <> "" And PrintItem.Name <> "" And CutItem.Name <> ""
             'Если все задлано, продолжаем расчет
@@ -212,7 +227,7 @@ Namespace DataClasses
                 Dim paperWidth As Double = PrintPaperSize.Width
 
                 Dim paperCostPrice = PaperItem.CostPrice / GetProductInPaper(sheetSize, New Size(paperWidth, paperHeight))
-                ProductCostPrice = (paperCostPrice + PrintItem.CostPrice + CutItem.CostPrice) / ProductCount
+                ProductCostPrice = (paperCostPrice + PrintItem.CostPrice + CutItem.CostPrice) / ProductCount * PageCount / IIf(PrintItem.Name.EndsWith("4") Or PrintItem.Name.EndsWith("1"), 2, 1)
             Else
                 'Если не все задано, то возвращаем себестоимость в 0
                 ProductCostPrice = 0
@@ -241,7 +256,7 @@ Namespace DataClasses
         ''' Возвращает количество одного размера, входящего в другой (например количество изделий на листе)
         ''' </summary>
         ''' <returns></returns>
-        Private Function GetProductInPaper(size1 As Size, size2 As Size) As Integer
+        Private Function GetProductInPaper(size1 As Size, size2 As Size, Optional isSetOrientationEquals As Boolean = False) As Integer
             'Количиство изделий по горизонтали в первой ориентации
             Dim horizontalCount1 As Integer = Math.Truncate(size1.Height / size2.Height)
             'Количиство изделий по вертикали в первой ориентации
@@ -251,14 +266,35 @@ Namespace DataClasses
             'Количиство изделий по вертикали во второй ориентации
             Dim verticalCount2 As Integer = Math.Truncate(size1.Height / size2.Width)
             If horizontalCount1 * verticalCount1 > horizontalCount2 * verticalCount2 Then
+                If isSetOrientationEquals Then
+                    IsProductOrientationEqualsPaperOrientation = True
+                End If
                 Return horizontalCount1 * verticalCount1
             Else
+                If isSetOrientationEquals Then
+                    IsProductOrientationEqualsPaperOrientation = False
+                End If
                 Return horizontalCount2 * verticalCount2
             End If
         End Function
+        ''' <summary>
+        ''' Задает минимальное количество полос для указанного типа печати
+        ''' </summary>
+        Private Sub SetMinimumPage()
+            'Если тип печати двусторонний...
+            If PrintItem.Name.EndsWith("4") Or PrintItem.Name.EndsWith("1") Then
+                '...Задаем минимум полос в 2
+                PageCount = 2
+                PageMinimumCount = 2
+            Else
+                'Во всех остальных случаях мсбрасываем значение полос до 1
+                PageCount = 1
+                PageMinimumCount = 1
+            End If
+        End Sub
 #End Region
 
-        Public Sub Calculation()
+        Public Overrides Sub Calculation()
             CalculationProductCount()
             If ProductCount > 0 Then CalculationCostPrice()
         End Sub

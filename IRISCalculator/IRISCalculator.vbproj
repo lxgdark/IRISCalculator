@@ -9,6 +9,9 @@
 
   <ItemGroup>
     <None Remove="Pict\Buttons\Avatar.png" />
+    <None Remove="Pict\Buttons\Catalog.png" />
+    <None Remove="Pict\Buttons\CatalogLeft.png" />
+    <None Remove="Pict\Buttons\CatalogRight.png" />
     <None Remove="Pict\Buttons\Chat.png" />
     <None Remove="Pict\Buttons\Close.png" />
     <None Remove="Pict\Buttons\Computer.png" />
@@ -55,6 +58,9 @@
 
   <ItemGroup>
     <Resource Include="Pict\Buttons\Avatar.png" />
+    <Resource Include="Pict\Buttons\Catalog.png" />
+    <Resource Include="Pict\Buttons\CatalogLeft.png" />
+    <Resource Include="Pict\Buttons\CatalogRight.png" />
     <Resource Include="Pict\Buttons\Chat.png" />
     <Resource Include="Pict\Buttons\Close.png" />
     <Resource Include="Pict\Buttons\Computer.png" />

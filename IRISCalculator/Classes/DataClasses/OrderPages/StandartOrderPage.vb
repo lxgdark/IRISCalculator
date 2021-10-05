@@ -6,7 +6,7 @@ Namespace DataClasses
     ''' <summary>
     ''' Класс описывающий заказ
     ''' </summary>
-    Public Class StandartOrder
+    Public Class StandartOrderPage
         Inherits OrderPage
         Implements INotifyPropertyChanged
 #Region "Реализация интерфейса INotifyPropertyChanged"
@@ -19,7 +19,7 @@ Namespace DataClasses
 #Region "Внутренние"
 
 #End Region
-        Public Property OrderItemList As New ObservableCollection(Of StandartOrderItem)
+        Public Property OrderItemList As New ObservableCollection(Of IBaseOrderItem)
 #End Region
 #Region "Процедуры и функции"
 #Region "Внутренние"
