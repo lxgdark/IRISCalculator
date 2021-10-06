@@ -1,10 +1,10 @@
-﻿Imports Microsoft.VisualBasic
+﻿Imports System.Collections.ObjectModel
+Imports Microsoft.VisualBasic
 Imports WPFProjectCore
 
 Namespace DataClasses
     Public Class StandartOrderItem
         Inherits BaseOrderItem
-
 #Region "Свойства"
 #Region "Внутренние"
         Private printPaperSizeValue As New PaperSizeItem
@@ -204,6 +204,11 @@ Namespace DataClasses
                 OnPropertyChanged(NameOf(IsCatalogPrintParametrError))
             End Set
         End Property
+        ''' <summary>
+        ''' Список прочих действий с сотавной частью
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property OtherOrderActionList As New ObservableCollection(Of OtherStandartOrderActionItem)
 #End Region
 #Region "Процедуры и функции"
 #Region "Внутренние"
@@ -214,9 +219,12 @@ Namespace DataClasses
             'Получаем размер печтной области (минус поля)
             Dim paperHeight As Double = PrintPaperSize.Height - PrintPaperSize.FieldHeight * 2
             Dim paperWidth As Double = PrintPaperSize.Width - PrintPaperSize.FieldWidth * 2
-            'Получаем размер изделия (плюс вылеты)
-            Dim productHeight As Double = ProductSize.Height + ProductSize.FieldHeight * 2
-            Dim productWidth As Double = ProductSize.Width + ProductSize.FieldWidth * 2
+            'Получаем информацию является ли изделие каталогом и по какой стороне сгиб
+            Dim isCatalogFoldHeight As Boolean = IsProductCatalog And Not ((ProductSize.Height < ProductSize.Width And IsShortFoldSide) OrElse (ProductSize.Height > ProductSize.Width And Not IsShortFoldSide))
+            Dim isCatalogFoldWidth As Boolean = IsProductCatalog And Not ((ProductSize.Width < ProductSize.Height And IsShortFoldSide) OrElse (ProductSize.Width > ProductSize.Height And Not IsShortFoldSide))
+            'Получаем размер изделия (плюс вылеты) и плюс раскладка на случай печати брошюрой
+            Dim productHeight As Double = ProductSize.Height * IIf(isCatalogFoldHeight, 2, 1) + ProductSize.FieldHeight * 2
+            Dim productWidth As Double = ProductSize.Width * IIf(isCatalogFoldWidth, 2, 1) + ProductSize.FieldWidth * 2
             'Если изделие больше листа, задаем флаг ошибки
             IsProductLargePaper = (productHeight <= paperHeight And productWidth <= paperWidth) Or (productHeight <= paperWidth And productWidth <= paperHeight)
             'Если ошибки размера нет, идем дальше
@@ -234,38 +242,40 @@ Namespace DataClasses
             SetMinimumPage()
             'Проверяем заданы ли все обязательные параметры для расчета себестоимости
             IsValidCostPrice = PaperItem.Name <> "" And PrintItem.Name <> "" And CutItem.Name <> ""
+            'Если печать в режиме каталога
+            If IsProductCatalog Then
+                'Проверяем, что число полос кратно 4
+                IsCatalogPageCountError = Math.Truncate(PageCount / 4) <> PageCount / 4
+                'Проверяем, что режим печати двусторонний
+                IsCatalogPrintParametrError = Not (PrintItem.Name.EndsWith("4") Or PrintItem.Name.EndsWith("1"))
+                'Корректируем флаг валидности последующих расчетов
+                IsValidCostPrice = IsValidCostPrice And Not (IsCatalogPageCountError And IsCatalogPrintParametrError)
+            End If
             'Если все задлано, продолжаем расчет
             If IsValidCostPrice Then
                 Dim sheetSize = GetSheetSize(PaperItem.Unit)
                 Dim paperHeight As Double = PrintPaperSize.Height
                 Dim paperWidth As Double = PrintPaperSize.Width
-
+                'Высчитываем себестоимость печатного листа исходя из того, что ряд листов может поставляться больше, чем SRA3
                 Dim paperCostPrice = PaperItem.CostPrice / GetProductInPaper(sheetSize, New Size(paperWidth, paperHeight))
-                ProductCostPrice = (paperCostPrice + PrintItem.CostPrice + CutItem.CostPrice) / ProductCount * PageCount / IIf(PrintItem.Name.EndsWith("4") Or PrintItem.Name.EndsWith("1"), 2, 1)
+                'Высчитываем себестоимость составной части
+                '
+                'Себестоимость бумаги высчитали ранее
+                'Себестоимость печати задана в прайсе
+                'Себестоимость резки за изделие, поэтому умножаем на число изделий на листе
+                'Умножаем результат на число изделий и делим на 2, если печать двусторонняя
+                'Если печать каталогом делим еще на 2
+                '
+                ProductCostPrice = (paperCostPrice + PrintItem.CostPrice + CutItem.CostPrice * ProductCount) / ProductCount * PageCount / IIf(PrintItem.Name.EndsWith("4") Or PrintItem.Name.EndsWith("1"), 2, 1) / IIf(IsProductCatalog, 2, 1)
+                'Проходим по списку дополнительных обработок и добавляем к себестоимости позиции их себестоимость
+                For Each ooal In OtherOrderActionList
+                    ProductCostPrice += ooal.GetCostPrice
+                Next
             Else
                 'Если не все задано, то возвращаем себестоимость в 0
                 ProductCostPrice = 0
             End If
         End Sub
-        ''' <summary>
-        ''' Извлекает размер листа из единицы измерения бумаги
-        ''' </summary>
-        ''' <param name="unit"></param>
-        ''' <returns></returns>
-        Private Function GetSheetSize(unit As String) As Size
-            'Базовый размер листа 450х320
-            Dim result As New Size(450, 320)
-            'Если единица измерения начинается с L...
-            If unit.StartsWith("L") Then
-                '...то удаляем L и разбиваем на две части по букве "х"
-                Dim s As String() = unit.TrimStart("L".Chars(0)).Split("x", StringSplitOptions.RemoveEmptyEntries)
-                'Первая часть ширина
-                result.Width = s(0)
-                'Вторая часть высота
-                result.Height = s(1)
-            End If
-            Return result
-        End Function
         ''' <summary>
         ''' Возвращает количество одного размера, входящего в другой (например количество изделий на листе)
         ''' </summary>
@@ -296,13 +306,11 @@ Namespace DataClasses
         ''' </summary>
         Private Sub SetMinimumPage()
             'Если тип печати двусторонний...
-            If PrintItem.Name.EndsWith("4") Or PrintItem.Name.EndsWith("1") Then
+            If (PrintItem.Name.EndsWith("4") Or PrintItem.Name.EndsWith("1")) And PageCount < 2 Then
                 '...Задаем минимум полос в 2
                 PageCount = 2
                 PageMinimumCount = 2
             Else
-                'Во всех остальных случаях мсбрасываем значение полос до 1
-                PageCount = 1
                 PageMinimumCount = 1
             End If
         End Sub
@@ -314,5 +322,47 @@ Namespace DataClasses
         End Sub
 
 #End Region
+    End Class
+    ''' <summary>
+    ''' Описывает позицию списка дополнительных обработок
+    ''' </summary>
+    Public Class OtherStandartOrderActionItem
+        Inherits NotifyProperty_Base(Of OtherStandartOrderActionItem)
+#Region "Свойства"
+#Region "Внутренние"
+        Private catalogItemValue As New CatalogItem
+        Private countInProductValue As Double = 0
+#End Region
+        ''' <summary>
+        '''Позиция каталога отвечающая за  доп. обработку 
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property CatalogItem As CatalogItem
+            Get
+                Return catalogItemValue
+            End Get
+            Set(value As CatalogItem)
+                catalogItemValue = value
+                OnPropertyChanged(NameOf(CatalogItem))
+            End Set
+        End Property
+
+        Public Property CountInProduct As Double
+            Get
+                Return countInProductValue
+            End Get
+            Set(value As Double)
+                countInProductValue = value
+                OnPropertyChanged(NameOf(CountInProduct))
+            End Set
+        End Property
+#End Region
+        ''' <summary>
+        ''' Возврачает себестоимость позиции
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function GetCostPrice() As Double
+            Return CatalogItem.CostPrice * CountInProduct
+        End Function
     End Class
 End Namespace
