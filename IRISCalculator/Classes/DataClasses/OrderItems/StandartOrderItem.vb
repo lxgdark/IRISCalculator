@@ -220,7 +220,7 @@ Namespace DataClasses
             Dim paperHeight As Double = PrintPaperSize.Height - PrintPaperSize.FieldHeight * 2
             Dim paperWidth As Double = PrintPaperSize.Width - PrintPaperSize.FieldWidth * 2
             'Получаем информацию является ли изделие каталогом и по какой стороне сгиб
-            Dim isCatalogFoldHeight As Boolean = IsProductCatalog And Not ((ProductSize.Height < ProductSize.Width And IsShortFoldSide) OrElse (ProductSize.Height > ProductSize.Width And Not IsShortFoldSide))
+            Dim isCatalogFoldHeight As Boolean = IsProductCatalog And Not ((ProductSize.Height <= ProductSize.Width And IsShortFoldSide) OrElse (ProductSize.Height >= ProductSize.Width And Not IsShortFoldSide))
             Dim isCatalogFoldWidth As Boolean = IsProductCatalog And Not ((ProductSize.Width < ProductSize.Height And IsShortFoldSide) OrElse (ProductSize.Width > ProductSize.Height And Not IsShortFoldSide))
             'Получаем размер изделия (плюс вылеты) и плюс раскладка на случай печати брошюрой
             Dim productHeight As Double = ProductSize.Height * IIf(isCatalogFoldHeight, 2, 1) + ProductSize.FieldHeight * 2
@@ -239,6 +239,8 @@ Namespace DataClasses
         ''' Расчет себестоимости продукта
         ''' </summary>
         Private Sub CalculationCostPrice()
+            'Сбрасываем себестоимость
+            ProductCostPrice = 0
             SetMinimumPage()
             'Проверяем заданы ли все обязательные параметры для расчета себестоимости
             IsValidCostPrice = PaperItem.Name <> "" And PrintItem.Name <> "" And CutItem.Name <> ""
@@ -315,12 +317,28 @@ Namespace DataClasses
             End If
         End Sub
 #End Region
-
+        ''' <summary>
+        ''' Запускаем вычисления себестоимости и количества продукции на листе
+        ''' </summary>
         Public Overrides Sub Calculation()
             CalculationProductCount()
             If ProductCount > 0 Then CalculationCostPrice()
         End Sub
-
+        ''' <summary>
+        ''' Переопределяет процедуру копирования свойств класса
+        ''' </summary>
+        ''' <param name="input"></param>
+        ''' <param name="ignoreBaseType"></param>
+        Public Overrides Sub SetPropertys(input As BaseOrderItem, Optional ignoreBaseType As String = "")
+            'Вызываем базовое копирование свойст игнарируя те, что являются коллекциями
+            MyBase.SetPropertys(input, "Collection")
+            'Далее вручную переносим значения коллекции доп. действий в новый класс
+            For Each oal In CType(input, StandartOrderItem).OtherOrderActionList
+                Dim osoa As New OtherStandartOrderActionItem
+                osoa.SetPropertys(oal)
+                Me.OtherOrderActionList.Add(osoa)
+            Next
+        End Sub
 #End Region
     End Class
     ''' <summary>
@@ -331,7 +349,7 @@ Namespace DataClasses
 #Region "Свойства"
 #Region "Внутренние"
         Private catalogItemValue As New CatalogItem
-        Private countInProductValue As Double = 0
+        Private countInProductValue As Double = 1
 #End Region
         ''' <summary>
         '''Позиция каталога отвечающая за  доп. обработку 

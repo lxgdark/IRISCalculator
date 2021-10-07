@@ -87,6 +87,19 @@ Class CatalogItemSelectionPopupPage
             e.Accepted = result
         End If
     End Sub
+    ''' <summary>
+    ''' Происходит при нажатии клввишь в строке поиска
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub FindTextBox_KeyDown(sender As Object, e As KeyEventArgs)
+        If e.Key = Key.Enter Then
+            If CatalogListBox.Items.Count > 0 Then
+                CatalogListBox.SelectedIndex = 0
+                SelectedItem()
+            End If
+        End If
+    End Sub
 #End Region
 #Region "Выбор позиции в каталоге"
     ''' <summary>

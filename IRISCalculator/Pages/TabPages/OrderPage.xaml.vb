@@ -1,11 +1,9 @@
 ﻿Imports IRISCalculator.DataClasses
 Imports IRISCalculator.Workers
-Imports Xceed.Wpf.Toolkit
 Class OrderPage
     Private MeContext As StandartOrderPage
     Dim isPageOpen As Boolean = False
     Private Delegate Sub CalculationDelegate()
-
 #Region "Страница"
     ''' <summary>
     ''' Загрузка страницы
@@ -20,13 +18,10 @@ Class OrderPage
         'Задоем контекст данных
         MeContext = Me
         DataContext = MeContext
+        'Подписываемся на изменение коллекции вызывая пересчет заказа
+        AddHandler MeContext.OrderItemList.CollectionChanged, AddressOf Calculation
         'Добавляем стартовую составную часть
         AddStructureButton_Click()
-        'Добавляем в стартовую стоставную часть позиции каталога по умолчанию (для сокращения времени работы менеджера)
-        For Each item In My.AppCore.CatalogList
-            If item.Name = "Печать 4+0" Then CType(MeContext.OrderItemList(0), StandartOrderItem).PrintItem.SetPropertys(item)
-            If item.Name = "Резка в размер" Then CType(MeContext.OrderItemList(0), StandartOrderItem).CutItem.SetPropertys(item)
-        Next
     End Sub
     ''' <summary>
     ''' Размер колонок на страницу
@@ -52,6 +47,11 @@ Class OrderPage
     Private Sub AddStructureButton_Click()
         'Добавляем стандартную составную часть
         Dim soi As New StandartOrderItem
+        'Добавляем в стартовую стоставную часть позиции каталога по умолчанию (для сокращения времени работы менеджера)
+        For Each item In My.AppCore.CatalogList
+            If item.Name = "Печать 4+0" Then soi.PrintItem.SetPropertys(item)
+            If item.Name = "Резка в размер" Then soi.CutItem.SetPropertys(item)
+        Next
         MeContext.OrderItemList.Add(soi)
         'Вызываем стартовый просчет внутри составной части
         soi.Calculation()
@@ -73,7 +73,13 @@ Class OrderPage
     ''' <param name="e"></param>
     Private Sub OrderItemListContextMenu_ClickItemCopy(sender As Object, e As RoutedEventArgs)
         'Добавляем стандартную составную часть
-        Dim soi As New StandartOrderItem
+        Dim soi As BaseOrderItem
+        If OrderItemListContextMenu.Tag.GetType.ToString.EndsWith("StandartOrderItem") Then
+            soi = New StandartOrderItem
+
+        Else
+            soi = New StandartOrderItem
+        End If
         'Копируем значения из копируемой составной части
         soi.SetPropertys(OrderItemListContextMenu.Tag)
         MeContext.OrderItemList.Add(soi)
@@ -165,7 +171,9 @@ Class OrderPage
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub AddDopItemButton_Click(sender As Object, e As RoutedEventArgs)
-        CType(sender.Tag, StandartOrderItem).OtherOrderActionList.Add(New OtherStandartOrderActionItem)
+        Dim osoa As New OtherStandartOrderActionItem
+        CType(sender.Tag, StandartOrderItem).OtherOrderActionList.Add(osoa)
+        SelectOthetCatalogItemButton_Click(New Button With {.Tag = osoa}, Nothing)
     End Sub
     ''' <summary>
     ''' Выбор доп. позиции в каталоге
@@ -188,6 +196,7 @@ Class OrderPage
             For Each l In MeContext.OrderItemList
                 If TypeOf l Is StandartOrderItem Then
                     CType(l, StandartOrderItem).OtherOrderActionList.Remove(sender.Tag)
+                    Calculation()
                 End If
             Next
         End If
@@ -208,10 +217,24 @@ Class OrderPage
     Private Sub Calculation()
         'Закрываем всплывающее окно
         OrderItemParameterPopup.IsOpen = False
+
         'Проходим по составным частям
         For Each item In MeContext.OrderItemList
             'Вызываем в составных частях процедуру просчета
             item.Calculation()
         Next
+        'Очищаем свойства расчета
+        MeContext.ClearPropertys()
+        For Each item In MeContext.OrderItemList
+            MeContext.MinPrintCopy = IIf(item.GetProductCount > MeContext.MinPrintCopy, item.GetProductCount, MeContext.MinPrintCopy)
+            MeContext.MinCostPrice += item.GetProductCostPrice * item.GetProductCount
+            MeContext.ProductCostPrice += item.GetProductCostPrice
+        Next
+
+        MeContext.MinPrice = MeContext.MinCostPrice + MeContext.MinCostPrice * 5
+    End Sub
+
+    Private Sub AddPrintCopyCalculationButton_Click(sender As Object, e As RoutedEventArgs)
+
     End Sub
 End Class

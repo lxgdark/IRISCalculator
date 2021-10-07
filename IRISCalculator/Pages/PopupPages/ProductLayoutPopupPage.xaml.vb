@@ -18,7 +18,7 @@ Class ProductLayoutPopupPage
             'Внешний отступ уменьшаем на ширину рамки
             b.Margin = New Thickness(-0.25)
             'Если указана печать в режиме каталога определяем по которой стороне нужно умножить на 2
-            Dim isCatalogFoldHeight As Boolean = param.IsProductCatalog And Not ((param.ProductSize.Height < param.ProductSize.Width And param.IsShortFoldSide) OrElse (param.ProductSize.Height > param.ProductSize.Width And Not param.IsShortFoldSide))
+            Dim isCatalogFoldHeight As Boolean = param.IsProductCatalog And Not ((param.ProductSize.Height <= param.ProductSize.Width And param.IsShortFoldSide) OrElse (param.ProductSize.Height >= param.ProductSize.Width And Not param.IsShortFoldSide))
             Dim isCatalogFoldWidth As Boolean = param.IsProductCatalog And Not ((param.ProductSize.Width < param.ProductSize.Height And param.IsShortFoldSide) OrElse (param.ProductSize.Width > param.ProductSize.Height And Not param.IsShortFoldSide))
             'В зависимости от того совпадает ли ориентация издели и бумаги задаем ширину и высоту рамки
             If param.IsProductOrientationEqualsPaperOrientation Then
