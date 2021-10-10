@@ -232,6 +232,9 @@ Class OrderPage
         Next
 
         MeContext.MinPrice = MeContext.MinCostPrice + MeContext.MinCostPrice * 5
+
+        '% наценки = 200 - сумма себестоимости/200 (если результат меньше 40, то ставим 40)
+        'При себестоимости меньше 1000 р., добавляется 300 р. к сумме на приладку и затраты времени оменеджера
     End Sub
 
     Private Sub AddPrintCopyCalculationButton_Click(sender As Object, e As RoutedEventArgs)
