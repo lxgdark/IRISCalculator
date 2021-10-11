@@ -230,14 +230,19 @@ Class OrderPage
             MeContext.MinCostPrice += item.GetProductCostPrice * item.GetProductCount
             MeContext.ProductCostPrice += item.GetProductCostPrice
         Next
-
-        MeContext.MinPrice = MeContext.MinCostPrice + MeContext.MinCostPrice * 5
-
-        '% наценки = 200 - сумма себестоимости/200 (если результат меньше 40, то ставим 40)
-        'При себестоимости меньше 1000 р., добавляется 300 р. к сумме на приладку и затраты времени оменеджера
+        Dim sinalFormulas As New SignalCalculationFormula
+        MeContext.MinPrice = sinalFormulas.GetCalculationSumm(MeContext.MinPrintCopy, MeContext.ProductCostPrice)
+        For Each pccl In MeContext.PrintCopyCountList
+            pccl.CostPriceForOne = MeContext.ProductCostPrice
+            pccl.MinPrintCount = MeContext.MinPrintCopy
+        Next
     End Sub
 
     Private Sub AddPrintCopyCalculationButton_Click(sender As Object, e As RoutedEventArgs)
+        MeContext.PrintCopyCountList.Add(New PrintCopyCountItem With {.CurrentCalculationFormula = New StandartCalculationFormula, .CostPriceForOne = MeContext.ProductCostPrice, .MinPrintCount = MeContext.MinPrintCopy})
+    End Sub
 
+    Private Sub PrintCopyCountItem_PreviewMouseRightButtonDown(sender As Object, e As MouseButtonEventArgs)
+        MeContext.PrintCopyCountList.Remove(sender.Tag)
     End Sub
 End Class

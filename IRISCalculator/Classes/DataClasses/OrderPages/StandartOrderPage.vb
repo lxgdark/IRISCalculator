@@ -25,6 +25,7 @@ Namespace DataClasses
         Private productCostPriceValue As Double = 0
 #End Region
         Public Property OrderItemList As New ObservableCollection(Of IBaseOrderItem)
+        Public Property PrintCopyCountList As New ObservableCollection(Of PrintCopyCountItem)
         ''' <summary>
         ''' Размер левой панели страницы расчета
         ''' </summary>
@@ -119,4 +120,5 @@ Namespace DataClasses
         End Sub
 #End Region
     End Class
+
 End Namespace

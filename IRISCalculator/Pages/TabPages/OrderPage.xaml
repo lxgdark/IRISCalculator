@@ -4,6 +4,7 @@
     <Page.Resources>
         <DataTemplate DataType="{x:Type dclass:StandartOrderItem}">
             <Border Background="{DynamicResource BackgroundStandartColor}" Margin="0,0,0,25" Padding="5" CornerRadius="4" PreviewMouseRightButtonDown="OrderItem_PreviewMouseRightButtonDown" Tag="{Binding}">
+                <Expander IsExpanded="True" Header="{Binding ItemHeader}">
                 <StackPanel>
                     <!--#region Размер печатного листа-->
                     <StackPanel Orientation="Horizontal">
@@ -122,6 +123,7 @@
                     </StackPanel>
                     <!--#endregion-->
                 </StackPanel>
+                </Expander>
             </Border>
         </DataTemplate>
     </Page.Resources>
@@ -181,7 +183,17 @@
                         </StackPanel>
                         <Border BorderBrush="{DynamicResource BorderDarkColor}" BorderThickness="1" CornerRadius="1" Margin="0,15,0,15"/>
                         <TextBlock VerticalAlignment="Center" Text="Расчет тиражей:" FontSize="16" FontWeight="Bold"/>
-                        <ItemsControl/>
+                        <ItemsControl ItemsSource="{Binding PrintCopyCountList}" Margin="0,5,0,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type dclass:PrintCopyCountItem}">
+                                    <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" Background="Transparent" Tag="{Binding}" PreviewMouseRightButtonDown="PrintCopyCountItem_PreviewMouseRightButtonDown">
+                                        <TextBlock VerticalAlignment="Center" Text="Тираж:" FontSize="14" FontWeight="Bold"/>
+                                        <xceed:IntegerUpDown Value="{Binding PrintCopyCount, Mode=TwoWay}" Minimum="{Binding MinPrintCount}" Margin="5,0,0,0"/>
+                                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource MessageBoxInfoColor}">Цена за тираж: <Run FontWeight="Black" Text="{Binding SalePriceForAll, ConverterCulture=ru-RU, StringFormat=C}"/> (<Run Text="{Binding SalePriceForOne, ConverterCulture=ru-RU, StringFormat=C}"/> за шт.)</TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                         <Button Style="{DynamicResource IconButtonStyle}" x:Name="AddPrintCopyCalculationButton" Click="AddPrintCopyCalculationButton_Click" Content="/Pict/Buttons/Plus.png" ToolTip="Расчитать еще" DockPanel.Dock="Right" Margin="5,0,0,0"/>
                     </StackPanel>
                 </Grid>

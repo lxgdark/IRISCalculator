@@ -21,6 +21,7 @@ Namespace DataClasses
         Private isShortFoldSideValue As Boolean = False
         Private isCatalogPageCountErrorValue As Boolean = False
         Private isCatalogPrintParametrErrorValue As Boolean = False
+        Private itemHeaderValue As String = "Составная часть"
 #End Region
         ''' <summary>
         ''' Размер печатного листа
@@ -209,6 +210,19 @@ Namespace DataClasses
         ''' </summary>
         ''' <returns></returns>
         Public Property OtherOrderActionList As New ObservableCollection(Of OtherStandartOrderActionItem)
+        ''' <summary>
+        ''' Загаловок составной части
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property ItemHeader As String
+            Get
+                Return itemHeaderValue
+            End Get
+            Set(value As String)
+                itemHeaderValue = value
+                OnPropertyChanged(NameOf(ItemHeader))
+            End Set
+        End Property
 #End Region
 #Region "Процедуры и функции"
 #Region "Внутренние"
