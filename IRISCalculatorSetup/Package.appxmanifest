@@ -9,7 +9,7 @@
   <Identity
     Name="db7cc14f-528a-4d35-b18f-904b371ef2ae"
     Publisher="CN=lxgdark"
-    Version="1.0.1.0" />
+    Version="1.0.2.0" />
 
   <Properties>
     <DisplayName>IRISCalculatorSetup</DisplayName>
@@ -31,7 +31,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="IRISCalculatorSetup"
+        DisplayName="Калькулятор типографии ИРИС"
         Description="IRISCalculatorSetup"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
