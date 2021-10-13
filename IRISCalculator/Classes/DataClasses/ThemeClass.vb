@@ -25,7 +25,7 @@ Namespace DataClasses
         Private TextLightColorValue As Color = Colors.White
         Private TextStandartColorValue As Color = ColorConverter.ConvertFromString("#e8e8e8")
         Private TextDarkColorValue As Color = ColorConverter.ConvertFromString("#595554")
-        Private MessageBoxInfoColorValue As Color = ColorConverter.ConvertFromString("#FF63B56B")
+        Private MessageBoxInfoColorValue As Color = Colors.DarkGreen 'ColorConverter.ConvertFromString("#FF63B56B")
         Private MessageBoxQuestionColorValue As Color = ColorConverter.ConvertFromString("#FF9EBBFF")
         Private MessageBoxErrorColorValue As Color = ColorConverter.ConvertFromString("#FFBA4949")
         Private ImportantColorValue As Color = Colors.Red

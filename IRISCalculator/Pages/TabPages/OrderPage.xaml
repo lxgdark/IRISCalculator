@@ -189,7 +189,10 @@
                                     <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" Background="Transparent" Tag="{Binding}" PreviewMouseRightButtonDown="PrintCopyCountItem_PreviewMouseRightButtonDown">
                                         <TextBlock VerticalAlignment="Center" Text="Тираж:" FontSize="14" FontWeight="Bold"/>
                                         <xceed:IntegerUpDown Value="{Binding PrintCopyCount, Mode=TwoWay}" Minimum="{Binding MinPrintCount}" Margin="5,0,0,0"/>
-                                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource MessageBoxInfoColor}">Цена за тираж: <Run FontWeight="Black" Text="{Binding SalePriceForAll, ConverterCulture=ru-RU, StringFormat=C}"/> (<Run Text="{Binding SalePriceForOne, ConverterCulture=ru-RU, StringFormat=C}"/> за шт.)</TextBlock>
+                                        <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock Foreground="{DynamicResource MessageBoxInfoColor}">Цена за тираж: <Run FontWeight="Black" Text="{Binding SalePriceForAll, ConverterCulture=ru-RU, StringFormat=C}"/> (<Run Text="{Binding SalePriceForOne, ConverterCulture=ru-RU, StringFormat=C}"/> за шт.)</TextBlock>
+                                            <TextBlock FontStyle="Italic">Себестоимость: <Run FontWeight="Black" Text="{Binding CostPriceForAll, ConverterCulture=ru-RU, StringFormat=C}"/> (<Run Text="{Binding CostPriceForOne, ConverterCulture=ru-RU, StringFormat=C}"/> за шт.)</TextBlock>
+                                        </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

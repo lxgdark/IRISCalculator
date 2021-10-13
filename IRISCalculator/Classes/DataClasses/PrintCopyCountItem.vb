@@ -8,6 +8,7 @@ Namespace DataClasses
 #Region "Внутренние"
         Private printCopyCountValue As Integer = 100
         Private costPriceForOneValue As Double = 0
+        Private costPriceForAllValue As Double = 0
         Private salePriceForOneValue As Double = 0
         Private salePriceForAllValue As Double = 0
         Private minPrintCountValue As Integer = 0
@@ -80,12 +81,26 @@ Namespace DataClasses
                 OnPropertyChanged(NameOf(MinPrintCount))
             End Set
         End Property
+        ''' <summary>
+        ''' Себестоимость за все
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property CostPriceForAll As Double
+            Get
+                Return costPriceForAllValue
+            End Get
+            Set(value As Double)
+                costPriceForAllValue = value
+                OnPropertyChanged(NameOf(CostPriceForAll))
+            End Set
+        End Property
 #End Region
 #Region "Процедуры и функции"
 #Region "Внутренние"
         Private Sub Calculation()
             SalePriceForAll = CurrentCalculationFormula.GetCalculationSumm(PrintCopyCount, CostPriceForOne)
             SalePriceForOne = SalePriceForAll / PrintCopyCount
+            CostPriceForAll = PrintCopyCount * CostPriceForOne
         End Sub
 #End Region
 
