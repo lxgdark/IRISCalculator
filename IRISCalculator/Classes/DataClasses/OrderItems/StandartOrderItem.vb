@@ -20,7 +20,6 @@ Namespace DataClasses
         Private isProductCatalogValue As Boolean = False
         Private isShortFoldSideValue As Boolean = False
         Private isCatalogPageCountErrorValue As Boolean = False
-        Private isCatalogPrintParametrErrorValue As Boolean = False
         Private itemHeaderValue As String = "Составная часть"
 #End Region
         ''' <summary>
@@ -193,19 +192,6 @@ Namespace DataClasses
             End Set
         End Property
         ''' <summary>
-        ''' Указывает на то, что тип печати не подходит для печати брашюрой
-        ''' </summary>
-        ''' <returns></returns>
-        Public Property IsCatalogPrintParametrError As Boolean
-            Get
-                Return isCatalogPrintParametrErrorValue
-            End Get
-            Set(value As Boolean)
-                isCatalogPrintParametrErrorValue = value
-                OnPropertyChanged(NameOf(IsCatalogPrintParametrError))
-            End Set
-        End Property
-        ''' <summary>
         ''' Список прочих действий с сотавной частью
         ''' </summary>
         ''' <returns></returns>
@@ -262,11 +248,11 @@ Namespace DataClasses
             If IsProductCatalog Then
                 'Проверяем, что число полос кратно 4
                 IsCatalogPageCountError = Math.Truncate(PageCount / 4) <> PageCount / 4
-                'Проверяем, что режим печати двусторонний
-                IsCatalogPrintParametrError = Not (PrintItem.Name.EndsWith("4") Or PrintItem.Name.EndsWith("1"))
-                'Корректируем флаг валидности последующих расчетов
-                IsValidCostPrice = IsValidCostPrice And Not (IsCatalogPageCountError And IsCatalogPrintParametrError)
+            Else
+                IsCatalogPageCountError = False
             End If
+            'Корректируем флаг валидности последующих расчетов
+            IsValidCostPrice = IsValidCostPrice And Not IsCatalogPageCountError
             'Если все задлано, продолжаем расчет
             If IsValidCostPrice Then
                 Dim sheetSize = GetSheetSize(PaperItem.Unit)

@@ -53,6 +53,8 @@ Class OrderPage
             If item.Name = "Резка в размер" Then soi.CutItem.SetPropertys(item)
         Next
         MeContext.OrderItemList.Add(soi)
+        'Добавляем стартовый расчет тиража
+        AddPrintCopyCalculationButton_Click()
         'Вызываем стартовый просчет внутри составной части
         soi.Calculation()
     End Sub
@@ -238,7 +240,7 @@ Class OrderPage
         Next
     End Sub
 
-    Private Sub AddPrintCopyCalculationButton_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub AddPrintCopyCalculationButton_Click()
         MeContext.PrintCopyCountList.Add(New PrintCopyCountItem With {.CurrentCalculationFormula = New StandartCalculationFormula, .CostPriceForOne = MeContext.ProductCostPrice, .MinPrintCount = MeContext.MinPrintCopy})
     End Sub
 
