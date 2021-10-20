@@ -10,6 +10,7 @@ Namespace DataClasses
         Private costPriceValue As Double = 0
         Private unitValue As String = ""
         Private groupCodeValue As String = ""
+        Private commentValue As String = ""
         Private itemCategoryValue As ItemCategoryEnum = ItemCategoryEnum.Paper
 #End Region
         ''' <summary>
@@ -101,6 +102,19 @@ Namespace DataClasses
             Set(value As ItemCategoryEnum)
                 itemCategoryValue = value
                 OnPropertyChanged(NameOf(ItemCategory))
+            End Set
+        End Property
+        ''' <summary>
+        ''' Комментарий к позиции
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property Comment As String
+            Get
+                Return commentValue
+            End Get
+            Set(value As String)
+                commentValue = value
+                OnPropertyChanged(NameOf(Comment))
             End Set
         End Property
 #End Region

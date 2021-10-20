@@ -104,10 +104,25 @@ Namespace DataClasses
                 OnPropertyChanged(NameOf(ProductCostPrice))
             End Set
         End Property
+        ''' <summary>
+        ''' Указывает на то является ли эта страница копией
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property IsCopyPage As Boolean = False
 #End Region
 #Region "Процедуры и функции"
 #Region "Внутренние"
-
+        Public Shared Function GetOrderItemByType(typeName As String) As IBaseOrderItem
+            Dim result As IBaseOrderItem
+            If typeName = "StandartOrderItem" Then
+                result = New StandartOrderItem
+            ElseIf typeName = "OneCatalogPositionOrderItem" Then
+                result = New OneCatalogPositionOrderItem
+            Else
+                result = New StandartOrderItem
+            End If
+            Return result
+        End Function
 #End Region
         ''' <summary>
         ''' Обнудляет свойства расчета 
@@ -117,6 +132,20 @@ Namespace DataClasses
             MinCostPrice = 0
             MinPrice = 0
             ProductCostPrice = 0
+        End Sub
+        ''' <summary>
+        ''' Задает сохраняемые параметры класс (при копировании, сохранении и загрузке)
+        ''' </summary>
+        ''' <param name="input"></param>
+        Public Sub SetPropertys(input As StandartOrderPage)
+            Me.OrderItemList.Clear()
+            For Each oal In input.OrderItemList
+                Dim boi As BaseOrderItem
+                Dim T() As String = oal.GetType.ToString.Split(".", StringSplitOptions.RemoveEmptyEntries)
+                boi = StandartOrderPage.GetOrderItemByType(T(T.Length - 1))
+                boi.SetPropertys(oal)
+                Me.OrderItemList.Add(boi)
+            Next
         End Sub
 #End Region
     End Class

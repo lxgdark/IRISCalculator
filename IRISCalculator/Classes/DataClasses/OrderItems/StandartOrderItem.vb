@@ -20,7 +20,7 @@ Namespace DataClasses
         Private isProductCatalogValue As Boolean = False
         Private isShortFoldSideValue As Boolean = False
         Private isCatalogPageCountErrorValue As Boolean = False
-        Private itemHeaderValue As String = "Составная часть"
+        Private itemHeaderValue As String = "Стандартная составная часть"
 #End Region
         ''' <summary>
         ''' Размер печатного листа
@@ -364,7 +364,10 @@ Namespace DataClasses
                 OnPropertyChanged(NameOf(CatalogItem))
             End Set
         End Property
-
+        ''' <summary>
+        ''' Значение количества указанной позиции
+        ''' </summary>
+        ''' <returns></returns>
         Public Property CountInProduct As Double
             Get
                 Return countInProductValue

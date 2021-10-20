@@ -1,9 +1,10 @@
-﻿Imports IRISCalculator.DataClasses
+﻿Imports System.Xml.Serialization
+Imports IRISCalculator.DataClasses
 Imports IRISCalculator.Workers
 Class OrderPage
     Private MeContext As StandartOrderPage
-    Dim isPageOpen As Boolean = False
     Private Delegate Sub CalculationDelegate()
+    Dim isPageOpen As Boolean = False
 #Region "Страница"
     ''' <summary>
     ''' Загрузка страницы
@@ -11,17 +12,19 @@ Class OrderPage
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
-        'Если страница уже открыта, то выходим из процедуры
-        If isPageOpen Then Exit Sub
-        'Cnfdbv akfu? xnj cnhfybwf e;t jnrhsnf
-        isPageOpen = True
-        'Задоем контекст данных
         MeContext = Me
+        'Задоем контекст данных
         DataContext = MeContext
+        'Если страница уже открыта, то выходим из процедуры
+        If MeContext.IsPageOpen Then Exit Sub
+        MeContext.IsPageOpen = True
         'Подписываемся на изменение коллекции вызывая пересчет заказа
         AddHandler MeContext.OrderItemList.CollectionChanged, AddressOf Calculation
-        'Добавляем стартовую составную часть
-        AddStructureButton_Click()
+        'Добавляем стартовую составную часть, если это не копия другой страницы
+        If Not MeContext.IsCopyPage Then AddStandardOrderItemButton_Click()
+        Calculation()
+        'Добавляем стартовый расчет тиража
+        AddPrintCopyCalculationButton_Click()
     End Sub
     ''' <summary>
     ''' Размер колонок на страницу
@@ -44,7 +47,7 @@ Class OrderPage
     ''' <summary>
     ''' Добавление стандартной составной части
     ''' </summary>
-    Private Sub AddStructureButton_Click()
+    Private Sub AddStandardOrderItemButton_Click()
         'Добавляем стандартную составную часть
         Dim soi As New StandartOrderItem
         'Добавляем в стартовую стоставную часть позиции каталога по умолчанию (для сокращения времени работы менеджера)
@@ -53,8 +56,6 @@ Class OrderPage
             If item.Name = "Резка в размер" Then soi.CutItem.SetPropertys(item)
         Next
         MeContext.OrderItemList.Add(soi)
-        'Добавляем стартовый расчет тиража
-        AddPrintCopyCalculationButton_Click()
         'Вызываем стартовый просчет внутри составной части
         soi.Calculation()
     End Sub
@@ -75,18 +76,15 @@ Class OrderPage
     ''' <param name="e"></param>
     Private Sub OrderItemListContextMenu_ClickItemCopy(sender As Object, e As RoutedEventArgs)
         'Добавляем стандартную составную часть
-        Dim soi As BaseOrderItem
-        If OrderItemListContextMenu.Tag.GetType.ToString.EndsWith("StandartOrderItem") Then
-            soi = New StandartOrderItem
-
-        Else
-            soi = New StandartOrderItem
-        End If
+        Dim boi As BaseOrderItem
+        'MsgBox(OrderItemListContextMenu.Tag.GetType.ToString)
+        Dim T() As String = OrderItemListContextMenu.Tag.GetType.ToString.Split(".", StringSplitOptions.RemoveEmptyEntries)
+        boi = StandartOrderPage.GetOrderItemByType(T(T.Length - 1))
         'Копируем значения из копируемой составной части
-        soi.SetPropertys(OrderItemListContextMenu.Tag)
-        MeContext.OrderItemList.Add(soi)
+        boi.SetPropertys(OrderItemListContextMenu.Tag)
+        MeContext.OrderItemList.Add(boi)
         'Вызываем стартовый просчет внутри составной части
-        soi.Calculation()
+        boi.Calculation()
     End Sub
     ''' <summary>
     ''' Происходит при нажатии пункта меню "Удалить" в списке составных частей
@@ -213,10 +211,58 @@ Class OrderPage
     End Sub
 #End Region
 #End Region
+#Region "Отдельная составная часть"
+    Private Sub AddOneCatalogOrderItemButton_Click(sender As Object, e As RoutedEventArgs)
+        'Добавляем отдельную составную часть
+        Dim ocpoi As New OneCatalogPositionOrderItem
+        MeContext.OrderItemList.Add(ocpoi)
+        'Вызываем открытие каталога для выбора значения
+        SelectOneCatalogItemButton_Click(New Button With {.Tag = ocpoi}, Nothing)
+        ''Вызываем стартовый просчет внутри составной части
+        ocpoi.Calculation()
+
+    End Sub
+    ''' <summary>
+    ''' Поисходит приажаааааааакопки выбора позиции из каталога
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub SelectOneCatalogItemButton_Click(sender As Object, e As RoutedEventArgs)
+        Dim page As New CatalogItemSelectionPopupPage
+        page.SetParametr(CType(sender.Tag, OneCatalogPositionOrderItem).CatalogItem, CatalogItem.ItemCategoryEnum.NONE, New CalculationDelegate(AddressOf Calculation))
+        OrderItemParameterFrame.Content = page
+        OrderItemParameterPopup.IsOpen = True
+    End Sub
+    ''' <summary>
+    ''' Происходит при нажатии кнопки расчета количества в отдельной позиции
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub СalculationOneCatalogItemButton_Click(sender As Object, e As RoutedEventArgs)
+        'В разработке
+    End Sub
+
+#End Region
+#Region "Расчет тиража"
+    ''' <summary>
+    ''' Добавление нового расчета для тиража
+    ''' </summary>
+    Public Sub AddPrintCopyCalculationButton_Click()
+        MeContext.PrintCopyCountList.Add(New PrintCopyCountItem With {.CurrentCalculationFormula = New StandartCalculationFormula, .CostPriceForOne = MeContext.ProductCostPrice, .MinPrintCount = MeContext.MinPrintCopy})
+    End Sub
+    ''' <summary>
+    ''' Удаление расчета для тиража
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub PrintCopyCountItem_PreviewMouseRightButtonDown(sender As Object, e As MouseButtonEventArgs)
+        MeContext.PrintCopyCountList.Remove(sender.Tag)
+    End Sub
+#End Region
     ''' <summary>
     ''' Основная процедура проводящаая расчет заказа
     ''' </summary>
-    Private Sub Calculation()
+    Public Sub Calculation()
         'Закрываем всплывающее окно
         OrderItemParameterPopup.IsOpen = False
 
@@ -240,11 +286,17 @@ Class OrderPage
         Next
     End Sub
 
-    Private Sub AddPrintCopyCalculationButton_Click()
-        MeContext.PrintCopyCountList.Add(New PrintCopyCountItem With {.CurrentCalculationFormula = New StandartCalculationFormula, .CostPriceForOne = MeContext.ProductCostPrice, .MinPrintCount = MeContext.MinPrintCopy})
+
+    Private Sub SaveOrderButton_Click(sender As Object, e As RoutedEventArgs)
+
     End Sub
 
-    Private Sub PrintCopyCountItem_PreviewMouseRightButtonDown(sender As Object, e As MouseButtonEventArgs)
-        MeContext.PrintCopyCountList.Remove(sender.Tag)
+    Private Sub CopyOrderButton_Click(sender As Object, e As RoutedEventArgs)
+
+        Dim newSOP As New StandartOrderPage
+        newSOP.SetPropertys(MeContext)
+        newSOP.IsCopyPage = True
+        'Добавляем в глобальный список страниц новую
+        My.AppCore.GlobalPagesList.Add(New GlobalPageWorker With {.Header = "Новый расчет", .IsStartPage = False, .OrderObject = newSOP})
     End Sub
 End Class

@@ -54,7 +54,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type dclass:CatalogItem}">
                         <StackPanel>
-                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Name}" ToolTip="{Binding Comment}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

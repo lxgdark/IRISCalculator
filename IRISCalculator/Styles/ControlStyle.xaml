@@ -1748,7 +1748,8 @@
         </Setter>
     </Style>
     <!--#endregion-->
-
+    <!--#region Expander-->
+    <!--Expander для заголовка составной части-->
     <Style x:Key="ExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -1804,4 +1805,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <!--#endregion-->    
 </ResourceDictionary>

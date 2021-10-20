@@ -73,6 +73,8 @@ Namespace Workers
                             catalogItem.Unit = catalogSheet.Cell(cell.WorksheetRow.RowNumber, 5).Value
                             'Код раздела
                             catalogItem.GroupCode = catalogSheet.Cell(cell.WorksheetRow.RowNumber, 6).Value
+                            'Комментарий к позиции
+                            catalogItem.Comment = catalogSheet.Cell(cell.WorksheetRow.RowNumber, 7).Value
                             'Категория позиции (вычесленная на основе кода группы)
                             catalogItem.ItemCategory = CatalogGroupNameWorker.GetItemCategory(catalogItem.GroupCode)
                             'Если себестоимость ровна нулю (так бывает у услуг), то задаем в качестве себестоимость цену продажи (такой лайфхак для установки себестоимости услуг)
