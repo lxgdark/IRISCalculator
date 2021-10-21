@@ -112,17 +112,7 @@ Namespace DataClasses
 #End Region
 #Region "Процедуры и функции"
 #Region "Внутренние"
-        Public Shared Function GetOrderItemByType(typeName As String) As IBaseOrderItem
-            Dim result As IBaseOrderItem
-            If typeName = "StandartOrderItem" Then
-                result = New StandartOrderItem
-            ElseIf typeName = "OneCatalogPositionOrderItem" Then
-                result = New OneCatalogPositionOrderItem
-            Else
-                result = New StandartOrderItem
-            End If
-            Return result
-        End Function
+
 #End Region
         ''' <summary>
         ''' Обнудляет свойства расчета 
@@ -147,6 +137,22 @@ Namespace DataClasses
                 Me.OrderItemList.Add(boi)
             Next
         End Sub
+        ''' <summary>
+        ''' Возвращает объект требуемого типа из интефейса IBaseOrderItem
+        ''' </summary>
+        ''' <param name="typeName"></param>
+        ''' <returns></returns>
+        Public Shared Function GetOrderItemByType(typeName As String) As IBaseOrderItem
+            Dim result As IBaseOrderItem
+            If typeName = "StandartOrderItem" Then
+                result = New StandartOrderItem
+            ElseIf typeName = "OneCatalogPositionOrderItem" Then
+                result = New OneCatalogPositionOrderItem
+            Else
+                result = New StandartOrderItem
+            End If
+            Return result
+        End Function
 #End Region
     End Class
 

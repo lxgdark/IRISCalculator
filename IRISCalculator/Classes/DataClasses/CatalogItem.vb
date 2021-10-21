@@ -131,11 +131,19 @@ Namespace DataClasses
             ''' <summary>
             ''' Услуга печати
             ''' </summary>
-            SERVICEPRINT = 2
+            SERVICEPRINT = 2000
             ''' <summary>
             ''' Услуга резки
             ''' </summary>
-            SERVICECUT = 3
+            SERVICECUT = 2001
+            ''' <summary>
+            ''' Услуга постпечатки
+            ''' </summary>
+            SERVICEPOSTPRINT = 2002
+            ''' <summary>
+            ''' Gthtpfrfpsdftvst eckeub
+            ''' </summary>
+            SERVICEOTHER = 2003
         End Enum
 #End Region
     End Class

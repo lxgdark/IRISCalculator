@@ -38,7 +38,7 @@ Namespace Workers
                     Case "PAPER"
                         result &= "Бумага "
                     Case "SERVICE"
-                        result &= "Услуга "
+                        result &= "Услуги "
                 End Select
 
                 Select Case str(2)
@@ -54,7 +54,13 @@ Namespace Workers
                         result &= "синтетика"
                     '\\\\
                     Case "PRINT"
-                        result &= "печать"
+                        result &= "печати"
+                    Case "POSTPRINT"
+                        result &= "постпечатки"
+                    Case "CUT"
+                        result &= "резки"
+                    Case "OTHER"
+                        result &= "у подрядчиков"
                 End Select
                 Return result
             Else
